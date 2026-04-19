@@ -1,0 +1,206 @@
+/* ════════════════════ AMENITIES — LITTLE COMFORTS THAT MATTER ════════════════════ */
+:host {
+  display: block;
+}
+
+/* ── Header — left-aligned, same rhythm as Activities & Dining ── */
+.amenities__header {
+  margin-bottom: clamp(var(--space-8), 5vh, var(--space-12));
+  text-align: left;
+}
+
+.amenities__title {
+  margin: var(--space-3) 0 var(--space-4);
+  color: var(--color-on-surface);
+}
+
+.amenities__subtitle {
+  color: var(--color-on-surface-variant);
+  max-width: 640px;
+}
+
+/* ── Grid — 4 columns on desktop ── */
+.amenities__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(var(--space-3), 2vw, var(--space-5));
+}
+
+/* ── Base card ── */
+.amenity-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: clamp(var(--space-5), 3vw, var(--space-8));
+  background: var(--color-surface-container-lowest);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xs);
+  transition:
+    transform var(--duration-med) var(--ease-resort),
+    box-shadow var(--duration-med) var(--ease-resort),
+    border-color var(--duration-med) var(--ease-resort);
+  cursor: default;
+}
+
+.amenity-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-sm);
+  border-color: rgba(34, 184, 218, 0.35);
+}
+
+/* ── WiFi / Highlight card — dark teal bg like reference image ── */
+.amenity-card--highlight {
+  background: var(--color-primary-container);
+  border-color: transparent;
+  box-shadow: var(--shadow-ambient);
+}
+
+.amenity-card--highlight .amenity-card__icon svg {
+  stroke: var(--color-secondary-light);
+}
+
+.amenity-card--highlight .amenity-card__label {
+  color: var(--color-cream);
+}
+
+.amenity-card--highlight .amenity-card__desc {
+  color: rgba(239, 249, 255, 0.75);
+}
+
+.amenity-card--highlight:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-float);
+  border-color: transparent;
+}
+
+/* ── Icon wrapper ── */
+.amenity-card__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+.amenity-card__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  stroke: currentColor;
+}
+
+/* ── Card body ── */
+.amenity-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.amenity-card__label {
+  font-family: var(--font-body);
+  font-size: clamp(0.8125rem, 1.2vw, 0.9375rem);
+  font-weight: 600;
+  color: var(--color-on-surface);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.amenity-card__desc {
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 1vw, 0.8125rem);
+  line-height: 1.55;
+  color: var(--color-on-surface-variant);
+  margin: 0;
+}
+
+/* ── Bottom tagline ── */
+.amenities__tagline {
+  margin-top: clamp(var(--space-8), 4vh, var(--space-12));
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  color: var(--color-on-surface-variant);
+  text-align: center;
+  max-width: 800px;
+  margin-inline: auto;
+  margin-block-start: clamp(var(--space-8), 4vh, var(--space-12));
+}
+
+/* ══════════════ LARGE TABLET (max 1200px) — 3-col ══════════════ */
+@media (max-width: 1200px) {
+  .amenities__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ══════════════ TABLET (max 900px) — 2-col ══════════════ */
+@media (max-width: 900px) {
+  .amenities__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+}
+
+/* ══════════════ MOBILE (max 767px) ══════════════ */
+@media (max-width: 767px) {
+  .amenities__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .amenity-card {
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
+  }
+
+  .amenity-card__icon {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .amenity-card__label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+
+  .amenity-card__desc {
+    font-size: 0.6875rem;
+  }
+
+  .amenities__tagline {
+    font-size: clamp(0.75rem, 3.5vw, 0.9rem);
+  }
+}
+
+/* ══════════════ SMALL MOBILE (max 480px) ══════════════ */
+@media (max-width: 480px) {
+  .amenities__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  .amenity-card {
+    padding: var(--space-4) var(--space-3);
+    gap: var(--space-3);
+    border-radius: var(--radius-lg);
+  }
+
+  .amenity-card__icon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .amenity-card__label {
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .amenity-card__desc {
+    font-size: 0.625rem;
+    line-height: 1.4;
+  }
+
+  .amenities__tagline {
+    font-size: 0.75rem; /* Force a very small, elegant font for small mobile */
+  }
+}

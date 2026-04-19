@@ -1,0 +1,289 @@
+/* ════════════════════ HERO ════════════════════ */
+:host { display: block; }
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Slideshow ── */
+.hero__slides {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-below);
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-resort);
+}
+.hero__slide--active { opacity: 1; }
+
+.hero__slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transform: scale(1.04);
+  transition: transform 8s var(--ease-resort);
+}
+.hero__slide--active .hero__slide-img {
+  transform: scale(1);
+}
+
+/* ── Vignettes ── */
+.hero__vignette {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: var(--z-base);
+  pointer-events: none;
+}
+.hero__vignette--top {
+  top: 0;
+  height: 45%;
+  background: linear-gradient(
+    to bottom,
+    rgba(4, 13, 20, 0.80) 0%,
+    rgba(4, 13, 20, 0.32) 50%,
+    transparent 100%
+  );
+}
+.hero__vignette--bottom {
+  bottom: 0;
+  height: 60%;
+  background: linear-gradient(
+    to top,
+    rgba(4, 10, 16, 0.92) 0%,
+    rgba(4, 10, 16, 0.52) 40%,
+    transparent 100%
+  );
+}
+
+/* ── Content ── */
+.hero__content {
+  position: relative;
+  z-index: var(--z-raised);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: var(--space-20);
+  height: 100%;
+  padding-top: 80px; /* navbar offset */
+}
+
+.hero__text-wrap {
+  width: 100%;
+  max-width: 1400px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Badge */
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-secondary-light);
+  margin-bottom: var(--space-5);
+  letter-spacing: 0.14em;
+}
+.hero__badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-secondary);
+  display: inline-block;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* Title */
+.hero__title {
+  margin-bottom: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* "Sanjivani" — the dominant brand word */
+.hero__title-brand {
+  display: block;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  /* Prevent bottom crop: background-clip:text paints only inside the line box,
+     so padding-bottom extends that box below the letter baseline */
+  padding-bottom: 0.14em;
+  overflow: visible;
+  background: linear-gradient(
+    135deg,
+    var(--color-cream) 0%,
+    var(--color-secondary-light) 40%,
+    var(--color-cream) 70%,
+    rgba(248, 249, 245, 0.7) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 4px 32px rgba(0,0,0,0.35));
+}
+
+/* Supporting phrase — smaller, lighter */
+.hero__title-sub {
+  display: block;
+  font-size: clamp(1rem, 2.6vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: rgba(248, 249, 245, 0.78);
+  text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+
+.hero__title-em {
+  font-style: italic;
+  color: var(--color-secondary-light);
+  -webkit-text-fill-color: var(--color-secondary-light);
+}
+
+/* Subtitle */
+.hero__subtitle {
+  color: rgba(248, 249, 245, 0.85);
+  max-width: 620px;
+  margin-bottom: var(--space-8);
+  text-shadow: 0 1px 12px rgba(0,0,0,0.25);
+}
+.hero__subtitle strong { color: var(--color-cream); font-weight: 700; }
+
+/* CTA Group */
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+  align-items: center;
+  width: 100%;
+}
+
+/* Slide dots */
+.hero__indicators {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-10);
+}
+.hero__dot {
+  width: 24px;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: rgba(248, 249, 245, 0.35);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition:
+    background   var(--duration-med) var(--ease-resort),
+    width        var(--duration-med) var(--ease-emerge);
+}
+.hero__dot--active {
+  width: 48px;
+  background: var(--color-secondary);
+}
+
+/* Scroll hint */
+.hero__scroll-hint {
+  position: absolute;
+  bottom: var(--space-8);
+  right: var(--space-8);
+  z-index: var(--z-raised);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+.hero__scroll-line {
+  display: block;
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, rgba(248,249,245,0.5));
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%   { transform: scaleY(0); transform-origin: top; }
+  50%  { transform: scaleY(1); transform-origin: top; }
+  51%  { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+.hero__scroll-label {
+  color: rgba(248,249,245,0.50);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  writing-mode: vertical-rl;
+}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media (max-width: 768px) {
+  .hero__content {
+    padding-bottom: var(--space-16);
+    justify-content: flex-end;
+  }
+  .hero__scroll-hint { display: none; }
+  .hero__badge { margin-bottom: var(--space-4); }
+  .hero__subtitle { margin-bottom: var(--space-6); }
+
+  /* Brand word scales down gracefully */
+  .hero__title-brand {
+    font-size: clamp(2.6rem, 11vw, 4rem);
+  }
+
+  /* Buttons — single row, generous & premium on mobile */
+  .hero__actions {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    width: 100%;
+    padding: 0 var(--space-2);
+  }
+  .hero__actions .btn {
+    flex: 1;
+    max-width: 180px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: var(--space-3) var(--space-4);
+    white-space: nowrap;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero { min-height: 100svh; }
+
+  .hero__title-brand {
+    font-size: clamp(2.4rem, 12vw, 3.2rem);
+  }
+
+  /* Keep buttons readable even on 360px phones */
+  .hero__actions .btn {
+    font-size: 0.8125rem;
+    padding: var(--space-3) var(--space-3);
+  }
+}

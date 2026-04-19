@@ -1,0 +1,54 @@
+<section class="nature__scroll-container" aria-labelledby="nature-title">
+  <!-- The Sticky Wrapper -->
+  <div class="nature__sticky-wrap bg-surface">
+    
+    <div class="nature__inner">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="nature__header">
+          <span class="section-tag nature__label">Explore the Property</span>
+          <h2 class="display-lg nature__title font-heading" id="nature-title">
+            A Masterpiece of Nature
+          </h2>
+          <p class="body-xl nature__tag text-muted">
+            Every corner feels like it was made just for you.
+          </p>
+        </div>
+      </div>
+
+      <!-- Horizontal Scroll Track (full bleed) -->
+      <div class="nature__track-wrap" role="region" aria-label="Nature features carousel">
+        <div class="nature__track" id="nature-scroll-track">
+          @for (card of cards; track card.id) {
+            <article class="nature-card hover-zoom-img"
+                     [attr.aria-label]="card.title">
+              <!-- Image -->
+              <div class="nature-card__image-wrap">
+                <img
+                  [src]="card.image"
+                  [alt]="card.title"
+                  class="nature-card__img"
+                  loading="lazy"
+                  onerror="this.style.display='none'"
+                >
+                <!-- Gradient fallback -->
+                <div class="nature-card__gradient" [style.background]="card.gradient" aria-hidden="true"></div>
+                <!-- Overlay -->
+                <div class="nature-card__overlay" aria-hidden="true"></div>
+              </div>
+
+              <!-- Card content -->
+              <div class="nature-card__content">
+                <h3 class="nature-card__title headline-md">{{ card.title }}</h3>
+                <p class="nature-card__subtitle body-md">{{ card.subtitle }}</p>
+              </div>
+            </article>
+          }
+          
+          <!-- End padding to prevent the last card from touching the edge -->
+          <div class="nature__track-pad"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,57 @@
+<section class="reviews section bg-surface" id="reviews" aria-labelledby="reviews-title">
+  <div class="container reviews__inner">
+    <!-- Header -->
+    <div class="reviews__header">
+      <span class="section-tag reviews__label">Guest Experiences</span>
+      <h2 class="display-lg reviews__title font-heading" id="reviews-title">
+        Echoes from the Farm
+      </h2>
+      <p class="body-xl reviews__tag text-muted">
+        Don't just take our word for it—see what our guests say about their retreat.
+      </p>
+    </div>
+
+    <!-- Carousel -->
+    <div class="reviews__carousel">
+      <div class="reviews__track-container">
+        <div class="reviews__track" [style.transform]="'translateX(-' + activeIndex() * 100 + '%)'">
+          @for (review of reviews; track review.name) {
+            <article class="review-slide">
+              <div class="review-slide__content">
+                <div class="review-slide__quote-mark">“</div>
+                <div class="review-slide__stars">
+                  @for (star of [1,2,3,4,5]; track $index) {
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="review-star">
+                      <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                    </svg>
+                  }
+                </div>
+                
+                <p class="review-slide__text">"{{ review.text }}"</p>
+                
+                <div class="review-slide__author">
+                  <h3 class="review-slide__name">{{ review.name }}</h3>
+                  <span class="review-slide__source">{{ review.source }}</span>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+
+      <!-- Navigation Controls -->
+      <div class="reviews__nav">
+        <button class="reviews__nav-btn" (click)="prev()" aria-label="Previous review">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button class="reviews__nav-btn" (click)="next()" aria-label="Next review">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

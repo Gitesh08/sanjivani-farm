@@ -1,0 +1,58 @@
+<section class="hero" aria-label="Hero">
+
+  <!-- BACKGROUND SLIDESHOW -->
+  <div class="hero__slides" aria-hidden="true">
+    @for (slide of slides; track slide.src; let i = $index) {
+    <div class="hero__slide" [class.hero__slide--active]="currentIndex() === i"
+      [class.hero__slide--exiting]="isTransitioning() && currentIndex() !== i">
+      <img [src]="slide.src" [alt]="slide.alt" class="hero__slide-img" loading="eager" fetchpriority="high">
+    </div>
+    }
+  </div>
+
+  <!-- VIGNETTE LAYERS -->
+  <div class="hero__vignette hero__vignette--top" aria-hidden="true"></div>
+  <div class="hero__vignette hero__vignette--bottom" aria-hidden="true"></div>
+
+  <!-- CONTENT -->
+  <div class="hero__content container">
+    <div class="hero__text-wrap">
+      <!-- <span class="hero__badge label-md">
+        <span class="hero__badge-dot" aria-hidden="true"></span>
+        Palghar · Konkan · Maharashtra
+      </span> -->
+
+      <h1 class="hero__title display-xl font-heading">
+        Sanjivani: Where
+        <em class="hero__title-em">Nature Gives You</em>
+        Life Again
+      </h1>
+
+
+      <div class="hero__actions" role="group" aria-label="Primary actions">
+        <a routerLink="/stay" class="btn btn-primary btn-lg" id="hero-book-stay">
+          Book Your Stay
+        </a>
+        <a routerLink="/our-story" class="btn btn-ghost btn-lg" id="hero-explore-farm">
+          Get E-Brochure
+        </a>
+      </div>
+    </div>
+
+    <!-- SLIDE INDICATORS -->
+    <div class="hero__indicators" role="tablist" aria-label="Slideshow navigation">
+      @for (slide of slides; track slide.src; let i = $index) {
+      <button class="hero__dot" [class.hero__dot--active]="currentIndex() === i" (click)="goToSlide(i)" role="tab"
+        [attr.aria-selected]="currentIndex() === i" [attr.aria-label]="'Slide ' + (i + 1)">
+      </button>
+      }
+    </div>
+  </div>
+
+  <!-- SCROLL HINT -->
+  <div class="hero__scroll-hint" aria-hidden="true">
+    <span class="hero__scroll-line"></span>
+    <span class="hero__scroll-label label-md">Scroll</span>
+  </div>
+
+</section>

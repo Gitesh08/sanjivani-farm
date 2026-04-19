@@ -1,0 +1,66 @@
+<nav class="navbar navbar-transition" [class.navbar--scrolled]="isScrolled()" [class.navbar--menu-open]="menuOpen()"
+  role="navigation" aria-label="Main navigation">
+
+  <div class="navbar__inner">
+
+    <!-- LOGO -->
+    <a class="navbar__logo" [class.navbar__logo--hidden]="menuOpen()" routerLink="/" (click)="closeAll()" aria-label="Sanjivani Farms home">
+      <img src="assets/images/farm-logo.svg" alt="Sanjivani Farms Logo" class="navbar__logo-img">
+    </a>
+
+    <!-- DESKTOP CENTER NAV -->
+    <ul class="navbar__menu" role="list">
+      @for (item of navItems; track item.label) {
+        <li class="navbar__item">
+          <button 
+            [class.navbar__link--active]="activeSection() === item.fragment"
+            class="navbar__link" 
+            (click)="scrollTo(item.fragment, $event)">
+            {{ item.label }}
+          </button>
+        </li>
+      }
+    </ul>
+
+    <!-- DESKTOP RIGHT: Book Now only -->
+    <div class="navbar__actions">
+      <button (click)="scrollTo('cottages', $event)" class="btn btn-primary btn-lg" id="nav-book-now">Book Your Stay</button>
+    </div>
+
+    <!-- MOBILE RIGHT: Hamburger only -->
+    <div class="navbar__mobile-actions">
+      <button class="navbar__hamburger" [class.navbar__hamburger--open]="menuOpen()" (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen()" aria-controls="mobile-menu" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MOBILE DRAWER — drops from top -->
+  <div class="navbar__mobile-drawer" id="mobile-menu" [class.navbar__mobile-drawer--open]="menuOpen()" role="dialog"
+    aria-label="Mobile navigation">
+    
+    <!-- Expanded Mobile Logo -->
+    <div class="navbar__mobile-brand">
+      <img src="assets/images/farm-logo.svg" alt="Sanjivani Farms Logo" class="navbar__mobile-brand-img">
+    </div>
+
+    <ul class="navbar__mobile-menu" role="list">
+      @for (item of navItems; track item.label) {
+        <li class="navbar__mobile-item">
+          <button 
+            [class.navbar__mobile-link--active]="activeSection() === item.fragment"
+            class="navbar__mobile-link" 
+            (click)="scrollTo(item.fragment, $event)">
+            {{ item.label }}
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <!-- Mobile overlay backdrop -->
+  @if (menuOpen()) {
+  <div class="navbar__backdrop" (click)="closeAll()" aria-hidden="true"></div>
+  }
+</nav>

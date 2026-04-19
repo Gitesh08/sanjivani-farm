@@ -1,0 +1,107 @@
+<section id="our-story" class="our-story__section section bg-surface-low" aria-labelledby="our-story-title">
+  <div class="container">
+
+    <!-- Mobile header (above image on mobile) -->
+    <div class="our-story__mobile-header">
+      <span class="section-tag our-story__label">Our Story</span>
+      <h2 class="our-story__title font-heading" id="our-story-title">
+        A Farm Built<br>on a Dream
+      </h2>
+    </div>
+
+    <!-- Two Column Layout -->
+    <div class="our-story__grid">
+
+      <!-- IMAGE COLUMN WITH SLIDER -->
+      <div class="our-story__image-outer">
+        <div class="our-story__image-wrap">
+          <!-- Slides -->
+          @for (slide of slides; track slide.src; let i = $index) {
+            <img
+              [src]="slide.src"
+              [alt]="slide.alt"
+              class="our-story__slide-img"
+              [class.active]="currentSlide() === i"
+              loading="lazy"
+            >
+          }
+          <div class="our-story__image-overlay" aria-hidden="true"></div>
+
+          <!-- Slide dots -->
+          <div class="our-story__dots" aria-hidden="true">
+            @for (slide of slides; track slide.src; let i = $index) {
+              <span class="our-story__dot" [class.active]="currentSlide() === i"></span>
+            }
+          </div>
+        </div>
+
+        <!-- Stat card — outside image-wrap so it's always visible -->
+        <div class="our-story__stat-card">
+          <span class="our-story__stat-number">16</span>
+          <span class="our-story__stat-label">Acres of<br>Pure Nature</span>
+        </div>
+      </div>
+
+      <!-- TEXT COLUMN -->
+      <div class="our-story__content">
+
+        <!-- Desktop heading -->
+        <div class="our-story__desktop-header">
+          <span class="section-tag our-story__label">Our Story</span>
+          <h2 class="our-story__title font-heading" id="our-story-title-desktop">
+            A Farm Built<br>on a Dream
+          </h2>
+        </div>
+
+        <p class="our-story__lead">
+          It started with a simple question: what if there was a place where
+          the city felt a thousand miles away, yet home was never too far?
+        </p>
+
+        <p class="our-story__body">
+          Sanjivani Farm was born out of that longing. Nestled in the quiet
+          heartland of Palghar, our 16 acres were shaped by patience, care,
+          and a deep love for the land. Every corner here tells a story —
+          from the 700 coconut trees standing tall to the private lakes that
+          mirror a sky you rarely get to see.
+        </p>
+
+        <p class="our-story__body">
+          We are just over an hour from Mumbai, yet here you will feel
+          something rare: stillness. Come as you are, and leave as you
+          were always meant to feel.
+        </p>
+
+        <div class="our-story__highlights">
+          <div class="our-story__highlight-item">
+            <span class="our-story__highlight-num">700<sup>+</sup></span>
+            <span class="our-story__highlight-desc">Coconut Trees</span>
+          </div>
+          <div class="our-story__highlight-item">
+            <span class="our-story__highlight-num">3</span>
+            <span class="our-story__highlight-desc">Private Lakes</span>
+          </div>
+          <div class="our-story__highlight-item">
+            <span class="our-story__highlight-num">1hr</span>
+            <span class="our-story__highlight-desc">From Mumbai</span>
+          </div>
+        </div>
+
+        <!-- CTA Button -->
+        <div class="our-story__cta">
+          <a routerLink="/our-story" class="our-story__btn" id="our-story-learn-more">
+            <span class="our-story__btn-text">Discover Our Story</span>
+            <span class="our-story__btn-circle" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

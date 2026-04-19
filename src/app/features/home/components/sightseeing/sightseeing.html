@@ -1,0 +1,34 @@
+<section class="sightseeing section bg-surface" id="sightseeing" aria-labelledby="sightseeing-title">
+  <div class="container sightseeing__inner">
+    <!-- Header -->
+    <div class="sightseeing__header">
+      <span class="section-tag sightseeing__label">Discover The Region</span>
+      <h2 class="display-lg sightseeing__title font-heading" id="sightseeing-title">
+        Beyond The Farm
+      </h2>
+      <p class="body-xl sightseeing__tag text-muted">
+        Make Sanjivani your basecamp. Explore the serene coastlines and historic trails of Palghar nearby.
+      </p>
+    </div>
+
+    <!-- Grid Layout -->
+    <div class="sightseeing__grid">
+      @for (spot of spots; track spot.name) {
+        <article class="spot-card hover-zoom-img">
+          <!-- Image Layer -->
+          <div class="spot-card__image-wrap">
+            <img [src]="spot.image" [alt]="spot.name" class="spot-card__img" loading="lazy" onerror="this.style.display='none'">
+            <div class="spot-card__overlay"></div>
+          </div>
+          
+          <!-- Content Layer -->
+          <div class="spot-card__content">
+            <span class="spot-card__distance section-tag">{{ spot.distance }}</span>
+            <h3 class="spot-card__name">{{ spot.name }}</h3>
+            <p class="spot-card__desc">{{ spot.desc }}</p>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

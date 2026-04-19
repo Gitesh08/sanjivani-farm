@@ -1,0 +1,162 @@
+:host { display: block; }
+
+.sightseeing__header {
+  margin-bottom: clamp(var(--space-8), 5vh, var(--space-12));
+  text-align: left;
+}
+
+.sightseeing__title {
+  margin: var(--space-3) 0 var(--space-4);
+  color: var(--color-on-surface);
+}
+
+.sightseeing__tag {
+  color: var(--color-on-surface-variant);
+  max-width: 640px;
+}
+
+.sightseeing__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(var(--space-4), 3vw, var(--space-8));
+}
+
+.spot-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-ambient);
+  display: flex;
+  aspect-ratio: 3 / 4;
+  background-color: var(--color-surface-container);
+}
+
+.spot-card__image-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.spot-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slower) var(--ease-resort);
+}
+
+.spot-card:hover .spot-card__img {
+  transform: scale(1.05);
+}
+
+.spot-card__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(4, 15, 22, 0.95) 0%,
+    rgba(4, 15, 22, 0.6) 40%,
+    transparent 100%
+  );
+}
+
+.spot-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: clamp(var(--space-4), 3vw, var(--space-6));
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.spot-card__distance {
+  align-self: flex-start;
+  color: var(--color-on-primary);
+  background: var(--color-secondary);
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-3);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border: none;
+}
+
+.spot-card__name {
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+}
+
+.spot-card__desc {
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 1.2vw, 1rem);
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .sightseeing__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .sightseeing__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .spot-card {
+    aspect-ratio: 16 / 9; /* Wider on mobile so they don't take up too much vertical height */
+  }
+
+  .spot-card__content {
+    padding: var(--space-4);
+  }
+  
+  .spot-card__name {
+    font-size: 1.125rem;
+    font-weight: 400;
+  }
+  
+  .spot-card__desc {
+    font-size: 0.8125rem;
+    font-weight: 400;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 480px) {
+  .spot-card {
+    aspect-ratio: 4 / 3;
+  }
+  
+  .spot-card__content {
+    padding: var(--space-3);
+  }
+  
+  .spot-card__distance {
+    font-size: 0.6875rem;
+    padding: 3px 8px;
+    margin-bottom: var(--space-2);
+  }
+  
+  .spot-card__name {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+  
+  .spot-card__desc {
+    font-size: 0.75rem;
+  }
+}

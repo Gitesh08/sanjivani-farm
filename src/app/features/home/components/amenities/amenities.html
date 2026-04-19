@@ -1,0 +1,35 @@
+<section class="amenities section bg-surface" id="amenities" aria-labelledby="amenities-title">
+  <div class="container amenities__inner">
+
+    <!-- ── Section Header (same alignment as Adventures) ── -->
+    <div class="amenities__header">
+      <span class="section-tag amenities__label">Amenities</span>
+      <h2 class="display-lg amenities__title font-heading" id="amenities-title">
+        Little Comforts That Matter
+      </h2>
+      <p class="body-xl amenities__subtitle text-muted">
+        Everything you need to feel completely at ease.
+      </p>
+    </div>
+
+    <!-- ── Amenities Grid ── -->
+    <div class="amenities__grid">
+      @for (item of amenities; track item.id) {
+      <article class="amenity-card" [class.amenity-card--highlight]="item.highlight" [attr.aria-label]="item.label">
+        <div class="amenity-card__icon" aria-hidden="true" [innerHTML]="item.safeIcon">
+        </div>
+        <div class="amenity-card__body">
+          <h3 class="amenity-card__label">{{ item.label }}</h3>
+          <p class="amenity-card__desc">{{ item.description }}</p>
+        </div>
+      </article>
+      }
+    </div>
+
+    <!-- ── Bottom tagline ── -->
+    <p class="amenities__tagline">
+      From the moment you arrive to the moment you leave, every comfort is taken care of.
+    </p>
+
+  </div>
+</section>

@@ -1,0 +1,451 @@
+:host {
+  display: block;
+}
+
+.cottages {
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  overflow: hidden;
+}
+
+/* ── Header — left-aligned, same rhythm as activities & nature sections ── */
+.cottages__header {
+  margin-bottom: clamp(var(--space-8), 5vh, var(--space-12));
+  text-align: left;
+}
+
+.cottages__title {
+  margin: var(--space-3) 0 var(--space-4);
+  color: var(--color-on-surface);
+}
+
+.cottages__subtitle {
+  color: var(--color-on-surface-variant);
+  max-width: 640px;
+}
+
+/* ── Grid ── */
+.cottages__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: var(--space-6);
+  width: 100%;
+  margin-bottom: var(--space-12);
+}
+
+/* ── Card ── */
+.cottage-card {
+  position: relative;
+  background-color: #080c0a; /* Fallback dark background */
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: clamp(500px, 70vh, 580px); /* Tall luxurious card */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: none;
+  transition: transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.cottage-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Base Image */
+.cottage-card__gallery {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.cottage-card__img-scroll {
+  width: 100%;
+  height: 100%;
+}
+
+.cottage-card__img-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+.cottage-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out, transform var(--duration-slow) var(--ease-resort);
+}
+
+/* ── Netflix Crossfade Container Styles ── */
+div.cottage-card__img {
+  overflow: hidden; /* Contains the scale hover effect for inner media */
+}
+
+/* Both poster and video stretch to fill the slide perfectly */
+.cottage-card__internal-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.8s ease-in-out;
+}
+
+/* Poster is visible by default, video is hidden */
+.cottage-card__video-player {
+  opacity: 0; 
+}
+.cottage-card__poster {
+  opacity: 1;
+}
+
+/* Flipped instantly by Angular when network buffer is secure */
+.cottage-card__video-player.opacity-100 {
+  opacity: 1;
+}
+.cottage-card__poster.opacity-0 {
+  opacity: 0;
+}
+/* ──────────────────────────────────── */
+
+.cottage-card__img.active {
+  opacity: 1;
+}
+
+/* Hover passes the scale down to the media */
+.cottage-card:hover .cottage-card__img.active img,
+.cottage-card:hover .cottage-card__img.active video {
+  transform: scale(1.04);
+}
+
+/* ── Video badge (bottom-left) ── */
+.cottage-card__video-badge {
+  position: absolute;
+  bottom: 5.5rem;
+  left: 1rem;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  pointer-events: none;
+}
+
+/* ── Top-right controls row (mute btn + counter) ── */
+.cottage-card__top-controls {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Mute / unmute button */
+.cottage-card__mute-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.cottage-card__mute-btn:hover {
+  background: rgba(255, 255, 255, 0.20);
+  border-color: rgba(255, 255, 255, 0.70);
+  transform: scale(1.08);
+}
+
+/* Slide counter chip */
+.cottage-card__counter {
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgba(255, 255, 255, 0.90);
+  font-family: var(--font-body);
+  font-size: 0.70rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  pointer-events: none;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* ── Dot pagination ── */
+.cottage-card__dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  pointer-events: none;
+}
+
+.cottage-card__dot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.35);
+  transition:
+    width var(--duration-med) var(--ease-emerge),
+    background var(--duration-med) var(--ease-resort);
+}
+
+.cottage-card__dot.active {
+  width: 20px;
+  background: #fff;
+}
+
+/* Video dot gets a play-icon tint */
+.cottage-card__dot.is-video {
+  background: rgba(34, 184, 218, 0.45);
+}
+.cottage-card__dot.is-video.active {
+  background: var(--color-secondary);
+}
+
+/* ── Navigation Controls ── */
+.cottage-card__nav {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.40);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  /* Visible by default — hidden on desktop until hover */
+  opacity: 0;
+  transition: opacity 0.25s ease, background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.cottage-card:hover .cottage-card__nav {
+  opacity: 1;
+}
+
+.cottage-card__nav:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.80);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.cottage-card__nav--prev { left: 0.85rem; }
+.cottage-card__nav--next { right: 0.85rem; }
+
+/* Gradient Overlay — lighter, starts lower so media breathes */
+.cottage-card__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 45%,
+    rgba(8, 12, 10, 0.55) 68%,
+    rgba(8, 12, 10, 0.90) 100%
+  );
+  pointer-events: none;
+}
+
+/* Top-Left Badge */
+.cottage-card__badge {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 3;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+
+
+/* Content Container (Bottom overlay) */
+.cottage-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 1.5rem 1.15rem 1.5rem; /* Reduced bottom padding to push content lower */
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+
+/* Main Info (Title & Button) */
+.cottage-card__main-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Align title block and button vertically */
+  margin-bottom: 0.95rem; /* Reduced gap to push text block lower towards features */
+  gap: 0.5rem; /* Ensure minimal separation */
+}
+
+.cottage-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Tighter gap */
+  flex: 1; /* Allow content to grow but be constrained by parent */
+  min-width: 0; /* Critical for ellipsis to work in flexbox child */
+}
+
+.cottage-card__title {
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  font-weight: 400;
+  margin: 0;
+  color: #fff;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cottage-card__tagline {
+  font-size: 0.775rem;
+  font-family: var(--font-body);
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Cottage Button - using external ghost btn classes but small tweaks */
+.cottage-card__btn {
+  white-space: nowrap;
+  flex-shrink: 0; /* Stop button from squishing */
+}
+
+/* Horizontal Line */
+.cottage-card__divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.12);
+  margin-bottom: 1.25rem;
+}
+
+/* Footer Features */
+.cottage-card__features {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.feature-item svg {
+  opacity: 0.6;
+}
+
+.feature-divider {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.875rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .cottages__header {
+    margin-bottom: var(--space-10);
+  }
+
+  .cottages__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Always show nav arrows on touch devices (no hover) */
+  .cottage-card__nav {
+    opacity: 1;
+    width: 36px;
+    height: 36px;
+  }
+
+  .cottage-card__nav--prev { left: 0.6rem; }
+  .cottage-card__nav--next { right: 0.6rem; }
+
+  /* Dots sit just above the content block */
+  .cottage-card__dots {
+    bottom: 5.75rem;
+  }
+
+  .cottage-card__video-badge {
+    bottom: 7.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cottage-card {
+    height: 500px;
+  }
+
+  .cottage-card__btn {
+    padding: var(--space-2) var(--space-3);
+    font-size: 0.75rem;
+  }
+
+  .cottage-card__title {
+    font-size: clamp(0.9375rem, 4vw, 1.125rem);
+  }
+
+  .cottage-card__dots {
+    bottom: 6.25rem;
+  }
+
+  .cottage-card__video-badge {
+    bottom: 7.75rem;
+  }
+}

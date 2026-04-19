@@ -1,0 +1,109 @@
+/* ════════════════════════════════════════════════════════════
+   Animations — Slow, Resort-Like, Never Rushed
+   ════════════════════════════════════════════════════════════ */
+
+/* ─── GSAP Scroll Reveal Helpers ─── */
+.gsap-fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.gsap-fade-left {
+  opacity: 0;
+  transform: translateX(-60px);
+}
+
+.gsap-fade-right {
+  opacity: 0;
+  transform: translateX(60px);
+}
+
+.gsap-scale-in {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+/* ─── Hero Slideshow ─── */
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: scale(1.04); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes heroFadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+.hero-slide-enter {
+  animation: heroFadeIn 1.2s var(--ease-emerge) forwards;
+}
+
+.hero-slide-exit {
+  animation: heroFadeOut 0.8s var(--ease-resort) forwards;
+}
+
+/* ─── Subtle float for decorative elements ─── */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+.float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+/* ─── Shimmer (loading skeleton) ─── */
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg,
+    var(--color-surface-container-low) 25%,
+    var(--color-surface-container) 50%,
+    var(--color-surface-container-low) 75%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+/* ─── Smooth page transition ─── */
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-enter {
+  animation: pageFadeIn 0.7s var(--ease-emerge) forwards;
+}
+
+/* ─── Navbar glass transition ─── */
+.navbar-transition {
+  transition:
+    background-color var(--duration-slow) var(--ease-resort),
+    backdrop-filter  var(--duration-slow) var(--ease-resort),
+    box-shadow       var(--duration-slow) var(--ease-resort),
+    padding          var(--duration-med)  var(--ease-resort);
+}
+
+/* ─── Hover lift (cards, buttons) ─── */
+.hover-lift {
+  transition: transform var(--duration-med) var(--ease-emerge),
+              box-shadow var(--duration-med) var(--ease-emerge);
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-float);
+}
+
+/* ─── Image zoom on hover ─── */
+.hover-zoom-img {
+  overflow: hidden;
+}
+.hover-zoom-img img {
+  transition: transform var(--duration-slower) var(--ease-resort);
+}
+.hover-zoom-img:hover img {
+  transform: scale(1.06);
+}

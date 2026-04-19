@@ -1,0 +1,199 @@
+/* ════════════════════════════════════════════════════════════
+   Utilities — Living Canvas Layout Helpers
+   ════════════════════════════════════════════════════════════ */
+
+/* ─── Container ─── */
+.container {
+  width: 100%;
+  max-width: var(--container-2xl);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+@media (min-width: 576px)  { .container { padding-inline: var(--space-6); } }
+@media (min-width: 768px)  { .container { padding-inline: var(--space-8); } }
+@media (min-width: 1024px) { .container { padding-inline: var(--space-12); } }
+@media (min-width: 1280px) { .container { padding-inline: var(--space-16); } }
+
+/* ─── Section Spacing ─── */
+.section {
+  padding-block: var(--space-16);
+}
+@media (min-width: 768px) {
+  .section {
+    padding-block: var(--space-20);
+  }
+}
+@media (min-width: 1024px) {
+  .section {
+    padding-block: var(--space-24);
+  }
+}
+
+/* ─── Surface backgrounds (Tonal Layering - No 1px borders!) ─── */
+.bg-surface          { background-color: var(--color-surface); }
+.bg-surface-low      { background-color: var(--color-surface-container-low); }
+.bg-surface-container{ background-color: var(--color-surface-container); }
+.bg-surface-lowest   { background-color: var(--color-surface-container-lowest); }
+.bg-primary          { background-color: var(--color-primary); }
+.bg-dark             { background-color: var(--color-dark-bg); }
+
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: var(--space-3) var(--space-8);
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    transform      var(--duration-med)  var(--ease-emerge),
+    box-shadow     var(--duration-med)  var(--ease-emerge),
+    background     var(--duration-med)  var(--ease-resort),
+    opacity        var(--duration-fast) var(--ease-resort);
+  white-space: nowrap;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Primary CTA — Teal gradient, pill */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: var(--color-on-primary);
+  box-shadow: 0 4px 24px rgba(12, 74, 110, 0.35);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(12, 74, 110, 0.50);
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+}
+.btn-primary:active { transform: translateY(0); }
+
+/* Ghost — transparent, cream border for dark bg */
+.btn-ghost {
+  background: transparent;
+  color: var(--color-cream);
+  border: 1.5px solid rgba(248, 249, 245, 0.50);
+  backdrop-filter: blur(8px);
+}
+.btn-ghost:hover {
+  background: rgba(248, 249, 245, 0.12);
+  border-color: var(--color-cream);
+  transform: translateY(-2px);
+}
+
+/* Secondary — surface-highest, no border */
+.btn-secondary {
+  background: var(--color-surface-container-highest);
+  color: var(--color-on-surface);
+}
+.btn-secondary:hover {
+  background: var(--color-surface-container-high);
+  transform: translateY(-2px);
+}
+
+/* Cyan accent button — premium luminous */
+.btn-gold {
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-light));
+  color: var(--color-on-secondary);
+  box-shadow: 0 4px 20px rgba(34, 184, 218, 0.35);
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(34, 184, 218, 0.50);
+}
+
+/* Outline CTA */
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+}
+.btn-outline:hover {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  transform: translateY(-2px);
+}
+
+/* Size variants */
+.btn-sm { padding: var(--space-2) var(--space-6); font-size: 0.875rem; }
+.btn-lg { padding: var(--space-4) var(--space-10); font-size: 1.0625rem; }
+
+/* ─── Section label tag ─── */
+.section-tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  margin-bottom: var(--space-3);
+}
+
+/* ─── Divider — color shift only, no lines ─── */
+.divider-space { margin-block: var(--space-16); }
+
+/* ─── Ghost border (accessibility fallback) ─── */
+.ghost-border {
+  outline: 1px solid var(--color-outline-variant);
+  outline-offset: -1px;
+}
+
+/* ─── Vignette overlays ─── */
+.vignette-top {
+  background: linear-gradient(to bottom,
+    rgba(4, 13, 20, 0.70) 0%,
+    rgba(4, 13, 20, 0.22) 35%,
+    transparent 60%
+  );
+}
+
+.vignette-bottom {
+  background: linear-gradient(to top,
+    rgba(4, 13, 20, 0.85) 0%,
+    rgba(4, 13, 20, 0.32) 50%,
+    transparent 80%
+  );
+}
+
+.vignette-full {
+  background: linear-gradient(to bottom,
+    rgba(4, 13, 20, 0.65) 0%,
+    rgba(4, 13, 20, 0.12) 40%,
+    rgba(4, 13, 20, 0.12) 60%,
+    rgba(4, 13, 20, 0.80) 100%
+  );
+}
+
+/* ─── Image utilities ─── */
+.img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* ─── Flex + Grid helpers ─── */
+.flex        { display: flex; }
+.flex-col    { flex-direction: column; }
+.items-center{ align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-4  { gap: var(--space-4); }
+.gap-6  { gap: var(--space-6); }
+.gap-8  { gap: var(--space-8); }
+
+/* ─── Scroll behaviour ─── */
+html { scroll-behavior: smooth; }
+::-webkit-scrollbar { width: 6px; height: 6px; } /* Include height for horizontal scrollbars just in case */
+::-webkit-scrollbar-track { background: transparent; } /* Replaces opaque background with transparent */
+::-webkit-scrollbar-thumb { background: var(--color-primary-light); border-radius: var(--radius-full); }

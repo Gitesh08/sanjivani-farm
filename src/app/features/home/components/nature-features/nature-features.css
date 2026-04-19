@@ -1,0 +1,232 @@
+/* ════════════════════ NATURE FEATURES ════════════════════ */
+:host {
+  display: block;
+}
+
+/* ── Section Header ── */
+.nature__header {
+  text-align: left;
+  margin-bottom: clamp(var(--space-6), 4vh, var(--space-12));
+  width: 100%;
+}
+
+.nature__title {
+  margin: var(--space-3) 0 var(--space-4);
+  color: var(--color-on-surface);
+}
+
+.nature__tag {
+  color: var(--color-on-surface-variant);
+  max-width: 700px;
+}
+
+/* ── Sticky Scroll Setup ── */
+.nature__scroll-container {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-16);
+  background: var(--color-surface);
+}
+
+.nature__sticky-wrap {
+  width: 100vw;
+  overflow: hidden;
+}
+
+.nature__inner {
+  width: 100%;
+}
+
+/* ── Track Wrapper ── */
+.nature__track-wrap {
+  position: relative;
+}
+
+.nature__track {
+  display: flex;
+  gap: var(--space-4);
+  width: max-content;
+  /* Important for translation */
+  /* dynamically match container alignment */
+  padding-left: max(var(--space-4), calc((100vw - var(--container-2xl)) / 2 + var(--space-4)));
+  padding-right: var(--space-8);
+  will-change: transform;
+}
+
+.nature__track-pad {
+  width: 1px;
+  padding-right: var(--space-8);
+  flex-shrink: 0;
+}
+
+/* ── Card ── */
+.nature-card {
+  flex: 0 0 auto;
+  height: clamp(320px, 55vh, 460px);
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+  scroll-snap-align: start;
+  box-shadow: var(--shadow-ambient);
+  cursor: pointer;
+  transition: box-shadow var(--duration-med) var(--ease-resort);
+}
+
+.nature-card:hover {
+  box-shadow: var(--shadow-float);
+}
+
+/* Image wrapper */
+.nature-card__image-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.nature-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform var(--duration-slower) var(--ease-resort);
+  position: relative;
+  z-index: 1;
+}
+
+.nature-card:hover .nature-card__img {
+  transform: scale(1.07);
+}
+
+/* Gradient fallback (shows when image not loaded) */
+.nature-card__gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Bottom overlay for text readability — subtle, consistent across all cards */
+.nature-card__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to top,
+      rgba(4, 10, 16, 0.72) 0%,
+      rgba(4, 10, 16, 0.30) 38%,
+      rgba(4, 10, 16, 0.08) 65%,
+      rgba(4, 10, 16, 0.04) 100%);
+}
+
+/* Card text */
+.nature-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: var(--space-6);
+  transform: translateY(4px);
+  transition: transform var(--duration-med) var(--ease-emerge);
+}
+
+.nature-card:hover .nature-card__content {
+  transform: translateY(0);
+}
+
+.nature-card__title {
+  color: var(--color-cream);
+  font-weight: 400;
+  margin-bottom: var(--space-2);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.nature-card__subtitle {
+  color: rgba(248, 249, 245, 0.75);
+  line-height: 1.5;
+}
+
+/* Removed arrow controls as scroll is linked */
+
+/* ══════════ RESPONSIVE ══════════ */
+@media (min-width: 576px) {
+  .nature__track {
+    padding-left: max(var(--space-6), calc((100vw - var(--container-2xl)) / 2 + var(--space-6)));
+    padding-right: var(--space-6);
+  }
+}
+
+@media (min-width: 768px) {
+  .nature-card {
+    height: clamp(400px, 60vh, 540px);
+  }
+
+  .nature__track {
+    padding-left: max(var(--space-8), calc((100vw - var(--container-2xl)) / 2 + var(--space-8)));
+    padding-right: var(--space-8);
+  }
+}
+
+@media (min-width: 1024px) {
+  .nature-card {
+    height: clamp(450px, 70vh, 600px);
+  }
+
+  .nature__track {
+    padding-left: max(var(--space-12), calc((100vw - var(--container-2xl)) / 2 + var(--space-12)));
+    padding-right: var(--space-12);
+  }
+}
+
+@media (min-width: 1280px) {
+  .nature-card {
+    height: clamp(480px, 75vh, 680px);
+  }
+
+  .nature__track {
+    padding-left: max(var(--space-16), calc((100vw - var(--container-2xl)) / 2 + var(--space-16)));
+    padding-right: var(--space-16);
+  }
+}
+
+@media (max-width: 767px) {
+  .nature-card {
+    height: clamp(380px, 65vh, 480px);
+  }
+
+  .nature__track {
+    gap: var(--space-3);
+    padding-right: var(--space-4);
+  }
+
+  .nature__header {
+    margin-bottom: var(--space-6);
+  }
+
+  .nature-card__title {
+    font-size: clamp(1rem, 4vw, 1.35rem);
+  }
+
+  .nature-card__subtitle {
+    font-size: clamp(0.85rem, 3vw, 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .nature-card {
+    height: clamp(340px, 60vh, 440px);
+  }
+
+  .nature-card__title {
+    font-size: clamp(0.95rem, 3.5vw, 1.15rem);
+  }
+
+  .nature-card__subtitle {
+    font-size: clamp(0.8rem, 2.8vw, 0.9rem);
+  }
+
+  .nature-card__content {
+    padding: var(--space-5);
+  }
+}

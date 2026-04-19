@@ -1,0 +1,363 @@
+/* ════════════════════ DINING — FLAVORS STRAIGHT FROM OUR FARM ════════════════════ */
+:host {
+  display: block;
+}
+
+/* ── Header ── */
+.dining__header {
+  margin-bottom: clamp(var(--space-8), 5vh, var(--space-12));
+  text-align: left;
+}
+
+.dining__title {
+  margin: var(--space-3) 0 var(--space-4);
+  color: var(--color-on-surface);
+}
+
+.dining__subtitle {
+  color: var(--color-on-surface-variant);
+  max-width: 640px;
+}
+
+/* ── Two-column body (Desktop only) ── */
+.dining__body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(var(--space-8), 4vw, var(--space-16));
+  align-items: center;
+}
+
+/* ── Image ── */
+.dining__image-wrap {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  box-shadow: var(--shadow-float);
+  background-color: var(--color-surface-container);
+  flex-shrink: 0;
+}
+
+/* Images stack absolutely; active one fades in */
+.dining__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  /* Starts slightly zoomed — GSAP scrubs this back to scale(1) on scroll */
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.dining__image.active {
+  opacity: 1;
+}
+
+/* ── Dot Pagination ── */
+.dining__dots {
+  position: absolute;
+  bottom: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.dining__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s ease, transform 0.2s ease, width 0.3s ease;
+}
+
+.dining__dot.active {
+  background: #fff;
+  width: 20px;
+  border-radius: 4px;
+}
+
+.dining__dot:hover {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.dining__image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg,
+      transparent 50%,
+      rgba(4, 13, 20, 0.45) 100%);
+  pointer-events: none;
+}
+
+.dining__image-fallback {
+  background: linear-gradient(135deg, var(--color-primary-container), var(--color-primary-light));
+}
+
+/* Floating badge */
+.dining__badge {
+  position: absolute;
+  bottom: var(--space-6);
+  left: var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--glass-bg-dark);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+  box-shadow: var(--shadow-float);
+}
+
+.dining__badge-icon { font-size: 1.5rem; line-height: 1; }
+
+.dining__badge-title {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-cream);
+  line-height: 1.2;
+}
+
+.dining__badge-sub {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  color: var(--color-secondary-light);
+  letter-spacing: 0.06em;
+}
+
+/* ── Highlights grid (Desktop) ── */
+.dining__highlights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.dining__highlight-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  transition:
+    transform var(--duration-med) var(--ease-resort),
+    box-shadow var(--duration-med) var(--ease-resort),
+    border-color var(--duration-med) var(--ease-resort);
+}
+
+.dining__highlight-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+  border-color: rgba(34, 184, 218, 0.35);
+}
+
+.dining__highlight-icon {
+  font-size: 1.625rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.dining__highlight-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.dining__highlight-label {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-on-surface);
+  line-height: 1.3;
+}
+
+.dining__highlight-desc {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--color-on-surface-variant);
+  margin: 0;
+}
+
+/* ── Pull quote (shared) ── */
+.dining__quote {
+  border-left: 3px solid var(--color-secondary);
+  padding-left: var(--space-5);
+  margin: 0;
+}
+
+.dining__quote-text {
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 1.8vw, 1.375rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-on-surface);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── Mobile Accordion — hidden on desktop ── */
+.dining__mobile-accordion {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.dining__quote--mobile {
+  margin-top: var(--space-6);
+}
+
+/* ── Chip row ── */
+.dining__chip {
+  background: var(--color-surface);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-resort),
+    box-shadow var(--duration-fast) var(--ease-resort);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dining__chip--expanded {
+  border-color: rgba(34, 184, 218, 0.45);
+  box-shadow: 0 2px 16px rgba(34, 184, 218, 0.08);
+}
+
+/* Chip header row — always visible */
+.dining__chip-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+
+.dining__chip-icon {
+  font-size: 1.375rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.dining__chip-label {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-on-surface);
+  flex: 1;
+}
+
+.dining__chip-arrow {
+  color: var(--color-on-surface-variant);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform var(--duration-fast) var(--ease-resort);
+}
+
+.dining__chip--expanded .dining__chip-arrow {
+  transform: rotate(180deg);
+}
+
+/* Chip body — hidden until expanded */
+.dining__chip-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              padding 0.2s ease;
+  padding: 0 var(--space-4);
+}
+
+.dining__chip--expanded .dining__chip-body {
+  max-height: 120px; /* Generous enough for longest description */
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.dining__chip-desc {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-on-surface-variant);
+  margin: 0;
+}
+
+/* ══════════════ TABLET (max 1024px) ══════════════ */
+@media (max-width: 1024px) {
+  .dining__body {
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+  }
+
+  .dining__image-wrap {
+    aspect-ratio: 16 / 9;
+    max-height: 420px;
+  }
+
+  .dining__highlights-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ══════════════ MOBILE (max 767px) — Keep image, swap grid to accordion ══════════════ */
+@media (max-width: 767px) {
+  /* Keep body visible but single column so image shows */
+  .dining__body {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .dining__image-wrap {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    aspect-ratio: 3 / 4;
+    max-height: 55vh; /* Instead of fixed px, let it adapt to mobile screen height */
+    min-height: 380px;
+    border-radius: var(--radius-lg);
+  }
+
+  .dining__badge {
+    bottom: var(--space-4);
+    left: var(--space-4);
+    padding: var(--space-2) var(--space-3);
+    gap: var(--space-2);
+  }
+
+  .dining__badge-icon { font-size: 1.25rem; }
+
+  /* Hide the desktop card grid — accordion replaces it */
+  .dining__highlights-grid {
+    display: none;
+  }
+
+  /* Hide the desktop quote inside .dining__content — mobile has its own */
+  .dining__content > .dining__quote:not(.dining__quote--mobile) {
+    display: none;
+  }
+
+  /* Show accordion */
+  .dining__mobile-accordion {
+    display: flex;
+  }
+
+  .dining__quote-text {
+    font-size: clamp(0.9375rem, 4vw, 1.125rem);
+  }
+}

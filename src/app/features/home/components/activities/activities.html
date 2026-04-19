@@ -1,0 +1,128 @@
+<section class="activities section bg-surface" id="activities" aria-labelledby="activities-title">
+  <div class="container">
+    <div class="activities__header">
+      <span class="section-tag activities__label">Fun That Feels Like Yours</span>
+      <h2 class="display-lg activities__title font-heading" id="activities-title">
+        Activities &amp; Adventures
+      </h2>
+      <p class="body-xl activities__tag text-muted">
+        From morning toy train to evening bonfire — fun that never feels forced.
+      </p>
+    </div>
+  </div>
+
+  <!-- Carousel -->
+  <div class="activities__carousel">
+    <div class="activities__track snap-x" #track (scroll)="onNativeScroll($event)">
+
+      @for (item of loopItems; track $index; let loopIdx = $index) {
+        @let ri = realIndex(loopIdx);
+
+        <article class="activity-card snap-start"
+                 [attr.data-activity-idx]="ri"
+                 [attr.aria-label]="item.title">
+
+          <!-- ── Media Gallery ── -->
+          <div class="activity-card__image-wrap">
+            @for (m of item.media; track m.url; let mi = $index) {
+
+              @if (m.type === 'img') {
+                <!-- Plain image slide -->
+                <img [src]="m.url" [alt]="item.title"
+                     class="activity-card__img"
+                     [class.active]="activeSlides()[ri] === mi"
+                     loading="lazy"
+                     onerror="this.style.display='none'">
+
+              } @else {
+                <!-- Netflix crossfade: HD poster loads instantly, video fades in when buffered -->
+                <div class="activity-card__img" [class.active]="activeSlides()[ri] === mi">
+                  <!-- HD poster — first frame extracted by Cloudinary so_0 -->
+                  <img [src]="m.posterUrl" alt="Loading video..."
+                       class="activity-card__internal-media activity-card__poster"
+                       [class.opacity-0]="videoReady()[ri]">
+                  <!-- Video — hidden until (playing)/(canplay) fires -->
+                  <video [src]="m.url"
+                         class="activity-card__internal-media activity-card__video-player"
+                         [class.opacity-100]="videoReady()[ri]"
+                         (playing)="onVideoCanPlay(ri)"
+                         (canplay)="onVideoCanPlay(ri)"
+                         loop muted playsinline preload="auto">
+                  </video>
+                </div>
+              }
+
+            }
+
+            <div class="activity-card__gradient"></div>
+            <div class="activity-card__overlay"></div>
+          </div>
+
+          <!-- ── Mute button — top-right, only when active slide is a video ── -->
+          @if (item.media[activeSlides()[ri]]?.type === 'video') {
+            <button class="activity-card__mute-btn"
+                    (click)="toggleMute(ri, $event)"
+                    [attr.aria-label]="mutedState()[ri] ? 'Unmute video' : 'Mute video'">
+              @if (mutedState()[ri]) {
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                  <line x1="23" y1="9" x2="17" y2="15"/>
+                  <line x1="17" y1="9" x2="23" y2="15"/>
+                </svg>
+              } @else {
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                </svg>
+              }
+            </button>
+          }
+
+          <!-- ── In-card prev/next arrows (only when multiple media) ── -->
+          @if (item.media.length > 1) {
+            <button class="activity-card__nav activity-card__nav--prev"
+                    (click)="prevImage(ri, $event)"
+                    aria-label="Previous">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <polyline points="15 18 9 12 15 6"/>
+              </svg>
+            </button>
+            <button class="activity-card__nav activity-card__nav--next"
+                    (click)="nextImage(ri, $event)"
+                    aria-label="Next">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </button>
+          }
+
+          <!-- ── Content ── -->
+          <div class="activity-card__content">
+            <h3 class="activity-card__title">{{ item.title }}</h3>
+            <p class="activity-card__desc">{{ item.desc }}</p>
+          </div>
+
+        </article>
+      }
+    </div>
+
+    <!-- Outer carousel navigation -->
+    <div class="activities__controls container">
+      <button class="nav-btn" (click)="scrollPrev($event)" aria-label="Previous Activity">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <button class="nav-btn" (click)="scrollNext($event)" aria-label="Next Activity">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>

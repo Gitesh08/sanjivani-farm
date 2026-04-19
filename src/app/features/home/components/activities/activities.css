@@ -1,0 +1,326 @@
+/* ════════════════════ ACTIVITIES & ADVENTURES ════════════════════ */
+:host { display: block; }
+
+/* ── Header ── */
+.activities__header {
+  margin-bottom: clamp(var(--space-6), 4vh, var(--space-8));
+  text-align: left;
+}
+
+.activities__title {
+  margin: var(--space-3) 0 var(--space-4);
+  color: var(--color-on-surface);
+}
+
+.activities__tag {
+  color: var(--color-on-surface-variant);
+  max-width: 640px;
+}
+
+/* ── Carousel Container & Track ── */
+.activities__carousel {
+  position: relative;
+  width: 100%;
+}
+
+.activities__track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  /* Hide scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  
+  /* Standard left alignment padding matching the container grid */
+  padding: 0 max(var(--space-4), calc((100vw - 1200px) / 2));
+  
+  /* Critical: forces the scroll snap to respect the left boundary padding so cards don't clip */
+  scroll-padding-left: max(var(--space-4), calc((100vw - 1200px) / 2));
+  scroll-padding-right: max(var(--space-4), calc((100vw - 1200px) / 2));
+  
+  gap: clamp(0.5rem, 1.5vw, 1rem); /* Reduced gap */
+  padding-bottom: var(--space-6); /* for shadow */
+  padding-top: var(--space-2);
+}
+
+.activities__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Activity Card ── */
+.activity-card {
+  flex: 0 0 clamp(360px, 42vw, 640px); /* Wide landscape card size */
+  aspect-ratio: 4 / 3;
+  scroll-snap-align: start;
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-ambient);
+  display: flex;
+  cursor: pointer; /* Change back to pointer to indicate interactive tap */
+  background-color: var(--color-surface-container);
+  transition: box-shadow 0.4s ease, transform 0.2s ease;
+}
+
+.activity-card:hover {
+  box-shadow: var(--shadow-elevated);
+}
+
+.activity-card:active {
+  transform: scale(0.98); /* Physical press effect */
+}
+
+/* Card image layer */
+.activity-card__image-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.activity-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out, transform 0.8s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.activity-card__img.active {
+  opacity: 1;
+}
+
+.activity-card:hover .activity-card__img.active,
+.activity-card:active .activity-card__img.active {
+  transform: scale(1.05);
+}
+
+/* ── Netflix crossfade styles (video container) ── */
+div.activity-card__img {
+  overflow: hidden;
+}
+
+/* Poster and video are stacked absolutely inside the crossfade container */
+.activity-card__internal-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.8s ease-in-out;
+}
+
+/* Poster visible by default; video hidden until buffer confirmed */
+.activity-card__poster   { opacity: 1; }
+.activity-card__video-player { opacity: 0; }
+
+.activity-card__video-player.opacity-100 { opacity: 1; }
+.activity-card__poster.opacity-0         { opacity: 0; }
+
+/* ── Mute / unmute button (top-right of card) ── */
+.activity-card__mute-btn {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.activity-card__mute-btn:hover {
+  background: rgba(255, 255, 255, 0.20);
+  border-color: rgba(255, 255, 255, 0.70);
+  transform: scale(1.08);
+}
+
+/* Gradient fallback */
+.activity-card__gradient {
+  position: absolute;
+  inset: 0;
+  background: var(--color-surface-container);
+  z-index: -1;
+}
+
+/* Base overlay -> darker at bottom for text, transparent top */
+.activity-card__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.25) 35%,
+    transparent 65%
+  );
+  pointer-events: none;
+}
+
+/* ── Content Layer ── */
+.activity-card__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: clamp(var(--space-4), 3vw, var(--space-6));
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+/* Card title */
+.activity-card__title {
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.65);
+}
+
+/* Card description */
+.activity-card__desc {
+  color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* ── In-card nav arrows (same glassmorphism style as cottage cards) ── */
+.activity-card__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.40);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.25s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.activity-card:hover .activity-card__nav {
+  opacity: 1;
+}
+
+.activity-card__nav:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.80);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.activity-card__nav--prev { left: 0.75rem; }
+.activity-card__nav--next { right: 0.75rem; }
+
+/* ── Navigation Buttons ── */
+.activities__controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  padding: 0;
+}
+
+.nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-color: var(--color-primary);
+  transform: scale(1.05);
+}
+
+.nav-btn:active {
+  transform: scale(0.95);
+}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media (max-width: 1024px) {
+  .activity-card {
+    flex: 0 0 clamp(320px, 45vw, 480px);
+  }
+}
+
+@media (max-width: 767px) {
+  .activity-card {
+    flex: 0 0 calc(85vw - var(--space-4)); /* Slightly smaller flex-basis so gap is more visible natively */
+    aspect-ratio: 4 / 3;
+  }
+  
+  .activity-card__content {
+    padding: var(--space-4);
+  }
+
+  .activity-card__title {
+    font-size: clamp(1rem, 4vw, 1.15rem);
+    font-weight: 400; /* Slim down */
+  }
+
+  .activity-card__desc {
+    font-size: clamp(0.8rem, 3.5vw, 0.875rem);
+    font-weight: 300; /* Slim down */
+  }
+
+  .nav-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .nav-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .activity-card {
+    flex: 0 0 calc(90vw - var(--space-2));
+    aspect-ratio: 4 / 3;
+  }
+
+  .activity-card__content { padding: var(--space-3); }
+}

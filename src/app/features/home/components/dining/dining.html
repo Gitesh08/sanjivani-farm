@@ -1,0 +1,112 @@
+<section class="dining section bg-surface-low" id="dining" aria-labelledby="dining-title">
+  <div class="container dining__inner">
+
+    <!-- ── Section Header ── -->
+    <div class="dining__header">
+      <span class="section-tag dining__label">Farm to Table</span>
+      <h2 class="display-lg dining__title font-heading" id="dining-title">
+        Flavors Straight from Our Farm
+      </h2>
+      <p class="body-xl dining__subtitle text-muted">
+        Every meal feels like it was cooked just for you.
+      </p>
+    </div>
+
+    <!-- ── Two-Column Layout (Desktop) ── -->
+    <div class="dining__body">
+
+      <!-- IMAGE COLUMN — Auto-slide gallery -->
+      <div class="dining__image-wrap">
+        <!-- Stacked images: active one fades in via .active class -->
+        @for (img of sliderImages; track img; let i = $index) {
+          <img [src]="img"
+               alt="Farm-to-table dining at Sanjivani Farm"
+               class="dining__image"
+               [class.active]="activeSlide() === i"
+               loading="lazy">
+        }
+        <div class="dining__image-overlay" aria-hidden="true"></div>
+
+        <!-- Dot pagination -->
+        <div class="dining__dots" aria-label="Slide navigation">
+          @for (img of sliderImages; track img; let i = $index) {
+            <button class="dining__dot"
+                    [class.active]="activeSlide() === i"
+                    (click)="goToSlide(i)"
+                    [attr.aria-label]="'Go to slide ' + (i + 1)">
+            </button>
+          }
+        </div>
+
+        <!-- Floating badge -->
+        <div class="dining__badge">
+          <span class="dining__badge-icon">🌾</span>
+          <div>
+            <span class="dining__badge-title">100% Organic</span>
+            <span class="dining__badge-sub">Where it grows</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTENT COLUMN — Desktop cards -->
+      <div class="dining__content">
+        <div class="dining__highlights-grid">
+          @for (item of highlights; track item.label) {
+          <div class="dining__highlight-card" [attr.aria-label]="item.ariaLabel">
+            <span class="dining__highlight-icon" aria-hidden="true">{{ item.icon }}</span>
+            <div class="dining__highlight-text">
+              <strong class="dining__highlight-label">{{ item.label }}</strong>
+              <p class="dining__highlight-desc">{{ item.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+
+        <!-- Pull quote -->
+        <blockquote class="dining__quote">
+          <p class="dining__quote-text">
+            "You'll taste the difference the moment you sit down."
+          </p>
+        </blockquote>
+      </div>
+    </div>
+
+    <!-- ── Mobile-Only Accordion ── -->
+    <div class="dining__mobile-accordion" aria-label="Dining highlights">
+      @for (item of highlights; track item.label; let i = $index) {
+      <div
+        class="dining__chip"
+        [class.dining__chip--expanded]="expandedIndex() === i"
+        (click)="toggleExpand(i)"
+        role="button"
+        [attr.aria-expanded]="expandedIndex() === i"
+        [attr.aria-label]="item.ariaLabel"
+        tabindex="0"
+        (keydown.enter)="toggleExpand(i)"
+        (keydown.space)="toggleExpand(i)"
+      >
+        <div class="dining__chip-header">
+          <span class="dining__chip-icon">{{ item.icon }}</span>
+          <span class="dining__chip-label">{{ item.label }}</span>
+          <span class="dining__chip-arrow" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </span>
+        </div>
+        <div class="dining__chip-body">
+          <p class="dining__chip-desc">{{ item.description }}</p>
+        </div>
+      </div>
+      }
+
+      <!-- Quote inside mobile too -->
+      <blockquote class="dining__quote dining__quote--mobile">
+        <p class="dining__quote-text">
+          "You'll taste the difference the moment you sit down."
+        </p>
+      </blockquote>
+    </div>
+
+  </div>
+</section>
