@@ -195,10 +195,6 @@
     line-height: 1.4;
   }
 
-  .events-preview__cta-group .btn {
-    font-size: 0.875rem;
-    padding: var(--space-3) var(--space-5);
-  }
 }
 
 @media (max-width: 480px) {
@@ -239,16 +235,5 @@
     gap: var(--space-2);
     width: 100%;
     justify-content: center;
-  }
-  .events-preview__cta-group .btn {
-    font-size: 0.75rem;
-    padding: var(--space-3) var(--space-3);
-    flex: 1;
-    justify-content: center;
-    white-space: nowrap;
-  }
-  .events-preview__cta-group .btn svg {
-    width: 14px;
-    height: 14px;
   }
 }

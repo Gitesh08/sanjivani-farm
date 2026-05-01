@@ -19,7 +19,7 @@ interface EventType {
 
 @Component({
   selector: 'app-home-events',
-  imports: [RouterLink],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './events.html',
   styleUrl: './events.css',
@@ -84,7 +84,7 @@ export class EventsComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
     const host = this.el.nativeElement;
-    
+
     // Animate Header
     const inner = host.querySelector('.events-preview__inner');
     if (inner) {

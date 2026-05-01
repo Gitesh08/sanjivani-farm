@@ -472,18 +472,21 @@
 .os-value-card {
   padding: var(--space-8);
   background: var(--color-surface-container-lowest);
+  border: 1px solid var(--color-outline-variant);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
   transition: transform var(--duration-med) var(--ease-emerge),
-              box-shadow var(--duration-med) var(--ease-emerge);
+              box-shadow var(--duration-med) var(--ease-emerge),
+              border-color var(--duration-med) var(--ease-emerge);
 }
 
 .os-value-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-float);
+  border-color: rgba(34, 184, 218, 0.35);
 }
 
 .os-value-card__icon {
