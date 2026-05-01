@@ -1,0 +1,28 @@
+<main class="gallery-page bg-surface">
+  <div class="container gallery-page__inner">
+    <div class="gallery-page__header">
+      <a routerLink="/" class="btn btn-outline" style="margin-bottom: 2rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="transform: rotate(180deg)">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+        Back to Home
+      </a>
+      <span class="section-tag gallery-page__label">Our Memories</span>
+      <h1 class="display-lg gallery-page__title font-heading" id="gallery-page-title">
+        Sanjivani Gallery
+      </h1>
+      <p class="body-xl gallery-page__tag text-muted">
+        A full collection of the serene moments and vibrant life at our farm.
+      </p>
+    </div>
+
+    <div class="gallery-page__grid">
+      @for (img of images; track $index) {
+        <div class="gallery-page__card">
+          <img [src]="img" alt="Gallery image" loading="lazy" class="gallery-page__img">
+        </div>
+      }
+    </div>
+  </div>
+</main>

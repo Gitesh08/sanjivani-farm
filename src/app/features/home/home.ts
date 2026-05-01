@@ -16,7 +16,6 @@ import { ReviewsComponent }        from './components/reviews/reviews';
 import { SightseeingComponent }    from './components/sightseeing/sightseeing';
 import { VisitUsComponent }        from './components/visit-us/visit-us';
 import { EventsComponent }         from './components/events/events';
-import { PromoPopupComponent }     from './components/promo-popup/promo-popup';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +34,6 @@ import { PromoPopupComponent }     from './components/promo-popup/promo-popup';
     SightseeingComponent,
     VisitUsComponent,
     FooterComponent,
-    PromoPopupComponent,
   ],
   template: `
     <app-navbar />
@@ -54,7 +52,6 @@ import { PromoPopupComponent }     from './components/promo-popup/promo-popup';
       <app-visit-us />
     </main>
     <app-footer />
-    <app-promo-popup />
   `,
   styles: [`
     :host { display: block; }
