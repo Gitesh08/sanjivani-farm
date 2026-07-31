@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+Allow: /llms.txt
+
+# Explicitly allow AI crawlers to read llms.txt and site content
+User-agent: GPTBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: *
+Allow: /
+
+# Specifically Allow AI Crawlers to ingest the llms.txt and site data
+User-agent: GPTBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: Google-Extended
+Allow: /
+Allow: /llms.txt
+
+Sitemap: /sitemap.xml

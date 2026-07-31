@@ -1,0 +1,29 @@
+<section class="faq section bg-surface-low" id="faq" aria-labelledby="faq-title">
+  <div class="container">
+    <div class="faq__inner">
+      <div class="faq__header">
+        <span class="section-tag faq__label">Ask Sanjivani</span>
+        <h2 class="display-lg faq__title font-heading" id="faq-title">Frequently Asked Questions</h2>
+        <p class="body-xl faq__subtitle text-muted">Everything you need to know about your Konkan getaway.</p>
+      </div>
+
+      <div class="faq__list">
+        <div *ngFor="let item of questions; let i = index" class="faq__item" [class.is-open]="openIndex() === i">
+          <button class="faq__question" (click)="toggle(i)">
+            <h3 class="headline-md">{{ item.question }}</h3>
+            <span class="faq__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq__answer-wrapper">
+            <div class="faq__answer">
+              <p class="body-lg text-muted">{{ item.answer }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
