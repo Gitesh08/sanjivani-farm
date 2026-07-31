@@ -75,40 +75,114 @@
   height: 24px;
 }
 
+.review-slide__text-container {
+  max-width: 800px;
+  margin-bottom: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .review-slide__text {
   font-family: var(--font-body);
   font-size: clamp(1.125rem, 3vw, 1.75rem);
   font-weight: 300;
   line-height: 1.6;
   color: var(--color-on-surface);
-  margin-bottom: var(--space-10);
   font-style: italic;
-  max-width: 800px;
+  margin: 0;
+  
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.3s ease;
+}
+
+.is-expanded .review-slide__text {
+  -webkit-line-clamp: unset;
+}
+
+.review-read-more {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+  padding: 4px 12px;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.review-read-more:hover {
+  color: var(--color-secondary);
 }
 
 .review-slide__author {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 16px;
+  margin-top: 1rem;
+}
+
+.review-slide__avatar,
+.review-slide__avatar-placeholder {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.review-slide__avatar-placeholder {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+}
+
+.review-slide__author-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .review-slide__name {
   font-family: var(--font-heading);
-  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  font-size: 1.125rem;
   font-weight: 600;
-  color: var(--color-primary);
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  color: var(--color-on-surface);
+  margin: 0 0 4px 0;
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 .review-slide__source {
   font-size: 0.875rem;
   color: var(--color-on-surface-variant);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-weight: 500;
+}
+
+.google-icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.review-time {
+  opacity: 0.7;
+  font-weight: 400;
 }
 
 /* ── Navigation Controls ── */

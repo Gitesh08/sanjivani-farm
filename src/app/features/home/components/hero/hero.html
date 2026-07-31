@@ -1,13 +1,17 @@
 <section class="hero" aria-label="Hero">
 
-  <!-- BACKGROUND SLIDESHOW -->
-  <div class="hero__slides" aria-hidden="true">
-    @for (slide of slides; track slide.src; let i = $index) {
-    <div class="hero__slide" [class.hero__slide--active]="currentIndex() === i"
-      [class.hero__slide--exiting]="isTransitioning() && currentIndex() !== i">
-      <img [src]="slide.src" [alt]="slide.alt" class="hero__slide-img" loading="eager" fetchpriority="high">
-    </div>
-    }
+  <!-- BACKGROUND MEDIA (Crossfade Netflix Style) -->
+  <div class="hero__video-wrapper" aria-hidden="true">
+    <!-- Instant Poster Image -->
+    <img
+      src="https://res.cloudinary.com/dsepjvm2l/video/upload/f_auto,q_auto:best,w_1920,so_0/v1785523935/DJI_0018_-_Trim_lrd183.jpg"
+      alt="" class="hero__poster" [class.hero__poster--hidden]="videoReady()" fetchpriority="high" loading="eager">
+
+    <!-- Video (Native streaming, bound directly to prevent Chromium cached MP4 sync freeze) -->
+    <video #heroVideo class="hero__video" [class.hero__video--ready]="videoReady()" (playing)="onVideoReady()"
+      (canplay)="onVideoReady()" (loadeddata)="onVideoReady()" [src]="videoUrl()" loop muted playsinline
+      preload="metadata">
+    </video>
   </div>
 
   <!-- VIGNETTE LAYERS -->
@@ -40,14 +44,7 @@
       </div>
     </div>
 
-    <!-- SLIDE INDICATORS -->
-    <div class="hero__indicators" role="tablist" aria-label="Slideshow navigation">
-      @for (slide of slides; track slide.src; let i = $index) {
-      <button class="hero__dot" [class.hero__dot--active]="currentIndex() === i" (click)="goToSlide(i)" role="tab"
-        [attr.aria-selected]="currentIndex() === i" [attr.aria-label]="'Slide ' + (i + 1)">
-      </button>
-      }
-    </div>
+
   </div>
 
   <!-- SCROLL HINT -->

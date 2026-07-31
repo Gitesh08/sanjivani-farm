@@ -15,16 +15,14 @@
 /* ── Grid ── */
 .our-story__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.25fr 1fr;
   gap: var(--space-16);
   align-items: center;
 }
 
-/* ── Outer wrapper holds image + stat card ── */
+/* ── Outer wrapper holds image ── */
 .our-story__image-outer {
   position: relative;
-  /* Extra right padding so the stat card (which sticks out) has room */
-  padding-right: var(--space-10);
 }
 
 /* ── Image slider container ── */
@@ -67,64 +65,9 @@
   pointer-events: none;
 }
 
-/* Slide indicator dots inside image */
-.our-story__dots {
-  position: absolute;
-  bottom: var(--space-4);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  display: flex;
-  gap: 6px;
-}
+/* Slide indicator dots removed */
 
-.our-story__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.35);
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.our-story__dot.active {
-  background: #fff;
-  transform: scale(1.3);
-}
-
-/* ── Stat card — below image-wrap, right-aligned ── */
-.our-story__stat-card {
-  position: absolute;
-  bottom: calc(-1 * var(--space-6));
-  right: 0; /* sits in the padding-right space of the outer wrapper */
-  background: var(--color-surface-container-lowest);
-  border-radius: var(--radius-xl);
-  padding: var(--space-5) var(--space-6);
-  box-shadow: var(--shadow-float);
-  text-align: center;
-  min-width: 110px;
-  z-index: 3;
-}
-
-.our-story__stat-number {
-  display: block;
-  font-family: var(--font-heading);
-  font-size: 2.5rem;
-  font-weight: 600;
-  color: var(--color-primary);
-  line-height: 1;
-  margin-bottom: var(--space-1);
-}
-
-.our-story__stat-label {
-  display: block;
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--color-on-surface-variant);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  line-height: 1.4;
-}
+/* Stat card removed */
 
 /* ── Text Content ── */
 .our-story__content {
@@ -281,26 +224,15 @@
   .our-story__desktop-header { display: none; }
 
   .our-story__image-outer {
-    padding-right: 0; /* No right padding needed — stat card goes below */
-    padding-bottom: var(--space-10); /* Room for stat card below image */
+    padding-right: 0;
+    padding-bottom: 0;
   }
 
   .our-story__image-wrap {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
     border-radius: var(--radius-lg);
-    max-height: 260px;
+    max-height: 350px;
   }
-
-  /* Stat card repositions to bottom-right of outer wrapper */
-  .our-story__stat-card {
-    bottom: 0;
-    right: var(--space-4);
-    min-width: 96px;
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-lg);
-  }
-
-  .our-story__stat-number { font-size: 2rem; }
 
   .our-story__highlights { gap: var(--space-5); }
   .our-story__highlight-num { font-size: 1.5rem; }
@@ -313,15 +245,8 @@
   }
 
   .our-story__image-wrap {
-    max-height: 220px;
+    max-height: 250px;
   }
-
-  .our-story__stat-card {
-    right: var(--space-2);
-    min-width: 84px;
-  }
-
-  .our-story__stat-number { font-size: 1.75rem; }
 
   .our-story__highlights { gap: var(--space-4); }
   .our-story__highlight-num { font-size: 1.375rem; }

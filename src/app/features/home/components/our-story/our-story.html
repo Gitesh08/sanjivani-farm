@@ -5,40 +5,30 @@
     <div class="our-story__mobile-header">
       <span class="section-tag our-story__label">Our Story</span>
       <h2 class="our-story__title font-heading" id="our-story-title">
-        A Farm Built<br>on a Dream
+        Your Perfect Escape<br>into Nature
       </h2>
     </div>
 
     <!-- Two Column Layout -->
     <div class="our-story__grid">
 
-      <!-- IMAGE COLUMN WITH SLIDER -->
+      <!-- MEDIA COLUMN -->
       <div class="our-story__image-outer">
         <div class="our-story__image-wrap">
-          <!-- Slides -->
-          @for (slide of slides; track slide.src; let i = $index) {
-            <img
-              [src]="slide.src"
-              [alt]="slide.alt"
-              class="our-story__slide-img"
-              [class.active]="currentSlide() === i"
-              loading="lazy"
-            >
-          }
+          <video
+            #storyVideo
+            class="our-story__slide-img active"
+            [class.our-story__slide-img--ready]="videoReady()"
+            (playing)="onVideoReady()"
+            (canplay)="onVideoReady()"
+            (loadeddata)="onVideoReady()"
+            [src]="videoUrl()"
+            loop
+            muted
+            playsinline
+            preload="metadata"
+          ></video>
           <div class="our-story__image-overlay" aria-hidden="true"></div>
-
-          <!-- Slide dots -->
-          <div class="our-story__dots" aria-hidden="true">
-            @for (slide of slides; track slide.src; let i = $index) {
-              <span class="our-story__dot" [class.active]="currentSlide() === i"></span>
-            }
-          </div>
-        </div>
-
-        <!-- Stat card — outside image-wrap so it's always visible -->
-        <div class="our-story__stat-card">
-          <span class="our-story__stat-number">16</span>
-          <span class="our-story__stat-label">Acres of<br>Pure Nature</span>
         </div>
       </div>
 
@@ -49,27 +39,21 @@
         <div class="our-story__desktop-header">
           <span class="section-tag our-story__label">Our Story</span>
           <h2 class="our-story__title font-heading" id="our-story-title-desktop">
-            A Farm Built<br>on a Dream
+            Your Perfect Escape<br>into Nature
           </h2>
         </div>
 
         <p class="our-story__lead">
-          It started with a simple question: what if there was a place where
-          the city felt a thousand miles away, yet home was never too far?
+          Nestled amidst the peaceful greenery of Makunsar, near Saphale in Palghar, Sanjivani Farm & Resort is a beautiful getaway where nature, comfort, and togetherness come together.
         </p>
 
         <p class="our-story__body">
-          Sanjivani Farm was born out of that longing. Nestled in the quiet
-          heartland of Palghar, our 16 acres were shaped by patience, care,
-          and a deep love for the land. Every corner here tells a story —
-          from the 700 coconut trees standing tall to the private lakes that
-          mirror a sky you rarely get to see.
+          Spread across a vast natural setting, our resort is designed for families, friends, and corporate groups looking to escape the busy city life and create unforgettable memories. From comfortable stays and delicious food to refreshing swimming, boating, and relaxing nature experiences, there is something for everyone to enjoy.
         </p>
 
         <p class="our-story__body">
-          We are just over an hour from Mumbai, yet here you will feel
-          something rare: stillness. Come as you are, and leave as you
-          were always meant to feel.
+          Come away from the city. Come closer to nature.<br>
+          <strong>Your Nature. Your People. Your Memories.</strong>
         </p>
 
         <div class="our-story__highlights">

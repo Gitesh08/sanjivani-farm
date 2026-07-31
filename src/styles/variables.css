@@ -5,9 +5,9 @@
 
 :root {
   /* ─── Primary Palette (Deep Teal Navy — from logo "संजीवनी" text) ─── */
-  --color-primary:              #0C4A6E;
+  --color-primary:              #105B85; /* Slightly brighter, but low saturation */
   --color-primary-container:    #0E3A52;
-  --color-primary-light:        #1A6A94;
+  --color-primary-light:        #1D79A8;
   --color-on-primary:           #EFF9FF;
 
   /* ─── Secondary Palette (Luminous Cyan — from logo wave & "Farm and Resort") ─── */

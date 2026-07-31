@@ -20,16 +20,17 @@
   transform: translateX(-50%);
   overflow: hidden;
   padding: 1rem 0;
-  /* fades at edges for a premium look */
-  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  /* fades at extreme edges only, reduced per user request */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 2%, black 98%, transparent);
 }
 
 .gallery-preview__track {
   display: flex;
   gap: var(--space-4);
   width: max-content;
-  animation: scrollMarquee 40s linear infinite;
+  /* Reduced speed from 40s to 100s for a calmer vibe */
+  animation: scrollMarquee 100s linear infinite;
 }
 
 /* Pause animation on hover for interactivity */

@@ -23,7 +23,9 @@
           
           <!-- Content Layer -->
           <div class="spot-card__content">
-            <span class="spot-card__distance section-tag">{{ spot.distance }}</span>
+            @if (spot.distance) {
+              <span class="spot-card__distance section-tag">{{ spot.distance }}</span>
+            }
             <h3 class="spot-card__name">{{ spot.name }}</h3>
             <p class="spot-card__desc">{{ spot.desc }}</p>
           </div>

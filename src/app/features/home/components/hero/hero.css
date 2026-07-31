@@ -11,32 +11,36 @@
   align-items: center;
 }
 
-/* ── Slideshow ── */
-.hero__slides {
+/* ── Background Video ── */
+.hero__video-wrapper {
   position: absolute;
   inset: 0;
   z-index: var(--z-below);
+  background-color: var(--color-dark-bg);
 }
 
-.hero__slide {
+.hero__poster, .hero__video {
   position: absolute;
   inset: 0;
-  opacity: 0;
-  transition: opacity 1.2s var(--ease-resort);
-}
-.hero__slide--active { opacity: 1; }
-
-.hero__slide-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
-  transform: scale(1.04);
-  transition: transform 8s var(--ease-resort);
+  transition: opacity 1.2s var(--ease-resort, ease-in-out), visibility 1.2s var(--ease-resort, ease-in-out);
 }
-.hero__slide--active .hero__slide-img {
-  transform: scale(1);
+
+.hero__video {
+  opacity: 0;
+}
+
+.hero__video--ready {
+  opacity: 1;
+}
+
+.hero__poster--hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* ── Vignettes ── */
@@ -183,28 +187,7 @@
   width: 100%;
 }
 
-/* Slide dots */
-.hero__indicators {
-  display: flex;
-  gap: var(--space-2);
-  margin-top: var(--space-10);
-}
-.hero__dot {
-  width: 24px;
-  height: 3px;
-  border-radius: var(--radius-full);
-  background: rgba(248, 249, 245, 0.35);
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  transition:
-    background   var(--duration-med) var(--ease-resort),
-    width        var(--duration-med) var(--ease-emerge);
-}
-.hero__dot--active {
-  width: 48px;
-  background: var(--color-secondary);
-}
+
 
 /* Scroll hint */
 .hero__scroll-hint {

@@ -104,34 +104,7 @@
   top: calc(var(--space-6) + 80px); /* below navbar */
   left: var(--space-8);
   z-index: var(--z-raised);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: rgba(239, 249, 255, 0.80);
-  text-decoration: none;
-  letter-spacing: 0.04em;
-  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-3);
-  border-radius: var(--radius-full);
-  background: rgba(7, 28, 42, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(34, 184, 218, 0.20);
-  transition:
-    color      var(--duration-fast) var(--ease-resort),
-    background var(--duration-fast) var(--ease-resort),
-    border-color var(--duration-fast) var(--ease-resort),
-    transform  var(--duration-fast) var(--ease-emerge);
   opacity: 0; /* animated in via GSAP */
-}
-
-.os-hero__back-btn:hover {
-  color: var(--color-secondary-light);
-  background: rgba(7, 28, 42, 0.70);
-  border-color: rgba(34, 184, 218, 0.45);
-  transform: translateX(-3px);
 }
 
 /* Scroll hint — exact copy of hero's scroll hint */

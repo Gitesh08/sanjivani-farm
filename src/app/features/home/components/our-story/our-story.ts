@@ -1,10 +1,16 @@
 import {
-  Component, OnInit, OnDestroy, AfterViewInit, ElementRef,
-  ChangeDetectionStrategy, PLATFORM_ID, inject, signal, NgZone
+  Component, AfterViewInit, ElementRef, OnDestroy,
+  ChangeDetectionStrategy, PLATFORM_ID, inject, NgZone, ViewChild, signal
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { animateFadeLeft, animateFadeRight, animateSectionTitle, animateParallaxY } from '../../../../shared/utils/gsap-animations';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { animateSectionTitle } from '../../../../shared/utils/gsap-animations';
+import { SplashStateService } from '../../../../core/services/splash-state.service';
+import { Subscription } from 'rxjs';
+
+gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-our-story',
@@ -14,44 +20,90 @@ import { animateFadeLeft, animateFadeRight, animateSectionTitle, animateParallax
   styleUrl: './our-story.css',
   host: { ngSkipHydration: 'true' },
 })
-export class OurStoryComponent implements OnInit, AfterViewInit, OnDestroy {
+export class OurStoryComponent implements AfterViewInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
   private el = inject(ElementRef);
   private ngZone = inject(NgZone);
+  private splashState = inject(SplashStateService);
+  private splashSub?: Subscription;
 
-  readonly slides = [
-    { src: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776530402/image_ucfeks.png', alt: 'Sanjivani Farm lush greenery' },
-    { src: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776530497/download_14_j3juv1.jpg', alt: 'Nature scenery at Sanjivani Farm' },
-    { src: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776500316/IMG20260215125824_acfgbw.jpg', alt: 'Sanjivani Farm landscape' },
-    { src: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776500180/IMG20260110175042_a5umau.jpg', alt: 'Kayaking at Sanjivani Farm' },
-  ];
+  @ViewChild('storyVideo') videoRef?: ElementRef<HTMLVideoElement>;
 
-  currentSlide = signal(0);
-  private intervalId: ReturnType<typeof setInterval> | null = null;
+  readonly videoReady = signal(false);
+  readonly videoUrl = signal<string>('https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1200/v1785529662/VN20260730_193435_asxyre.mp4#t=0.001');
 
-  ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.startSlider();
-    }
+  onVideoReady(): void {
+    this.videoReady.set(true);
   }
 
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    const section = this.el.nativeElement.querySelector('.our-story__section');
-    animateSectionTitle('.our-story__label, .our-story__title', section);
-    animateFadeLeft('.our-story__image-wrap', section, 0.2);
-    animateFadeRight('.our-story__content', section, 0.4);
+    
+    this.splashSub = this.splashState.splashComplete$.subscribe(isComplete => {
+      if (isComplete) {
+        // Explicitly play video to bypass browser autoplay restrictions
+        setTimeout(() => {
+          if (this.videoRef?.nativeElement) {
+            const vid = this.videoRef.nativeElement;
+            vid.muted = true;
+            vid.play().catch(e => console.log('Video autoplay blocked:', e));
+            
+            if (vid.readyState >= 3) {
+              this.onVideoReady();
+            }
+          }
+        }, 50);
+        
+        this.ngZone.runOutsideAngular(() => {
+          setTimeout(() => {
+            const section = this.el.nativeElement.querySelector('.our-story__section');
+            const imageOuter = this.el.nativeElement.querySelector('.our-story__image-outer');
+            const content = this.el.nativeElement.querySelector('.our-story__content');
+
+            animateSectionTitle('.our-story__label, .our-story__title', section);
+
+            // Scrubbing animation for media (from left)
+            gsap.fromTo(
+              imageOuter,
+              { x: -60, opacity: 0 },
+              {
+                x: 0,
+                opacity: 1,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: section,
+                  start: 'top 85%',
+                  end: 'center 60%',
+                  scrub: 1,
+                }
+              }
+            );
+
+            // Scrubbing animation for content (from right)
+            gsap.fromTo(
+              content,
+              { x: 60, opacity: 0 },
+              {
+                x: 0,
+                opacity: 1,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: section,
+                  start: 'top 85%',
+                  end: 'center 60%',
+                  scrub: 1,
+                }
+              }
+            );
+            
+            ScrollTrigger.refresh();
+          }, 100);
+        });
+      }
+    });
   }
 
   ngOnDestroy(): void {
-    if (this.intervalId) clearInterval(this.intervalId);
-  }
-
-  private startSlider(): void {
-    this.ngZone.runOutsideAngular(() => {
-      this.intervalId = setInterval(() => {
-        this.currentSlide.update(i => (i + 1) % this.slides.length);
-      }, 2000);
-    });
+    this.splashSub?.unsubscribe();
   }
 }

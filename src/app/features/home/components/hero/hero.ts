@@ -1,15 +1,11 @@
 import {
-  Component, OnInit, OnDestroy, signal, computed,
-  ChangeDetectionStrategy, PLATFORM_ID, inject, ElementRef, AfterViewInit, NgZone
+  Component, OnInit, ChangeDetectionStrategy, PLATFORM_ID, inject, ElementRef, AfterViewInit, NgZone, signal, OnDestroy, ViewChild
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { gsap } from 'gsap';
-
-interface HeroSlide {
-  src: string;
-  alt: string;
-}
+import { SplashStateService } from '../../../../core/services/splash-state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-hero',
@@ -19,89 +15,68 @@ interface HeroSlide {
   styleUrl: './hero.css',
   host: { ngSkipHydration: 'true' },
 })
-export class HeroComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HeroComponent implements AfterViewInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
   private el = inject(ElementRef);
   private ngZone = inject(NgZone);
+  private splashState = inject(SplashStateService);
+  private splashSub?: Subscription;
 
-  readonly slides: HeroSlide[] = [
-    { src: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1920/v1776500316/IMG20260215125824_acfgbw.jpg', alt: 'Sanjivani Farm beautiful landscape' },
-    { src: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1920/v1776500372/IMG_9391_1_zemfrs.jpg', alt: 'Beautiful nature at Sanjivani Farm' },
-    { src: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1920/v1776500178/IMG20251205164424_m2btrh.jpg', alt: 'Kayaking on the private lake — Sanjivani Farms' },
-    { src: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1920/v1776583128/image_3_f6xde4.png', alt: 'Aerial view of Sanjivani Farm' },
-  ];
+  @ViewChild('heroVideo') videoRef!: ElementRef<HTMLVideoElement>;
 
-  readonly currentIndex = signal(0);
-  readonly isTransitioning = signal(false);
+  readonly videoReady = signal(false);
+  // Appending #t=0.001 is a legendary fix for Chrome's cached MP4 freeze bug, 
+  // forcing the media pipeline to initialize the demuxer correctly.
+  readonly videoUrl = signal<string>('https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1785523935/DJI_0018_-_Trim_lrd183.mp4#t=0.001');
 
-  private intervalId: ReturnType<typeof setInterval> | null = null;
-
-  ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.startSlideshow();
-    }
+  onVideoReady(): void {
+    this.videoReady.set(true);
   }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.animateEntrance();
+      this.splashSub = this.splashState.splashComplete$.subscribe(isComplete => {
+        if (isComplete) {
+          setTimeout(() => {
+            if (this.videoRef?.nativeElement) {
+              const vid = this.videoRef.nativeElement;
+              // Chrome requires explicit JS muted state sometimes to fulfill play() promises
+              vid.muted = true;
+              vid.play().catch(() => {});
+              
+              if (vid.readyState >= 3) {
+                this.onVideoReady();
+              }
+            }
+          }, 50);
+          
+          this.animateEntrance();
+        }
+      });
     }
   }
 
   ngOnDestroy(): void {
-    if (this.intervalId) clearInterval(this.intervalId);
-  }
-
-  private startSlideshow(): void {
-    this.ngZone.runOutsideAngular(() => {
-      this.intervalId = setInterval(() => this.nextSlide(), 5000);
-    });
-  }
-
-  nextSlide(): void {
-    if (this.isTransitioning()) return;
-    this.isTransitioning.set(true);
-    setTimeout(() => {
-      this.currentIndex.update(i => (i + 1) % this.slides.length);
-      this.isTransitioning.set(false);
-    }, 800);
-  }
-
-  goToSlide(index: number): void {
-    if (index === this.currentIndex()) return;
-    this.currentIndex.set(index);
-    if (this.intervalId) clearInterval(this.intervalId);
-    this.startSlideshow();
+    this.splashSub?.unsubscribe();
   }
 
   private animateEntrance(): void {
-    const tl = gsap.timeline({ delay: 0.3 });
-    tl.fromTo('.hero__badge',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
-    )
-    .fromTo('.hero__title',
-      { opacity: 0, y: 60, scale: 0.97 },
-      { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power3.out' },
-      '-=0.4'
-    )
-    .fromTo('.hero__subtitle',
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out' },
-      '-=0.7'
+    const tl = gsap.timeline({ delay: 0.2 });
+    tl.fromTo('.hero__title',
+      { opacity: 0, y: 30, scale: 0.98 },
+      { opacity: 1, y: 0, scale: 1, duration: 2.5, ease: 'sine.out' }
     )
     .fromTo('.hero__actions',
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' },
-      '-=0.6'
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 2.0, ease: 'sine.out' },
+      '-=1.5'
     )
     .fromTo('.hero__scroll-hint',
       { opacity: 0 },
-      { opacity: 1, duration: 0.7 },
-      '-=0.3'
+      { opacity: 1, duration: 1.5, ease: 'sine.out' },
+      '-=1.0'
     );
   }
-
   scrollTo(fragment: string, event?: Event): void {
     if (event) event.preventDefault();
     const el = document.getElementById(fragment);

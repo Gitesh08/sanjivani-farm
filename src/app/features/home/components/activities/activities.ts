@@ -48,14 +48,6 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
       colspan: 2
     },
     {
-      title: 'Fishing at Golden Hour',
-      desc: 'Cast a line and enjoy the calm.',
-      media: [
-        { type: 'img', url: 'assets/images/activities/fishing.jpg' }
-      ],
-      colspan: 1
-    },
-    {
       title: 'Kayaking & Boating',
       desc: 'Glide on the lake smoothly.',
       media: [
@@ -84,7 +76,15 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
       title: 'Swimming Pool',
       desc: 'Luxury meets refreshing nature.',
       media: [
-        { type: 'img', url: 'assets/images/activities/swimming.jpg' }
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785526586/IMG_6738_utnqnr.heic' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785526589/IMG_6743_h0wvvf.heic' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785526585/IMG_20230715_122855574_HDR_kfx7hl.jpg' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785526587/IMG_6744_t1zzes.heic' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785526590/IMG_20240628_145322839_hwsfvo.jpg' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785526589/IMG20260703140302_uq8ze9.jpg' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785526591/IMG_20240721_151818569_HDR_jfrnwa.jpg' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785526595/IMG20260703140328_gket96.jpg' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785526590/IMG_20250221_111512440_HDR_wxtnkm.jpg' }
       ],
       colspan: 3
     },

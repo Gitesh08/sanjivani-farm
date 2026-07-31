@@ -226,12 +226,8 @@ div.activity-card__img {
   justify-content: center;
   cursor: pointer;
   z-index: 10;
-  opacity: 0;
-  transition: opacity 0.25s ease, background 0.2s ease, transform 0.2s ease;
-}
-
-.activity-card:hover .activity-card__nav {
-  opacity: 1;
+  opacity: 1; /* Always visible like cottage cards */
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .activity-card__nav:hover {

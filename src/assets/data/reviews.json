@@ -1,0 +1,50 @@
+[
+  {
+    "author": {
+      "name": "Chaitanya Baisane"
+    },
+    "review": {
+      "text": "Had an amazing experience at Sanjivani Farm & Resort! It’s a perfect weekend getaway for families and groups, just a short drive from Mumbai. The property is well-maintained, peaceful, and surrounded by greenery. The wooden glass cottages were clean, spacious, and comfortable. We really enjoyed the toy train ride, swimming pool, indoor & outdoor games, and the live karaoke in the evening. The food was fresh, tasty, and the fact that breakfast, lunch, high tea, and dinner are included in the package makes it great value for money. The staff was polite, helpful, and ensured we had a comfortable stay throughout. Overall, it’s a wonderful place to relax, have fun, and create beautiful memories with your loved ones. Highly recommended!",
+      "rating": 5
+    },
+    "time": {
+      "published": "3 weeks ago"
+    }
+  },
+  {
+    "author": {
+      "name": "Traveller Munda"
+    },
+    "review": {
+      "text": "A Perfect Family Getaway at Sanjivani Farms, Saphale! Had an amazing experience at Sanjivani Farms! The property is beautifully maintained and surrounded by lush greenery, making it the perfect escape from the city hustle. The toy train ride was a unique attraction and loved by everyone in our group. There were plenty of fun activities for all age groups, from cycling and kayaking to relaxing in the hammock garden. The rooms were clean, comfortable, and offered a peaceful stay amidst nature. The staff was extremely courteous and always ready to help. The food was fresh, delicious, and served with great hospitality. Every corner of the property is thoughtfully designed to provide both relaxation and entertainment. Highly recommended for families, couples, and anyone looking for a refreshing nature retreat near Mumbai. Can't wait to visit again! 🌿🚂✨",
+      "rating": 5
+    },
+    "time": {
+      "published": "a month ago"
+    }
+  },
+  {
+    "author": {
+      "name": "Akshay"
+    },
+    "review": {
+      "text": "Perfect getaway for family. Visited 3rd time, and was never disappointed 😄 Tasty traditional food and peaceful cottages. My kids enjoyed playing outdoor games and cycling",
+      "rating": 5
+    },
+    "time": {
+      "published": "a month ago"
+    }
+  },
+  {
+    "author": {
+      "name": "Sushant Pangam"
+    },
+    "review": {
+      "text": "The place is good for family. There is no rush. Food quality is good. Staff is polite. If you want to enjoy childhood then there are lot of cycles.",
+      "rating": 5
+    },
+    "time": {
+      "published": "a month ago"
+    }
+  }
+]

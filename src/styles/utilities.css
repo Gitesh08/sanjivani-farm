@@ -54,10 +54,10 @@
   cursor: pointer;
   text-decoration: none;
   transition:
-    transform      var(--duration-med)  var(--ease-emerge),
-    box-shadow     var(--duration-med)  var(--ease-emerge),
-    background     var(--duration-med)  var(--ease-resort),
-    opacity        var(--duration-fast) var(--ease-resort);
+    transform      var(--duration-slow)  var(--ease-resort),
+    box-shadow     var(--duration-slow)  var(--ease-resort),
+    background     var(--duration-slow)  var(--ease-resort),
+    opacity        var(--duration-med) var(--ease-resort);
   white-space: nowrap;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -67,14 +67,12 @@
 .btn-primary {
   background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
   color: var(--color-on-primary);
-  box-shadow: 0 4px 24px rgba(12, 74, 110, 0.35);
+  box-shadow: 0 4px 24px rgba(16, 91, 133, 0.25);
 }
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(12, 74, 110, 0.50);
+  /* No lift, no glow — just a calm, premium color shift */
   background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
 }
-.btn-primary:active { transform: translateY(0); }
 
 /* Ghost — transparent, cream border for dark bg */
 .btn-ghost {
@@ -86,7 +84,6 @@
 .btn-ghost:hover {
   background: rgba(248, 249, 245, 0.12);
   border-color: var(--color-cream);
-  transform: translateY(-2px);
 }
 
 /* Secondary — surface-highest, no border */

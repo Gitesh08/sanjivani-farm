@@ -1,13 +1,25 @@
-import { Component, ChangeDetectionStrategy, ElementRef, inject, AfterViewInit, PLATFORM_ID, signal, OnDestroy, NgZone } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ElementRef, inject, AfterViewInit, PLATFORM_ID, signal, OnDestroy, NgZone, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { animateSectionTitle, animateScrollReveal } from '../../../../shared/utils/gsap-animations';
+import rawReviews from '../../../../../assets/data/reviews.json';
 
 interface Review {
   name: string;
   source: string;
   text: string;
   rating: number;
+  profile_photo_url?: string;
+  relative_time_description?: string;
 }
+
+const defaultReviews = rawReviews.map((item: any) => ({
+  name: item.author?.name || 'Guest',
+  source: 'Google',
+  text: item.review?.text || '',
+  rating: item.review?.rating || 5,
+  profile_photo_url: item.author?.profile_url,
+  relative_time_description: item.time?.published
+})).filter(r => r.rating >= 4 && r.text?.length > 10).slice(0, 10);
 
 @Component({
   selector: 'app-reviews',
@@ -16,7 +28,7 @@ interface Review {
   styleUrl: './reviews.css',
   standalone: true
 })
-export class ReviewsComponent implements AfterViewInit, OnDestroy {
+export class ReviewsComponent implements AfterViewInit, OnDestroy, OnInit {
   private el = inject(ElementRef);
   private platformId = inject(PLATFORM_ID);
   private ngZone = inject(NgZone);
@@ -24,34 +36,53 @@ export class ReviewsComponent implements AfterViewInit, OnDestroy {
   readonly activeIndex = signal(0);
   private intervalId: any;
 
-  readonly reviews: Review[] = [
+  readonly reviews = signal<Review[]>(defaultReviews.length > 0 ? defaultReviews : [
     {
       name: 'Priya Sharma',
       source: 'Google Reviews',
       text: 'Absolutely enchanting! The architecture and integration with nature is brilliant. Everything feels premium yet incredibly grounding. Best weekend getaway from Mumbai.',
-      rating: 5
-    },
-    {
-      name: 'Rohan Desai',
-      source: 'TripAdvisor',
-      text: 'The hospitality is unmatched. From the evening bonfires to the pristine swimming pool surrounded by lush greenery, every moment felt like a living canvas.',
-      rating: 5
-    },
-    {
-      name: 'Amit & Neha',
-      source: 'Google Reviews',
-      text: 'Our kids loved the toy train and cycling around the farm. As adults, the hammock gardens and quiet sunsets by the lake were exactly the reset we needed.',
-      rating: 5
+      rating: 5,
+      relative_time_description: '2 weeks ago'
     }
-  ];
+  ]);
+
+  readonly expandedReviews = signal<Set<string>>(new Set());
+
+  toggleExpand(reviewName: string): void {
+    this.expandedReviews.update(set => {
+      const newSet = new Set(set);
+      if (newSet.has(reviewName)) {
+        newSet.delete(reviewName);
+      } else {
+        newSet.add(reviewName);
+      }
+      return newSet;
+    });
+    
+    // Pause auto-rotation when reading, resume when closed
+    if (this.expandedReviews().size > 0) {
+      if (this.intervalId) {
+        clearInterval(this.intervalId);
+        this.intervalId = null;
+      }
+    } else {
+      this.resetInterval();
+    }
+  }
+
+  ngOnInit() {
+    // No fetch needed, loaded synchronously
+  }
 
   next(): void {
-    this.activeIndex.update(i => (i + 1) % this.reviews.length);
+    this.expandedReviews.set(new Set());
+    this.activeIndex.update(i => (i + 1) % this.reviews().length);
     this.resetInterval();
   }
 
   prev(): void {
-    this.activeIndex.update(i => (i - 1 + this.reviews.length) % this.reviews.length);
+    this.expandedReviews.set(new Set());
+    this.activeIndex.update(i => (i - 1 + this.reviews().length) % this.reviews().length);
     this.resetInterval();
   }
 
@@ -62,8 +93,9 @@ export class ReviewsComponent implements AfterViewInit, OnDestroy {
     }
     this.ngZone.runOutsideAngular(() => {
       this.intervalId = setInterval(() => {
-        this.activeIndex.update(i => (i + 1) % this.reviews.length);
-      }, 3000);
+        this.expandedReviews.set(new Set());
+        this.activeIndex.update(i => (i + 1) % this.reviews().length);
+      }, 6000);
     });
   }
 
