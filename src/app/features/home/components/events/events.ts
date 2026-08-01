@@ -42,9 +42,9 @@ export class EventsComponent implements AfterViewInit, OnDestroy {
   private mobileObservers: IntersectionObserver[] = [];
 
   readonly images = [
-    'assets/images/hero/hero-1.jpg',
+    'https://res.cloudinary.com/dsepjvm2l/image/upload/v1785619538/wedding_mandap_decoration_z4qtm8.jpg',
     'assets/images/hero/hero-2.jpg',
-    'assets/images/hero/hero-3.jpg'
+    'https://res.cloudinary.com/dsepjvm2l/image/upload/v1785619538/birthday-party_lfvude.jpg'
   ];
 
   readonly eventTypes: EventType[] = [

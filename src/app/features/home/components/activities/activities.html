@@ -40,13 +40,14 @@
                   <!-- HD poster — first frame extracted by Cloudinary so_0 -->
                   <img [src]="m.posterUrl" alt="Loading video..."
                        class="activity-card__internal-media activity-card__poster"
-                       [class.opacity-0]="videoReady()[ri]">
+                       [class.opacity-0]="videoReadySet().has(ri + '-' + mi)">
                   <!-- Video — hidden until (playing)/(canplay) fires -->
                   <video [src]="m.url"
                          class="activity-card__internal-media activity-card__video-player"
-                         [class.opacity-100]="videoReady()[ri]"
-                         (playing)="onVideoCanPlay(ri)"
-                         (canplay)="onVideoCanPlay(ri)"
+                         [attr.data-media-idx]="mi"
+                         [class.opacity-100]="videoReadySet().has(ri + '-' + mi)"
+                         (playing)="onVideoCanPlay(ri, mi)"
+                         (canplay)="onVideoCanPlay(ri, mi)"
                          loop muted playsinline preload="none">
                   </video>
                 </div>

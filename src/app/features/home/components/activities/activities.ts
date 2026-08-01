@@ -51,9 +51,36 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
       title: 'Kayaking & Boating',
       desc: 'Glide on the lake smoothly.',
       media: [
+        {
+          type: 'video',
+          url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1785608195/boating-vid1_kr5mpb.mp4',
+          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1785608195/boating-vid1_kr5mpb.jpg'
+        },
         { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776516128/image_7_une50d.png' },
         { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776500180/IMG20260110175042_a5umau.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776500178/IMG20251205164424_m2btrh.jpg' }
+        {
+          type: 'video',
+          url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1785608170/boating-vid2_xwkbnk.mp4',
+          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1785608170/boating-vid2_xwkbnk.jpg'
+        },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776500178/IMG20251205164424_m2btrh.jpg' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785597531/IMG_20250503_114128353_sogbfb.jpg' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785597527/IMG_20250503_114017966_q1lwtv.jpg' },
+        {
+          type: 'video',
+          url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1785608202/boating-vid3_i9fjkt.mp4',
+          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1785608202/boating-vid3_i9fjkt.jpg'
+        },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785597525/IMG20250816180632_nbaadp.jpg' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785597524/IMG20250816175926_tjdgtd.jpg' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785597523/IMG20250816180843_dwq6hl.jpg' },
+        {
+          type: 'video',
+          url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1785608225/boating-vid5_qquzjc.mp4',
+          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1785608225/boating-vid5_qquzjc.jpg'
+        },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785597523/IMG_20250503_114131415_BURST000_COVER_TOP_x4q59e.jpg' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785597522/IMG_20250528_164616219_hbswex.jpg' }
       ],
       colspan: 1
     },
@@ -126,7 +153,40 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
       title: 'Wooden Bridge',
       desc: 'Walk through the nature.',
       media: [
-        { type: 'img', url: 'assets/images/activities/bonfire.jpg' }
+        { 
+          type: 'video', 
+          url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1200/v1785615158/wood-bridge-vid00_qc4unk.mp4', 
+          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1200/v1785615158/wood-bridge-vid00_qc4unk.jpg' 
+        },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785615741/IMG20250817093413_omfmyf.jpg' },
+        { 
+          type: 'video', 
+          url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1200/v1776504933/wooden-bridge_pfw2r5.mp4', 
+          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1200/v1776504933/wooden-bridge_pfw2r5.jpg' 
+        },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785615737/IMG20250817093426_cc0ots.jpg' },
+        { 
+          type: 'video', 
+          url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1200/v1785615228/wood-bridge-vid04_xbbogr.mp4', 
+          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1200/v1785615228/wood-bridge-vid04_xbbogr.jpg' 
+        },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1785615737/IMG20250817093229_yopwle.jpg' },
+        { 
+          type: 'video', 
+          url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1200/v1785615218/wood-bridge-vid03_aq80pf.mp4', 
+          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1200/v1785615218/wood-bridge-vid03_aq80pf.jpg' 
+        },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776504314/IMG20251209182411_lcutah.jpg' },
+        { 
+          type: 'video', 
+          url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1200/v1785615208/wood-bridge-vid-01_gyms3l.mp4', 
+          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1200/v1785615208/wood-bridge-vid-01_gyms3l.jpg' 
+        },
+        { 
+          type: 'video', 
+          url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1200/v1785615187/wood-bridge-vid02_wywvvc.mp4', 
+          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1200/v1785615187/wood-bridge-vid02_wywvvc.jpg' 
+        }
       ],
       colspan: 2
     }
@@ -134,8 +194,8 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
 
   /** Active slide index per real item */
   readonly activeSlides = signal<number[]>([]);
-  /** Netflix buffer ready per real item */
-  readonly videoReady = signal<boolean[]>([]);
+  /** Netflix buffer ready per video (format: ri-mi) */
+  readonly videoReadySet = signal<Set<string>>(new Set());
   /** Mute state per real item — all start muted */
   readonly mutedState = signal<boolean[]>([]);
 
@@ -145,7 +205,6 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
   constructor() {
     const len = this.items.length;
     this.activeSlides.set(new Array(len).fill(0));
-    this.videoReady.set(new Array(len).fill(false));
     this.mutedState.set(new Array(len).fill(true));
   }
 
@@ -160,11 +219,11 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
   }
 
   /** Fired by (playing) and (canplay) — marks the video as buffered and ready */
-  onVideoCanPlay(ri: number): void {
-    this.videoReady.update(arr => {
-      const n = [...arr];
-      n[ri] = true;
-      return n;
+  onVideoCanPlay(ri: number, mi: number): void {
+    this.videoReadySet.update(s => {
+      const newSet = new Set(s);
+      newSet.add(`${ri}-${mi}`);
+      return newSet;
     });
   }
 
@@ -194,6 +253,7 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
       n[ri] = (n[ri] + 1) % this.items[ri].media.length;
       return n;
     });
+    this.syncCardVideos(ri);
   }
 
   prevImage(ri: number, event: Event): void {
@@ -203,6 +263,28 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
       const n = [...arr];
       n[ri] = (n[ri] - 1 + this.items[ri].media.length) % this.items[ri].media.length;
       return n;
+    });
+    this.syncCardVideos(ri);
+  }
+
+  private syncCardVideos(ri: number): void {
+    setTimeout(() => {
+      const activeMi = this.activeSlides()[ri];
+      const allCards = this.trackRef.nativeElement.querySelectorAll(`[data-activity-idx="${ri}"]`) as NodeListOf<HTMLElement>;
+      
+      allCards.forEach(card => {
+        const isIntersecting = card.getAttribute('data-intersecting') === 'true';
+        const videos = card.querySelectorAll('video') as NodeListOf<HTMLVideoElement>;
+        videos.forEach(vid => {
+          const mi = parseInt(vid.getAttribute('data-media-idx') || '-1', 10);
+          if (mi === activeMi && isIntersecting) {
+            vid.muted = this.mutedState()[ri];
+            vid.play().catch(() => {});
+          } else {
+            vid.pause();
+          }
+        });
+      });
     });
   }
 
@@ -229,13 +311,26 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
     this.videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const card = entry.target as HTMLElement;
-        const vid = card.querySelector('video') as HTMLVideoElement | null;
-        if (!vid) return;
+        const ri = parseInt(card.getAttribute('data-activity-idx') || '-1', 10);
+        if (ri === -1) return;
+
+        const activeMi = this.activeSlides()[ri];
+        const videos = card.querySelectorAll('video') as NodeListOf<HTMLVideoElement>;
+
         if (entry.isIntersecting) {
-          vid.muted = true;
-          vid.play().catch(() => {/* blocked — user will trigger on interaction */ });
+          card.setAttribute('data-intersecting', 'true');
+          videos.forEach(vid => {
+            const mi = parseInt(vid.getAttribute('data-media-idx') || '-1', 10);
+            if (mi === activeMi) {
+              vid.muted = this.mutedState()[ri];
+              vid.play().catch(() => {});
+            } else {
+              vid.pause();
+            }
+          });
         } else {
-          vid.pause();
+          card.setAttribute('data-intersecting', 'false');
+          videos.forEach(vid => vid.pause());
         }
       });
     }, {

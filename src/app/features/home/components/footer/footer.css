@@ -13,17 +13,18 @@
   padding: var(--space-20) 0 var(--space-16);
 }
 
-/* ── Desktop: 4-column grid (social stays in col 4 on desktop via CSS order) ── */
+/* ── Desktop: 5-column grid including Connect With Us ── */
 .footer__grid {
   display: grid;
-  grid-template-columns: 1.6fr 1.4fr 1fr 1fr;
-  gap: var(--space-12);
+  grid-template-columns: 1.5fr 1.3fr 1fr 1fr 1fr;
+  gap: var(--space-10);
   align-items: start;
 }
 
-/* Hide the standalone social col on desktop — it's shown inside col 4 area */
+/* Show social col on all screen sizes */
 .footer__col--social {
-  display: none;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ── Brand Column ── */
@@ -156,23 +157,58 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-full);
-  color: var(--color-cream);
-  background: rgba(248, 249, 245, 0.04);
-  border: 1px solid rgba(248, 249, 245, 0.1);
   text-decoration: none;
+  color: #fff;
+  border: none;
   transition:
-    background var(--duration-med) var(--ease-resort),
-    color var(--duration-fast) var(--ease-resort),
-    border-color var(--duration-med) var(--ease-resort),
     transform var(--duration-med) var(--ease-emerge),
-    box-shadow var(--duration-med) var(--ease-resort);
+    box-shadow var(--duration-med) var(--ease-resort),
+    filter var(--duration-med) var(--ease-resort);
 }
 .footer__social-link:hover {
-  background: var(--color-primary-light);
-  color: var(--color-on-primary);
-  border-color: var(--color-primary-light);
+  transform: translateY(-5px) scale(1.1);
+  filter: brightness(1.15);
+}
+
+/* Instagram — real gradient */
+.footer__social-link--instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  box-shadow: 0 4px 14px rgba(220, 39, 67, 0.35);
+}
+.footer__social-link--instagram:hover {
+  box-shadow: 0 8px 28px rgba(220, 39, 67, 0.6);
+}
+
+/* WhatsApp — real green */
+.footer__social-link--whatsapp {
+  background: #25d366;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+}
+.footer__social-link--whatsapp:hover {
+  box-shadow: 0 8px 28px rgba(37, 211, 102, 0.6);
+}
+
+/* Email — Gmail red */
+.footer__social-link--email {
+  background: #ea4335;
+  box-shadow: 0 4px 14px rgba(234, 67, 53, 0.35);
+}
+.footer__social-link--email:hover {
+  box-shadow: 0 8px 28px rgba(234, 67, 53, 0.6);
+}
+
+/* Phone — teal */
+.footer__social-link--phone {
+  background: rgba(34, 184, 218, 0.1);
+  border: 1px solid rgba(34, 184, 218, 0.25);
+  color: var(--color-secondary);
+}
+.footer__social-link--phone:hover {
+  background: var(--color-secondary);
+  color: #fff;
+  border-color: transparent;
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(34, 184, 218, 0.3);
+  box-shadow: 0 8px 24px rgba(34, 184, 218, 0.45);
 }
 
 /* ── Bottom Bar ── */
@@ -207,18 +243,21 @@
 /* ══════════ RESPONSIVE ══════════ */
 @media (max-width: 1100px) {
   .footer__grid {
-    grid-template-columns: 1.4fr 1.2fr 1fr 1fr;
-    gap: var(--space-10);
+    grid-template-columns: 1.4fr 1.2fr 1fr 1fr 1fr;
+    gap: var(--space-8);
   }
 }
 
 @media (max-width: 900px) {
   .footer__grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: var(--space-10);
   }
   .footer__brand { grid-column: 1 / -1; }
   .footer__contact { grid-column: 1 / -1; }
+  .footer__col--social { grid-column: 1 / -1; align-items: center; }
+  .footer__col--social .footer__social { justify-content: center; }
+  .footer__col--social .footer__col-title { align-items: center; }
 }
 
 /* ── Mobile Layout ≤ 767px ── */
@@ -299,14 +338,12 @@
 
   /* Row 4: Connect With Us — full width, centered */
   .footer__col--social {
-    display: flex;         /* show it */
     flex-direction: column;
     align-items: center;
     grid-column: 1 / -1;
   }
   .footer__col--social .footer__social {
     justify-content: center;
-    /* Force to single line */
     flex-wrap: nowrap;
   }
   .footer__col--social .footer__col-title { align-items: center; }

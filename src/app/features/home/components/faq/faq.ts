@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 interface FaqItem {
   question: string;
   answer: string;
+  link?: { text: string; url: string };
 }
 
 @Component({
@@ -17,24 +18,30 @@ interface FaqItem {
 export class FaqComponent {
   readonly questions: FaqItem[] = [
     {
-      question: "What makes Sanjivani Farm different from other resorts in Palghar or Lonavala?",
-      answer: "Sanjivani Farm is a 16-acre authentic Konkan agritourism experience, not just a typical resort. We are uniquely known for our private Sanjivani Toy Train, kayaking on private lakes, and over 700 lush coconut trees. Unlike crowded tourist hubs, we offer complete serenity just an hour from Vasai-Virar."
+      question: "How do I reach Sanjivani Farm from Mumbai or Vasai?",
+      answer: "We are located in Saphale, Palghar District (about 90 km from Mumbai and 40 km from Vasai-Virar). You can drive via NH-48 or take a Virar-Dahanu train to Saphale station.",
+      link: { text: "Get Directions", url: "https://www.google.com/maps/dir//sanjivani+farm+%26+resort/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x3be7039d2a6f5b01:0x89b4fe262a5bd81f?sa=X&ved=1t:155782&ictx=111" }
     },
     {
-      question: "Is there Wi-Fi, or is this a complete digital detox experience?",
-      answer: "We strongly encourage a digital detox to help you reconnect with nature. Therefore, high-speed Wi-Fi is intentionally restricted to our common areas and dining spaces. The cottages remain a screen-free sanctuary."
+      question: "What activities are available and at what times?",
+      answer: "Our Sanjivani Toy Train runs at scheduled times during the day and we'll let you know the exact timings when you check in. You can enjoy kayaking and boating on the private lake, cycling around the 16-acre farm, archery, badminton, and carrom during daylight hours. The hammock gardens and lawns are open all day for you to relax. All these activities are completely free for our overnight guests."
     },
     {
-      question: "What activities are included in the stay?",
-      answer: "Every guest gets a complimentary ride on the Sanjivani Toy Train! You also have free access to cycling across our 16 acres, kayaking and boating on our private lakes, archery, badminton, carrom, and relaxing in our hammock gardens."
+      question: "Is the Toy Train available for day picnic guests too?",
+      answer: "Yes, absolutely! The Sanjivani Toy Train is available for both overnight guests and day picnic visitors. It's one of the most popular things to do here and runs on a schedule. We suggest arriving early so you can get your preferred ride time, especially if you're visiting on a weekend."
     },
     {
-      question: "How far is the farm from Mumbai, Vasai, or Saphale?",
-      answer: "We are extremely accessible. Located in Saphale (Palghar District), we are just a 1-hour drive from the Vasai-Virar belt, and about 1.5 to 2 hours from central Mumbai. Kelve Beach is also just 15 km away."
+      question: "What food options are available? Is outside food allowed?",
+      answer: "We serve fresh, home-cooked Maharashtrian meals with both vegetarian and non-vegetarian options. Everything is made in our kitchen using fresh ingredients from the farm. We don't allow outside food or alcohol on the property. If you have any specific dietary needs, just let us know when you book your stay."
+    },
+
+    {
+      question: "Is Sanjivani Farm suitable for corporate team outings or events?",
+      answer: "Yes, it is! We regularly host corporate team-building outings, day picnics, and private events. Our large lawns, dedicated staff, and group activities like the toy train and kayaking make it a great spot for corporate groups coming from Mumbai or Vasai-Virar. We also offer custom packages, so feel free to reach out to discuss your plans."
     },
     {
-      question: "Do you host corporate outings, day picnics, or large family events?",
-      answer: "Yes! We specialize in corporate team-building events, day picnics, and large family gatherings. With our expansive open lawns, massive dining area, and dedicated event staff, we are the premium choice for corporate outings near Vasai-Virar."
+      question: "Is the farm child-friendly and safe for kids?",
+      answer: "Yes, Sanjivani Farm is a great place for kids. They really enjoy the Toy Train, cycling, and playing on the open lawns. The lake activities are always supervised to ensure everyone's safety. The whole property is securely fenced, so parents can relax while the kids have fun."
     }
   ];
 

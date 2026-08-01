@@ -19,7 +19,12 @@
           </button>
           <div class="faq__answer-wrapper">
             <div class="faq__answer">
-              <p class="body-lg text-muted">{{ item.answer }}</p>
+              <div class="faq__answer-inner">
+                <p class="body-lg text-muted">{{ item.answer }}</p>
+                <a *ngIf="item.link" [href]="item.link.url" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="margin-top: 1rem;">
+                  {{ item.link.text }}
+                </a>
+              </div>
             </div>
           </div>
         </div>
