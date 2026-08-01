@@ -13,6 +13,11 @@
   color: var(--color-on-surface);
 }
 
+.gallery-preview__subtitle {
+  color: var(--color-on-surface-variant);
+  max-width: 640px;
+}
+
 .gallery-preview__slider-wrap {
   position: relative;
   width: 100vw;

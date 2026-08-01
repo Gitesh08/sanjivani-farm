@@ -107,7 +107,7 @@ export function animateScrollReveal(
  * Section title reveal — scale + fade
  */
 export function animateSectionTitle(
-  target: string | Element,
+  target: string | Element | NodeListOf<Element> | Element[],
   trigger: string | Element
 ): void {
   gsap.fromTo(

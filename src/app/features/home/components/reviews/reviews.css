@@ -1,10 +1,10 @@
-:host { display: block; }
+:host {
+  display: block;
+}
 
 .reviews__header {
   margin-bottom: clamp(var(--space-8), 5vh, var(--space-12));
-  text-align: center;
-  max-width: 700px;
-  margin-inline: auto;
+  text-align: left;
 }
 
 .reviews__title {
@@ -14,6 +14,7 @@
 
 .reviews__tag {
   color: var(--color-on-surface-variant);
+  max-width: 640px;
 }
 
 /* ── Carousel Layout ── */
@@ -27,7 +28,7 @@
   overflow: hidden;
   border-radius: var(--radius-xl);
   background-color: var(--color-surface-container);
-  box-shadow: 0 12px 48px rgba(0,0,0,0.06);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.06);
 }
 
 .reviews__track {
@@ -91,7 +92,7 @@
   color: var(--color-on-surface);
   font-style: italic;
   margin: 0;
-  
+
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
@@ -135,7 +136,7 @@
   height: 56px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .review-slide__avatar-placeholder {
@@ -223,12 +224,15 @@
   .review-slide__content {
     padding: var(--space-8) var(--space-4);
   }
+
   .review-slide__quote-mark {
     margin-bottom: 1.5rem;
   }
+
   .review-slide__text {
     margin-bottom: var(--space-8);
   }
+
   .reviews__nav {
     margin-top: var(--space-6);
   }

@@ -1,11 +1,13 @@
 import {
   Component, AfterViewInit, ElementRef,
-  ChangeDetectionStrategy, PLATFORM_ID, inject, OnDestroy
+  ChangeDetectionStrategy, PLATFORM_ID, inject, OnDestroy, NgZone
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { animateSectionTitle } from '../../../../shared/utils/gsap-animations';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplashStateService } from '../../../../core/services/splash-state.service';
+import { Subscription } from 'rxjs';
 
 interface NatureCard {
   id: number;
@@ -24,6 +26,9 @@ interface NatureCard {
 export class NatureFeaturesComponent implements AfterViewInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
   private el = inject(ElementRef);
+  private ngZone = inject(NgZone);
+  private splashState = inject(SplashStateService);
+  private splashSub?: Subscription;
 
   readonly cards: NatureCard[] = [
     {
@@ -75,41 +80,66 @@ export class NatureFeaturesComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    // Animate section header natively
-    const sectionInner = this.el.nativeElement.querySelector('.nature__inner');
-    if (sectionInner) {
-      animateSectionTitle('.nature__label, .nature__title, .nature__tag', sectionInner);
-    }
+    this.splashSub = this.splashState.splashComplete$.subscribe(isComplete => {
+      if (isComplete) {
+        // Animate section header natively
+        const sectionInner = this.el.nativeElement.querySelector('.nature__inner');
+        if (sectionInner) {
+          animateSectionTitle('.nature__label, .nature__title, .nature__tag', sectionInner);
+        }
 
-    const section = this.el.nativeElement.querySelector('.nature__scroll-container');
-    const track = this.el.nativeElement.querySelector('.nature__track');
+        const section = this.el.nativeElement.querySelector('.nature__scroll-container');
+        const track = this.el.nativeElement.querySelector('.nature__track');
 
-    if (section && track) {
-      // Identical to nail-studio implementation: encapsulate inside matchMedia without setTimeout
-      this.mm.add('all', () => {
-        // Calculate how far to scroll
-        const getScrollAmount = () => -(track.scrollWidth - window.innerWidth);
+        if (section && track) {
+          this.ngZone.runOutsideAngular(() => {
+            setTimeout(() => {
+              // Desktop: Scroll until the bottom of the section hits the bottom of the screen
+              this.mm.add('(min-width: 1024px)', () => {
+                const getScrollAmount = () => -(track.scrollWidth - window.innerWidth);
+                gsap.to(track, {
+                  x: getScrollAmount,
+                  ease: 'none',
+                  scrollTrigger: {
+                    trigger: section,
+                    start: 'bottom bottom',
+                    end: () => `+=${getScrollAmount() * -1}`,
+                    pin: true,
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                  }
+                });
+                return () => { };
+              });
 
-        gsap.to(track, {
-          x: getScrollAmount,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'bottom bottom',
-            end: () => `+=${getScrollAmount() * -1}`,
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true
-          }
-        });
-
-        return () => { }; // Cleanup handled by GSAP
-      });
-    }
+              // Mobile: Pin at the top as it fits in the viewport nicely
+              this.mm.add('(max-width: 1023px)', () => {
+                const getScrollAmount = () => -(track.scrollWidth - window.innerWidth);
+                gsap.to(track, {
+                  x: getScrollAmount,
+                  ease: 'none',
+                  scrollTrigger: {
+                    trigger: section,
+                    start: 'top top',
+                    end: () => `+=${getScrollAmount() * -1}`,
+                    pin: true,
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                  }
+                });
+                return () => { };
+              });
+              ScrollTrigger.refresh();
+            }, 200);
+          });
+        }
+      }
+    });
   }
 
   ngOnDestroy(): void {
     if (!isPlatformBrowser(this.platformId)) return;
+    this.splashSub?.unsubscribe();
     this.mm.revert(); // Automatically kills all ScrollTriggers created in this matchMedia block
   }
 }

@@ -33,7 +33,7 @@
   margin-bottom: var(--space-5);
 }
 .footer__logo-img {
-  height: clamp(72px, 12vw, 100px);
+  height: clamp(90px, 15vw, 130px);
   width: auto;
   object-fit: contain;
 }
@@ -120,6 +120,13 @@
   flex-direction: column;
   gap: var(--space-3);
 }
+
+.footer__col--links .footer__links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--space-4);
+  row-gap: var(--space-3);
+}
 .footer__link {
   font-family: var(--font-body);
   font-size: 0.9rem;
@@ -131,24 +138,9 @@
   align-items: center;
   gap: var(--space-2);
 }
-.footer__link::before {
-  content: '';
-  display: inline-block;
-  width: 10px;
-  height: 1px;
-  background: var(--color-secondary);
-  opacity: 0;
-  transform: translateX(-6px);
-  transition: opacity var(--duration-fast) var(--ease-resort),
-              transform var(--duration-fast) var(--ease-emerge);
-}
 .footer__link:hover {
   color: var(--color-cream);
   transform: translateX(4px);
-}
-.footer__link:hover::before {
-  opacity: 1;
-  transform: translateX(0);
 }
 
 /* ── Social Icons ── */
@@ -271,26 +263,38 @@
     align-items: center;
   }
 
-  /* Row 3: Quick Links (left col) + Policies (right col) — each centered */
-  .footer__col--links { grid-column: 1; align-items: center; }
-  .footer__col--policies { grid-column: 2; align-items: center; text-align: center; }
+  /* Row 3: Quick Links (left col) + Policies (right col) — left aligned */
+  .footer__col--links { 
+    grid-column: 1; 
+    align-items: flex-start;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    padding-right: var(--space-6);
+  }
+  
+  .footer__col--policies { 
+    grid-column: 2; 
+    align-items: flex-start; 
+    text-align: left; 
+    padding-left: var(--space-6);
+  }
 
-  /* Actually center the content of those columns */
+  /* Left align the content of those columns */
   .footer__col--links, .footer__col--policies {
     display: flex;
     flex-direction: column;
-    text-align: center;
+    text-align: left;
   }
   .footer__col--links .footer__col-title,
   .footer__col--policies .footer__col-title {
-    align-items: center;
+    align-items: flex-start;
   }
 
   /* Reduce gap and make them look closer like a clustered block */
   .footer__grid {
-    grid-template-columns: 1fr 1fr;
-    /* Reduced horizontal gap so the links and policies sit tighter in the center */
-    gap: var(--space-8) var(--space-2);
+    grid-template-columns: max-content max-content;
+    justify-content: center;
+    /* Removed horizontal gap because padding handles spacing with the border */
+    gap: var(--space-8) 0;
   }
 
   /* Row 4: Connect With Us — full width, centered */
@@ -313,7 +317,7 @@
   .footer__link         { font-size: 0.8125rem; }
   .footer__contact-icon { width: 26px; height: 26px; }
   .footer__social-link  { width: 36px; height: 36px; }
-  .footer__logo-img     { height: 64px; }
+  .footer__logo-img     { height: 100px; }
 }
 
 @media (max-width: 480px) {
@@ -323,7 +327,7 @@
   .footer__col-title    { font-size: 0.625rem; }
   .footer__contact-icon { width: 24px; height: 24px; }
   .footer__social-link  { width: 34px; height: 34px; }
-  .footer__logo-img     { height: 56px; }
+  .footer__logo-img     { height: 90px; }
 
   .footer__bottom-inner {
     flex-direction: column;

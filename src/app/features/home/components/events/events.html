@@ -1,51 +1,71 @@
-<section class="events-split section bg-surface-lowest" id="events" aria-labelledby="events-title">
+<section class="events section bg-surface-lowest" id="events" aria-labelledby="events-title">
   <div class="container">
-    <div class="events-split__grid">
-      
-      <!-- Visual Anchor (Left Side) -->
-      <div class="events-split__visual">
-        <div class="events-split__image-wrap">
-          <img [src]="heroImage" alt="Memorable Gatherings at Sanjivani" class="events-split__img" loading="lazy">
-        </div>
-      </div>
 
-      <!-- Typography & Features (Right Side) -->
-      <div class="events-split__content">
-        
-        <!-- Header -->
-        <div class="events-split__header">
-          <span class="section-tag events-split__label">Host Your Perfect Day</span>
-          <h2 class="display-lg events-split__title font-heading" id="events-title">
-            Memorable Gatherings in Nature
+    <!-- Section Header (always visible, top) -->
+    <div class="events__header">
+      <span class="section-tag events__label">Host Your Perfect Day</span>
+      <h2 class="display-lg events__title font-heading" id="events-title">
+        Memorable Gatherings<br>in Nature
+      </h2>
+      <p class="body-xl events__subtitle text-muted">
+        The perfect natural canvas for your most important milestones.
+      </p>
+    </div>
+
+    <!-- Desktop: Sticky Scroll Layout -->
+    <div class="events__sticky-wrap" aria-hidden="false">
+      <div class="events__sticky-left">
+        <div class="events__sticky-inner">
+          <span class="section-tag events__label--sticky">Host Your Perfect Day</span>
+          <h2 class="display-lg events__title--sticky font-heading">
+            Memorable<br>Gatherings<br>in Nature
           </h2>
-          <p class="body-xl events-split__subtitle text-muted">
+          <p class="body-lg events__sub--sticky text-muted">
             The perfect natural canvas for your most important milestones.
           </p>
-        </div>
-
-        <!-- Event Types List -->
-        <ul class="events-list" role="list">
-          @for (event of eventTypes; track event.title) {
-            <li class="events-list__item">
-              <div class="events-list__text">
-                <h3 class="events-list__title">{{ event.title }}</h3>
-                <p class="events-list__desc text-muted">{{ event.desc }}</p>
-              </div>
-            </li>
-          }
-        </ul>
-
-        <!-- CTA -->
-        <div class="events-split__cta">
-          <a href="tel:+919172200481" class="btn btn-primary btn-lg" id="home-enquiry-events">
-            Enquire About Your Event
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          <a href="tel:+919172200481" class="btn btn-primary events__cta" id="home-enquiry-events">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.58 3.5 2 2 0 0 1 3.55 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.51a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
             </svg>
+            Let's Plan
           </a>
         </div>
+      </div>
 
+      <div class="events__scroll-right">
+        <div class="events__scroll-card" *ngFor="let ev of eventTypes; let i = index">
+          <img [src]="getImage(i)" [alt]="ev.title + ' at Sanjivani Farm'" class="events__card-img" loading="lazy">
+          <div class="events__card-overlay">
+            <h3 class="events__card-title">{{ev.title}}</h3>
+            <p class="events__card-desc">{{ev.desc}}</p>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- Mobile: Stacked Cards Layout -->
+    <div class="events__mobile-cards">
+      <div class="events__mobile-card" *ngFor="let ev of eventTypes; let i = index">
+        <img [src]="getImage(i)" [alt]="ev.title + ' at Sanjivani Farm'" class="events__card-img" loading="lazy">
+        <div class="events__card-overlay">
+          <h3 class="events__card-title">{{ev.title}}</h3>
+          <p class="events__card-desc">{{ev.desc}}</p>
+        </div>
+      </div>
+
+      <div class="events__mobile-cta">
+        <a href="tel:+919172200481" class="btn btn-primary" id="home-enquiry-events-mobile">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.58 3.5 2 2 0 0 1 3.55 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.51a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+          </svg>
+          Let's Plan
+        </a>
+      </div>
+    </div>
+
   </div>
 </section>

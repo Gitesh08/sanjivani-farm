@@ -23,7 +23,7 @@ export interface Cottage {
   providedIn: 'root'
 })
 export class CottageService {
-  
+
   // Hardcoded standard pricing for now
   private readonly DEFAULT_PRICE = 2000;
 
@@ -36,8 +36,8 @@ export class CottageService {
       description: 'Experience the warmth of our wooden glass cottage designed with expansive nature views right from your bed.',
       media: [
         // Video plays first — pristine quality HD, streaming natively
-        { 
-          type: 'video', 
+        {
+          type: 'video',
           url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1776505637/wooden-glass-cottage_jgb0tc.mp4',
           posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1776505637/wooden-glass-cottage_jgb0tc.jpg'
         },
@@ -75,8 +75,8 @@ export class CottageService {
       tagline: 'Rustic luxury defined',
       description: 'Built with beautiful red stone, this premium cottage offers rustic aesthetics with all modern comforts.',
       media: [
-        { 
-          type: 'video', 
+        {
+          type: 'video',
           url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1776505634/red-stone-cottage_g0haqq.mp4',
           posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1776505634/red-stone-cottage_g0haqq.jpg'
         },
@@ -109,8 +109,8 @@ export class CottageService {
       tagline: 'Perfect for large groups',
       description: 'A spacious and well-equipped dormitory designed for large families, corporate outings, or friend groups.',
       media: [
-        { 
-          type: 'video', 
+        {
+          type: 'video',
           url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1776505587/dormitory-cottage_n3xjnw.mp4',
           posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1776505587/dormitory-cottage_n3xjnw.jpg'
         },

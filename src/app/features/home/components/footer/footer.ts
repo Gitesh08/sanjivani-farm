@@ -13,8 +13,8 @@ export class FooterComponent {
   readonly phone = '+91 98765 43210';
   readonly phoneHref = 'tel:+919876543210';
   readonly whatsappHref = 'https://wa.me/919876543210';
-  readonly email = 'hello@sanjivanifarmsco.in';
-  readonly emailHref = 'mailto:hello@sanjivanifarmsco.in';
+  readonly email = 'hello@sanjivanifarm.com';
+  readonly emailHref = 'mailto:hello@sanjivanifarm.com';
   readonly instagramHref = 'https://instagram.com/sanjivanifarms';
 
   readonly navItems = [
@@ -27,7 +27,7 @@ export class FooterComponent {
   ];
 
   readonly legalLinks = [
-    { label: 'Privacy Policy', path: '/privacy' },
+    { label: 'Privacy Policy', path: '/privacy-policy' },
     { label: 'Terms & Conditions', path: '/terms' },
   ];
 

@@ -59,8 +59,11 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
             const section = this.el.nativeElement.querySelector('.our-story__section');
             const imageOuter = this.el.nativeElement.querySelector('.our-story__image-outer');
             const content = this.el.nativeElement.querySelector('.our-story__content');
+            const titles = this.el.nativeElement.querySelectorAll('.our-story__label, .our-story__title');
 
-            animateSectionTitle('.our-story__label, .our-story__title', section);
+            if (section && titles.length) {
+              animateSectionTitle(titles, section);
+            }
 
             // Scrubbing animation for media (from left)
             gsap.fromTo(

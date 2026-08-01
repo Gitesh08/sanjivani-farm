@@ -63,13 +63,13 @@ export class DiningComponent implements AfterViewInit, OnDestroy {
     {
       icon: '🐟',
       label: 'Fresh Fish on Order',
-      description: 'Locally sourced fish prepared to order — the coastal Konkan way.',
+      description: 'Fresh local fish, cooked just the way you like it.',
       ariaLabel: 'Fresh fish on order',
     },
     {
       icon: '🥘',
       label: 'Tandoor Specials',
-      description: 'Smoky tandoor delights — breads, tikkas, and more from our clay oven.',
+      description: 'Enjoy hot breads and delicious tikkas straight from our clay oven.',
       ariaLabel: 'Tandoor specials',
     },
     {
@@ -121,8 +121,9 @@ export class DiningComponent implements AfterViewInit, OnDestroy {
     this.startAutoPlay();
 
     const inner = host.querySelector('.dining__inner');
-    if (inner) {
-      animateSectionTitle('.dining__label, .dining__title, .dining__subtitle', inner);
+    const titles = host.querySelectorAll('.dining__label, .dining__title, .dining__subtitle');
+    if (inner && titles.length) {
+      animateSectionTitle(titles, inner);
     }
 
     const imgWrap = host.querySelector('.dining__image-wrap');
@@ -149,10 +150,10 @@ export class DiningComponent implements AfterViewInit, OnDestroy {
       imgs.forEach((img: HTMLElement) => {
         gsap.fromTo(
           img,
-          { scale: 1.25, yPercent: -8 },
+          { scale: 1.25, yPercent: -5 },
           {
-            scale: 1.05,
-            yPercent: 8,
+            scale: 1.1,
+            yPercent: 5,
             ease: 'none',
             scrollTrigger: {
               trigger: imgWrap,
@@ -165,7 +166,10 @@ export class DiningComponent implements AfterViewInit, OnDestroy {
       });
     }
 
-    animateScrollReveal('.dining__highlight-card', host, 0.08);
+    const cards = host.querySelectorAll('.dining__highlight-card');
+    if (cards.length) {
+      animateScrollReveal(Array.from(cards), host, 0.08);
+    }
 
     const quote = host.querySelector('.dining__quote');
     if (quote) {

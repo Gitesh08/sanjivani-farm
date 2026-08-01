@@ -27,6 +27,7 @@
   object-fit: cover;
   object-position: center;
   display: block;
+  transform: scale(1.15); /* Initial GSAP state to prevent flash */
   transition: opacity 1.2s var(--ease-resort, ease-in-out), visibility 1.2s var(--ease-resort, ease-in-out);
 }
 
@@ -149,6 +150,7 @@
   background-clip: text;
   text-shadow: none;
   filter: drop-shadow(0 4px 32px rgba(0,0,0,0.35));
+  opacity: 0; /* Hidden initially for GSAP entrance */
 }
 
 /* Supporting phrase — smaller, lighter */
@@ -160,6 +162,7 @@
   letter-spacing: 0.01em;
   color: rgba(248, 249, 245, 0.78);
   text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  opacity: 0; /* Hidden initially for GSAP entrance */
 }
 
 .hero__title-em {
@@ -185,6 +188,7 @@
   gap: var(--space-4);
   align-items: center;
   width: 100%;
+  opacity: 0; /* Hidden initially for GSAP entrance */
 }
 
 
@@ -199,6 +203,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-2);
+  opacity: 0; /* Hidden initially for GSAP entrance */
 }
 .hero__scroll-line {
   display: block;
@@ -226,7 +231,31 @@
     padding-bottom: var(--space-16);
     justify-content: flex-end;
   }
-  .hero__scroll-hint { display: none; }
+
+  /* Center the scroll hint at the bottom on mobile */
+  .hero__scroll-hint {
+    bottom: var(--space-5);
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Flip to row — line on top, label below */
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  /* Shrink the animated line a touch */
+  .hero__scroll-line {
+    height: 36px;
+  }
+
+  /* Horizontal text, smaller size */
+  .hero__scroll-label {
+    writing-mode: horizontal-tb;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+  }
+
   .hero__badge { margin-bottom: var(--space-4); }
   .hero__subtitle { margin-bottom: var(--space-6); }
 

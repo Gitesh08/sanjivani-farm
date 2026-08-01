@@ -13,11 +13,23 @@ import { FooterComponent } from '../home/components/footer/footer';
   imports: [CommonModule, RouterModule, NavbarComponent, FooterComponent],
   template: `
     <app-navbar [forceScrolled]="true" />
-    <main id="main-content" class="guide-list">
-      <header class="guide-list__header">
-        <h1>Palghar & Konkan Insider Guide</h1>
-        <p>Discover local secrets, travel tips, and wellness insights from the experts at Sanjivani Farm.</p>
-      </header>
+    <main id="main-content" class="guide-list-page">
+      <div class="container">
+      <div class="guide-list__header-container">
+        <a routerLink="/" class="btn btn-secondary btn-sm" aria-label="Back to Home" style="margin-bottom: 2rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12"/>
+            <polyline points="12 5 5 12 12 19"/>
+          </svg>
+          Back to Home
+        </a>
+        <header class="guide-list__header">
+          <span class="section-tag">Insider Guide</span>
+          <h1 class="display-lg font-heading">Travel & Wellness Journal</h1>
+          <p class="body-xl text-muted">Discover local secrets, travel tips, and wellness insights from the experts at Sanjivani Farm.</p>
+        </header>
+      </div>
 
       <div class="guide-list__grid">
         <article *ngFor="let post of posts" class="guide-card" [routerLink]="['/insider-guide', post.id]">
@@ -32,65 +44,68 @@ import { FooterComponent } from '../home/components/footer/footer';
           </div>
         </article>
       </div>
+    </div>
     </main>
     <app-footer />
   `,
   styles: [`
-    :host { display: block; }
-    #main-content { outline: none; padding-top: clamp(6rem, 12vw, 8rem); }
+    :host { display: block; background-color: var(--color-surface); min-height: 100vh; }
+    #main-content { outline: none; padding-top: clamp(6rem, 12vw, 8rem); padding-bottom: 6rem; }
     
-    .guide-list {
+    .guide-list-page {
+      padding-top: clamp(6rem, 12vw, 8rem);
+      padding-bottom: 6rem;
+    }
+
+    .guide-list__header-container {
       max-width: var(--max-width-lg);
       margin: 0 auto;
-      padding-inline: var(--container-padding);
-      padding-bottom: 4rem;
     }
 
     .guide-list__header {
-      text-align: center;
+      text-align: left;
       margin-bottom: 4rem;
     }
 
     .guide-list__header h1 {
-      font-family: var(--font-serif);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      color: var(--color-text-primary);
+      color: var(--color-on-surface);
       margin-bottom: 1rem;
+      margin-top: 1rem;
     }
 
     .guide-list__header p {
-      font-family: var(--font-sans);
-      font-size: 1.125rem;
-      color: var(--color-text-secondary);
-      max-width: 600px;
-      margin: 0 auto;
+      max-width: 650px;
     }
 
     .guide-list__grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 2rem;
+      max-width: var(--max-width-lg);
+      margin: 0 auto;
     }
 
     .guide-card {
-      background: var(--color-bg-base);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 1rem;
+      background: var(--color-surface-variant);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius-xl);
       overflow: hidden;
       cursor: pointer;
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      transition: transform 0.4s var(--ease-spring), border-color 0.3s ease, box-shadow 0.4s ease;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
 
     .guide-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--color-primary);
+      transform: translateY(-8px);
+      border-color: rgba(255,255,255,0.15);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
 
     .guide-card__image {
       width: 100%;
-      aspect-ratio: 16/9;
+      aspect-ratio: 16/10;
       overflow: hidden;
     }
 
@@ -98,49 +113,62 @@ import { FooterComponent } from '../home/components/footer/footer';
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
+      transition: transform 0.6s var(--ease-spring);
     }
 
     .guide-card:hover .guide-card__image img {
-      transform: scale(1.05);
+      transform: scale(1.08);
     }
 
     .guide-card__content {
-      padding: 1.5rem;
+      padding: 2rem;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
     }
 
     .guide-card__meta {
-      font-family: var(--font-sans);
-      font-size: 0.875rem;
-      color: var(--color-primary);
-      margin-bottom: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-secondary);
+      margin-bottom: 1rem;
     }
 
     .guide-card__title {
-      font-family: var(--font-serif);
-      font-size: 1.25rem;
-      color: var(--color-text-primary);
-      margin-bottom: 1rem;
-      line-height: 1.3;
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--color-on-surface);
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
     }
 
     .guide-card__desc {
-      font-family: var(--font-sans);
-      font-size: 0.95rem;
-      color: var(--color-text-secondary);
-      margin-bottom: 1.5rem;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--color-on-surface-variant);
+      margin-bottom: 2rem;
       line-height: 1.6;
       flex-grow: 1;
     }
 
     .guide-card__readmore {
-      font-family: var(--font-sans);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       font-weight: 600;
       color: var(--color-primary);
-      font-size: 0.9rem;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: gap 0.3s ease;
+    }
+
+    .guide-card:hover .guide-card__readmore {
+      gap: 1rem;
     }
   `]
 })

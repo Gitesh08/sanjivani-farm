@@ -1,133 +1,290 @@
+/* ════════════════════ EVENTS — Sticky Scroll Storytelling ════════════════════ */
 :host { display: block; }
 
-.events-split__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(var(--space-8), 8vw, var(--space-16));
+/* ── Section Header (Mobile-only, shown above cards) ── */
+.events__header {
+  display: none;
+}
+
+/* ══════════════════════════════════════════════════════
+   DESKTOP: Sticky Scroll Layout (≥ 1025px)
+══════════════════════════════════════════════════════ */
+.events__sticky-wrap {
+  display: flex;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: flex-start;
+  position: relative;
+}
+
+/* ── Left: Sticky Panel ── */
+.events__sticky-left {
+  flex: 0 0 42%;
+  position: sticky;
+  top: 100px;
+  /* Height = viewport minus nav — ensures it can actually stick */
+  max-height: calc(100vh - 120px);
+  display: flex;
   align-items: center;
 }
 
-/* ── Visual Anchor (Left) ── */
-.events-split__visual {
+.events__sticky-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.events__label--sticky {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.events__title--sticky {
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-on-surface);
+}
+
+.events__sub--sticky {
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  color: var(--color-on-surface-variant);
+  line-height: 1.7;
+  max-width: 380px;
+}
+
+.events__cta {
+  align-self: flex-start;
+  margin-top: var(--space-3);
+}
+
+/* ── Right: Scrolling Cards ── */
+.events__scroll-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(30px, 5vw, 60px);
+  padding-block: 60px;
+}
+
+.events__scroll-card {
   position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1;
   border-radius: var(--radius-2xl);
   overflow: hidden;
+  aspect-ratio: 16 / 9;
   box-shadow: var(--shadow-float);
 }
 
-.events-split__image-wrap {
-  width: 100%;
-  height: 100%;
+.events__scroll-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.events-split__img {
+.events__card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--duration-slower) var(--ease-resort);
+  display: block;
+  transition: transform 0.6s var(--ease-resort);
 }
 
-.events-split__visual:hover .events-split__img {
-  transform: scale(1.05);
+.events__scroll-card:hover .events__card-img {
+  transform: scale(1.04);
 }
 
-/* ── Content (Right) ── */
-.events-split__content {
+.events__card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    transparent 100%
+  );
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding-block: var(--space-6);
+  justify-content: flex-end;
+  padding: clamp(28px, 4vw, 48px);
+  color: white;
 }
 
-.events-split__header {
-  margin-bottom: var(--space-10);
-}
-
-.events-split__title {
-  margin: var(--space-3) 0 var(--space-4);
-  color: var(--color-on-surface);
-}
-
-.events-split__subtitle {
-  color: var(--color-on-surface-variant);
-  max-width: 90%;
-}
-
-/* ── Feature List ── */
-.events-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 var(--space-10) 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
-}
-
-.events-list__item {
-  position: relative;
-  padding-left: var(--space-6);
-  border-left: 2px solid var(--color-surface-container-high);
-  transition: border-color var(--duration-med) var(--ease-resort);
-}
-
-.events-list__item:hover {
-  border-left-color: var(--color-primary);
-}
-
-.events-list__title {
+.events__card-badge {
   font-family: var(--font-heading);
-  font-size: 1.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+
+.events__card-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: 500;
-  color: var(--color-on-surface);
-  margin: 0 0 var(--space-2) 0;
+  margin: 0 0 10px;
+  line-height: 1.15;
+  color: white;
 }
 
-.events-list__desc {
+.events__card-desc {
   font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.82);
   margin: 0;
-  color: var(--color-on-surface-variant);
 }
 
-.events-split__cta {
-  margin-top: var(--space-2);
+/* Mobile cards: hidden on desktop */
+.events__mobile-cards {
+  display: none;
 }
 
-/* ══════════ RESPONSIVE ══════════ */
+
+/* ══════════════════════════════════════════════════════
+   TABLET: collapse sticky but keep side-by-side
+══════════════════════════════════════════════════════ */
 @media (max-width: 1024px) {
-  .events-split__grid {
-    grid-template-columns: 1fr;
+  .events__sticky-wrap {
+    flex-direction: column;
     gap: var(--space-10);
   }
 
-  .events-split__visual {
-    aspect-ratio: 16 / 9;
-    border-radius: var(--radius-xl);
+  .events__sticky-left {
+    position: static;
+    max-height: none;
+    flex: none;
+    width: 100%;
   }
 
-  /* On mobile/tablet, visual comes first, so remove top padding from text */
-  .events-split__content {
-    padding-block: 0;
+  .events__title--sticky {
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
   }
-}
 
-@media (max-width: 768px) {
-  .events-split__title {
-    font-size: 2rem;
-  }
-  
-  .events-split__subtitle {
+  .events__sub--sticky {
     max-width: 100%;
   }
 
-  .events-list__title {
+  .events__scroll-right {
+    width: 100%;
+    padding-block: 0;
+    gap: var(--space-8);
+  }
+
+  .events__scroll-card {
+    /* On tablet: standard widescreen */
+    aspect-ratio: 16 / 9;
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════
+   MOBILE: hide sticky layout, show stacked cards
+══════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  /* Show top header */
+  .events__header {
+    display: block;
+    margin-bottom: var(--space-8);
+  }
+
+  /* Hide the whole desktop sticky structure */
+  .events__sticky-wrap {
+    display: none;
+  }
+
+  /* Show mobile card stack */
+  .events__mobile-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .events__mobile-card {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    aspect-ratio: 3 / 2;
+    box-shadow: var(--shadow-float);
+    /* Hidden initial state — IntersectionObserver adds .in-view to animate in */
+    opacity: 0;
+    transform: translateY(48px);
+    transition:
+      opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Staggered delay per card (set via nth-child) */
+  .events__mobile-card:nth-child(1) { transition-delay: 0ms; }
+  .events__mobile-card:nth-child(2) { transition-delay: 80ms; }
+  .events__mobile-card:nth-child(3) { transition-delay: 160ms; }
+
+  /* Triggered state — added by IntersectionObserver in TS */
+  .events__mobile-card.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .events__mobile-card .events__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .events__mobile-card .events__card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.90) 0%,
+      rgba(0, 0, 0, 0.2) 55%,
+      transparent 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px;
+    color: white;
+  }
+
+  .events__mobile-cta {
+    display: flex;
+    justify-content: center;
+    padding-top: var(--space-4);
+  }
+
+  /* Tweak text sizes */
+  .events__card-title {
+    font-size: 1.4rem;
+  }
+  .events__card-desc {
+    font-size: 0.9rem;
+  }
+  .events__card-badge {
+    font-size: 0.7rem;
+    margin-bottom: 8px;
+  }
+}
+
+
+/* ── Small phones ── */
+@media (max-width: 480px) {
+  .events__mobile-card {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+  }
+
+  .events__card-title {
     font-size: 1.25rem;
   }
-  
-  .events-list__item {
-    padding-left: var(--space-4);
+
+  .events__card-desc {
+    font-size: 0.875rem;
   }
 }

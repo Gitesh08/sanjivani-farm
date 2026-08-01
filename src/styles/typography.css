@@ -13,7 +13,10 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  overflow-x: hidden;
+  /* overflow-x: clip instead of hidden — 'hidden' creates a new scroll container
+     which breaks position:sticky on all descendants. 'clip' prevents overflow
+     visually without creating a containing block. */
+  overflow-x: clip;
 }
 
 body {
@@ -24,7 +27,7 @@ body {
   background-color: var(--color-surface);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* ─── Heading Scale (Noto Serif) ─── */

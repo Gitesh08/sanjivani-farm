@@ -5,6 +5,8 @@ import { animateScrollReveal } from '../../../../shared/utils/gsap-animations';
 import { CottageService } from '../../../../core/services/cottage.service';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplashStateService } from '../../../../core/services/splash-state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cottages',
@@ -18,6 +20,8 @@ export class CottagesComponent implements AfterViewInit {
 
   private cottageService = inject(CottageService);
   private platformId = inject(PLATFORM_ID);
+  private splashState = inject(SplashStateService);
+  private splashSub?: Subscription;
 
   cottages = this.cottageService.cottages;
 
@@ -89,7 +93,9 @@ export class CottagesComponent implements AfterViewInit {
     if (!isPlatformBrowser(this.platformId)) return;
     gsap.registerPlugin(ScrollTrigger);
 
-    setTimeout(() => {
+    this.splashSub = this.splashState.splashComplete$.subscribe(isComplete => {
+      if (isComplete) {
+        setTimeout(() => {
       animateScrollReveal(
         this.sectionRef.nativeElement.querySelectorAll('.scroll-reveal'),
         this.sectionRef.nativeElement
@@ -107,8 +113,8 @@ export class CottagesComponent implements AfterViewInit {
             scrollTrigger: {
               trigger: card,
               start: 'top 85%',
-              end: 'bottom 20%',
-              toggleActions: 'play reverse play reverse',
+              end: 'top 20%',
+              toggleActions: 'play none none reverse',
               onEnter: () => {
                 const vid = card.querySelector('video') as HTMLVideoElement;
                 if (vid) { vid.muted = true; vid.play().catch(() => { }); }
@@ -130,7 +136,14 @@ export class CottagesComponent implements AfterViewInit {
         );
       });
 
-      ScrollTrigger.refresh();
-    }, 100);
+        ScrollTrigger.refresh();
+      }, 300); // 300ms to ensure hero and nature-features have created their pin spacers
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    this.splashSub?.unsubscribe();
   }
 }
