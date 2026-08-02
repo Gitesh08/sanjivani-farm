@@ -39,12 +39,12 @@ export class SeoService {
     this.metaService.updateTag({ property: 'og:image', content: config.image || this.defaultImage });
     this.metaService.updateTag({ property: 'og:type', content: config.type || 'website' });
     if (config.url) {
-      this.metaService.updateTag({ property: 'og:url', content: config.url });
-    }
-
-    // Canonical
-    if (config.url) {
-      this.updateCanonicalUrl(config.url);
+      const absoluteUrl = config.url.startsWith('/') 
+        ? `https://sanjivanifarm.com${config.url}` 
+        : config.url;
+        
+      this.metaService.updateTag({ property: 'og:url', content: absoluteUrl });
+      this.updateCanonicalUrl(absoluteUrl);
     }
   }
 
