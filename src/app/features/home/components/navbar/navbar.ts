@@ -38,7 +38,15 @@ export class NavbarComponent {
   @HostListener('window:scroll')
   onScroll(): void {
     const y = window.scrollY;
-    this._scrolled.set(y > 60);
+
+    // Check if we have passed the hero section (our-story reaches navbar height)
+    const ourStoryEl = document.getElementById('our-story');
+    if (ourStoryEl) {
+      const rect = ourStoryEl.getBoundingClientRect();
+      this._scrolled.set(rect.top <= 80);
+    } else {
+      this._scrolled.set(y > 60);
+    }
 
     // ScrollSpy Logic for homepage fragments
     const sections = this.navItems.filter(i => i.fragment).map(i => i.fragment!);
