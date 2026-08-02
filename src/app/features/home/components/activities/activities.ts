@@ -33,7 +33,7 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
   readonly items: Activity[] = [
     {
       title: 'The Sanjivani Toy Train',
-      desc: 'Free ride for every guest.',
+      desc: 'A charming ride for every guest.',
       media: [
         {
           type: 'video',
@@ -49,7 +49,7 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
     },
     {
       title: 'Kayaking & Boating',
-      desc: 'Glide on the lake smoothly.',
+      desc: 'Glide on the lake smoothly (Premium Activity).',
       media: [
         {
           type: 'video',
@@ -116,7 +116,7 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
       colspan: 3
     },
     {
-      title: 'Free Cycling',
+      title: 'Cycling',
       desc: 'Roam the property at your pace.',
       media: [
         {
@@ -134,7 +134,7 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
     },
     {
       title: 'Games',
-      desc: 'Carrom, Archery, Badminton, and more.',
+      desc: 'Cricket, Football, Rifle Shooting (Premium), Carrom, and more.',
       media: [
         {
           type: 'video',

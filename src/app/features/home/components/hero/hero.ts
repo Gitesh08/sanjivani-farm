@@ -2,7 +2,6 @@ import {
   Component, OnInit, ChangeDetectionStrategy, PLATFORM_ID, inject, ElementRef, AfterViewInit, NgZone, signal, OnDestroy, ViewChild
 } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplashStateService } from '../../../../core/services/splash-state.service';
@@ -12,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-hero',
-  imports: [RouterLink, CommonModule],
+  imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './hero.html',
   styleUrl: './hero.css',
@@ -34,7 +33,7 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   readonly videoReady = signal(false);
   // Appending #t=0.001 is a legendary fix for Chrome's cached MP4 freeze bug, 
   // forcing the media pipeline to initialize the demuxer correctly.
-  readonly videoUrl = signal<string>('https://res.cloudinary.com/dsepjvm2l/video/upload/v1785608600/boating-hero-section_ngkw3z.mp4#t=0.001');
+  readonly videoUrl = signal<string>('https://res.cloudinary.com/dsepjvm2l/video/upload/v1785651251/kayaking-boat-3_fsojzp.mp4#t=0.001');
 
   onVideoReady(): void {
     this.videoReady.set(true);
@@ -118,7 +117,7 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
 
   sendWaMessage(message: string): void {
     if (!message.trim()) return;
-    const phone = '919172200481';
+    const phone = '918108446040';
     const encoded = encodeURIComponent(message.trim());
     window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
     this.isWaChatOpen.set(false); // Close chat after sending

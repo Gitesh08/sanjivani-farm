@@ -44,7 +44,7 @@ import { CottagesComponent } from '../home/components/cottages/cottages';
             </ul>
           </div>
           
-          <a href="https://wa.me/918149818166" target="_blank" rel="noopener" class="location-hero__cta">
+          <a href="https://wa.me/918108446040" target="_blank" rel="noopener" class="location-hero__cta">
             Book Your Stay
           </a>
         </div>

@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit {
           "@type": ["Resort", "LocalBusiness"],
           "name": "Sanjivani Farm & Resort",
           "image": "https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776530402/image_ucfeks.png",
-          "telephone": "+918149818166",
+          "telephone": "+918108446040",
           "priceRange": "$$",
           "address": {
             "@type": "PostalAddress",
@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
             { "@type": "LocationFeatureSpecification", "name": "Kayaking & Boating", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "16 Acres Nature", "value": true }
           ],
-          "sameAs": ["https://www.instagram.com/sanjivanifarmandresort/"]
+          "sameAs": ["https://www.instagram.com/sanjivani.farms/?hl=en"]
         },
         {
           "@type": "FAQPage",

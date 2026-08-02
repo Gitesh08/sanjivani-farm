@@ -10,12 +10,10 @@ import { RouterLink } from '@angular/router';
 })
 export class FooterComponent {
   readonly year = new Date().getFullYear();
-  readonly phone = '+91 98765 43210';
-  readonly phoneHref = 'tel:+919876543210';
-  readonly whatsappHref = 'https://wa.me/919876543210';
-  readonly email = 'hello@sanjivanifarm.com';
-  readonly emailHref = 'mailto:hello@sanjivanifarm.com';
-  readonly instagramHref = 'https://instagram.com/sanjivanifarms';
+  readonly phone = '+91 81084 46040';
+  readonly phoneHref = 'tel:+918108446040';
+  readonly whatsappHref = 'https://wa.me/918108446040';
+  readonly instagramHref = 'https://www.instagram.com/sanjivani.farms/?hl=en';
 
   readonly navItems = [
     { label: 'Our Story',  fragment: 'our-story' },

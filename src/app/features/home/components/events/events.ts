@@ -43,7 +43,7 @@ export class EventsComponent implements AfterViewInit, OnDestroy {
 
   readonly images = [
     'https://res.cloudinary.com/dsepjvm2l/image/upload/v1785619538/wedding_mandap_decoration_z4qtm8.jpg',
-    'assets/images/hero/hero-2.jpg',
+    'https://res.cloudinary.com/dsepjvm2l/image/upload/v1785651629/office-outing_lalith.jpg',
     'https://res.cloudinary.com/dsepjvm2l/image/upload/v1785619538/birthday-party_lfvude.jpg'
   ];
 
@@ -51,12 +51,12 @@ export class EventsComponent implements AfterViewInit, OnDestroy {
     {
       iconId: 'wedding',
       title: 'Destination Weddings',
-      desc: 'Say "I do" beneath 700 swaying coconut trees.'
+      desc: 'A beautiful place to celebrate your special day with the people you love.'
     },
     {
       iconId: 'corporate',
       title: 'Corporate Retreats',
-      desc: 'Ditch the boardroom. Connect and create in nature.'
+      desc: 'A quiet space for your team to connect, relax, and spend time together.'
     },
     {
       iconId: 'party',

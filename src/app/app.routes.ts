@@ -101,6 +101,19 @@ export const routes: Routes = [
     }
   },
   {
+    path: 'terms',
+    loadComponent: () =>
+      import('./features/terms-conditions/terms-conditions').then(m => m.TermsConditionsComponent),
+    title: 'Terms & Conditions | Sanjivani Farms',
+    data: {
+      seo: {
+        title: 'Terms & Conditions | Sanjivani Farms',
+        description: 'Read the Terms & Conditions of Sanjivani Farm & Resort to understand the rules and guidelines for a pleasant stay.',
+        keywords: 'terms and conditions sanjivani farm, resort rules, policies'
+      }
+    }
+  },
+  {
     path: 'insider-guide',
     loadComponent: () =>
       import('./features/insider-guide/insider-guide-list.component').then(m => m.InsiderGuideListComponent),

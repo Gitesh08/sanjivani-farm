@@ -126,6 +126,10 @@
   margin-block-start: clamp(var(--space-8), 4vh, var(--space-12));
 }
 
+.amenities__br-mobile {
+  display: none;
+}
+
 /* ══════════════ LARGE TABLET (max 1200px) — 3-col ══════════════ */
 @media (max-width: 1200px) {
   .amenities__grid {
@@ -169,6 +173,10 @@
 
   .amenities__tagline {
     font-size: clamp(0.75rem, 3.5vw, 0.9rem);
+  }
+
+  .amenities__br-mobile {
+    display: block;
   }
 }
 

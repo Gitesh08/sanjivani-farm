@@ -87,11 +87,23 @@ const ICONS: Record<string, string> = {
 
   restaurant: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
-    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-    <line x1="6" y1="1" x2="6" y2="4"/>
-    <line x1="10" y1="1" x2="10" y2="4"/>
-    <line x1="14" y1="1" x2="14" y2="4"/>
+    <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+    <path d="M7 2v20"/>
+    <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
+  </svg>`,
+
+  chef: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589c-.194 0-.376-.048-.544-.131A4 4 0 0 0 8.051 6.89c-.168.083-.35.131-.544.131a4 4 0 0 0-2.134 7.589c.411.197.727.584.727 1.041V20a1 1 0 0 0 1 1z"/>
+    <path d="M6 17h12"/>
+  </svg>`,
+
+  firstaid: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
+    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+    <path d="M12 10v4"/>
+    <path d="M10 12h4"/>
   </svg>`,
 };
 
@@ -135,8 +147,8 @@ export class AmenitiesComponent implements AfterViewInit {
     },
     {
       id: 'staff',
-      label: '24/7 Staff & CCTV',
-      description: 'Friendly staff and full security coverage.',
+      label: 'Care-Taker & Security',
+      description: 'Dedicated care-taker, friendly staff, and full security.',
       safeIcon: this.safe('staff'),
     },
     {
@@ -156,6 +168,18 @@ export class AmenitiesComponent implements AfterViewInit {
       label: 'Restaurant',
       description: 'In-house kitchen and outdoor dining.',
       safeIcon: this.safe('restaurant'),
+    },
+    {
+      id: 'chef',
+      label: 'In-House Chef',
+      description: 'Fresh, delicious meals prepared by our expert chef.',
+      safeIcon: this.safe('chef'),
+    },
+    {
+      id: 'firstaid',
+      label: 'First-Aid Services',
+      description: 'Basic medical supplies and first-aid always available.',
+      safeIcon: this.safe('firstaid'),
     },
   ];
 
