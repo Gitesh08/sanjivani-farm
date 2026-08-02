@@ -12,19 +12,23 @@
     <ul class="navbar__menu" role="list">
       @for (item of navItems; track item.label) {
         <li class="navbar__item">
-          <button 
-            [class.navbar__link--active]="activeSection() === item.fragment"
+          <a 
+            [routerLink]="item.route"
+            [fragment]="item.fragment"
+            [routerLinkActive]="item.fragment ? '' : 'navbar__link--active'"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [class.navbar__link--active]="item.fragment ? activeSection() === item.fragment : false"
             class="navbar__link" 
-            (click)="scrollTo(item.fragment, $event)">
+            (click)="closeAll()">
             {{ item.label }}
-          </button>
+          </a>
         </li>
       }
     </ul>
 
     <!-- DESKTOP RIGHT: Book Now only -->
     <div class="navbar__actions">
-      <button (click)="scrollTo('cottages', $event)" class="btn btn-primary btn-lg" id="nav-book-now">Book Your Stay</button>
+      <a routerLink="/cottages" class="btn btn-primary btn-lg" id="nav-book-now">Book Your Stay</a>
     </div>
 
     <!-- MOBILE RIGHT: Hamburger only -->
@@ -48,12 +52,16 @@
     <ul class="navbar__mobile-menu" role="list">
       @for (item of navItems; track item.label) {
         <li class="navbar__mobile-item">
-          <button 
-            [class.navbar__mobile-link--active]="activeSection() === item.fragment"
+          <a 
+            [routerLink]="item.route"
+            [fragment]="item.fragment"
+            [routerLinkActive]="item.fragment ? '' : 'navbar__mobile-link--active'"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [class.navbar__mobile-link--active]="item.fragment ? activeSection() === item.fragment : false"
             class="navbar__mobile-link" 
-            (click)="scrollTo(item.fragment, $event)">
+            (click)="closeAll()">
             {{ item.label }}
-          </button>
+          </a>
         </li>
       }
     </ul>

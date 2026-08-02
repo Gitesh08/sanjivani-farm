@@ -46,7 +46,7 @@
           <ul class="footer__links" role="list">
             @for (link of navItems; track link.label) {
               <li>
-                <a href="#{{ link.fragment }}" (click)="scrollTo(link.fragment, $event)" class="footer__link">{{ link.label }}</a>
+                <a [routerLink]="link.route" [fragment]="link.fragment" class="footer__link">{{ link.label }}</a>
               </li>
             }
             <li>

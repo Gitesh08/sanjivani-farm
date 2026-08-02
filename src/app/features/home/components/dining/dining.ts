@@ -21,7 +21,7 @@ interface DiningHighlight {
 
 @Component({
   selector: 'app-dining',
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dining.html',
   styleUrl: './dining.css',
   standalone: true,

@@ -29,25 +29,6 @@ export const routes: Routes = [
   },
 
   {
-    path: 'activities',
-    loadComponent: () =>
-      import('./features/activities/activities').then(m => m.ActivitiesPageComponent),
-    title: 'Activities & Adventures | Sanjivani Farms',
-    data: {
-      seo: {
-        title: 'Activities & Adventures | Sanjivani Farms',
-        description: 'Discover activities at Sanjivani Farm. Enjoy our exclusive Toy Train, Kayaking on private lakes, free cycling, and a true digital detox near Saphale.',
-        keywords: 'activities in palghar, things to do in saphale, resort with toy train, kayaking near mumbai'
-      }
-    }
-  },
-  // {
-  //   path: 'experiences',
-  //   loadComponent: () =>
-  //     import('./features/experiences/experiences').then(m => m.ExperiencesComponent),
-  //   title: 'Experiences – Sanjivani Farms',
-  // },
-  {
     path: 'cottages',
     loadComponent: () =>
       import('./features/cottages/cottages-page').then(m => m.CottagesPageComponent),
@@ -74,19 +55,7 @@ export const routes: Routes = [
       }
     }
   },
-  {
-    path: 'events',
-    loadComponent: () =>
-      import('./features/events/events').then(m => m.EventsPageComponent),
-    title: 'Events | Sanjivani Farms',
-    data: {
-      seo: {
-        title: 'Events & Corporate Outings | Sanjivani Farms',
-        description: 'Host your corporate outing, day picnic, or family event at Sanjivani Farm. Spacious lawns, amazing food, and complete privacy near Vasai-Virar.',
-        keywords: 'corporate outing near vasai, day picnic palghar, event venue near saphale'
-      }
-    }
-  },
+
   {
     path: 'privacy-policy',
     loadComponent: () =>

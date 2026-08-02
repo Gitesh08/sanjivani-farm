@@ -21,7 +21,7 @@
     <div class="gallery-page__grid">
       @for (img of images; track $index) {
         <div class="gallery-page__card">
-          <img [src]="img" alt="Gallery image" loading="lazy" class="gallery-page__img">
+          <img [src]="img" [alt]="'Sanjivani Farm scenery ' + ($index + 1)" loading="lazy" class="gallery-page__img">
         </div>
       }
     </div>

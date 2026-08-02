@@ -119,7 +119,7 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
     if (!message.trim()) return;
     const phone = '918108446040';
     const encoded = encodeURIComponent(message.trim());
-    window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
+    window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank', 'noopener,noreferrer');
     this.isWaChatOpen.set(false); // Close chat after sending
     this.waInputMessage.set('');
   }

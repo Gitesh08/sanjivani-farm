@@ -16,24 +16,15 @@ export class FooterComponent {
   readonly instagramHref = 'https://www.instagram.com/sanjivani.farms/?hl=en';
 
   readonly navItems = [
-    { label: 'Our Story',  fragment: 'our-story' },
-    { label: 'Cottages',   fragment: 'cottages' },
-    { label: 'Activities', fragment: 'activities' },
-    { label: 'Events',     fragment: 'events' },
-    { label: 'Gallery',    fragment: 'gallery' },
-    { label: 'Visit Us',   fragment: 'visit-us' },
+    { label: 'Our Story',  route: '/our-story' },
+    { label: 'Cottages',   route: '/cottages' },
+    { label: 'Activities', route: '/', fragment: 'activities' },
+    { label: 'Gallery',    route: '/gallery' },
+    { label: 'Visit Us',   route: '/', fragment: 'visit-us' },
   ];
 
   readonly legalLinks = [
     { label: 'Privacy Policy', path: '/privacy-policy' },
     { label: 'Terms & Conditions', path: '/terms' },
   ];
-
-  scrollTo(fragment: string, event?: Event): void {
-    if (event) event.preventDefault();
-    const el = document.getElementById(fragment);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
 }

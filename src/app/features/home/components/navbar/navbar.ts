@@ -1,18 +1,16 @@
-import {
-  Component, signal, computed, HostListener,
-  ChangeDetectionStrategy, inject, input
-} from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, signal, computed, HostListener, ChangeDetectionStrategy, input } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 interface NavItem {
   label: string;
-  fragment: string;
+  route: string;
+  fragment?: string;
 }
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
@@ -30,29 +28,20 @@ export class NavbarComponent {
   readonly activeSection = signal<string>('');
 
   readonly navItems: NavItem[] = [
-    { label: 'Our Story',  fragment: 'our-story' },
-    { label: 'Cottages',   fragment: 'cottages' },
-    { label: 'Activities', fragment: 'activities' },
-    { label: 'Events',     fragment: 'events' },
-    { label: 'Gallery',    fragment: 'gallery' },
-    { label: 'Visit Us',   fragment: 'visit-us' },
+    { label: 'Our Story',  route: '/our-story' },
+    { label: 'Cottages',   route: '/cottages' },
+    { label: 'Activities', route: '/', fragment: 'activities' },
+    { label: 'Gallery',    route: '/gallery' },
+    { label: 'Visit Us',   route: '/', fragment: 'visit-us' },
   ];
 
   @HostListener('window:scroll')
   onScroll(): void {
     const y = window.scrollY;
-    
-    // Check if we have passed the hero section (our-story reaches navbar height)
-    const ourStoryEl = document.getElementById('our-story');
-    if (ourStoryEl) {
-      const rect = ourStoryEl.getBoundingClientRect();
-      this._scrolled.set(rect.top <= 80);
-    } else {
-      this._scrolled.set(y > 60);
-    }
+    this._scrolled.set(y > 60);
 
-    // ScrollSpy Logic
-    const sections = this.navItems.map(i => i.fragment);
+    // ScrollSpy Logic for homepage fragments
+    const sections = this.navItems.filter(i => i.fragment).map(i => i.fragment!);
     let current = '';
     for (const id of sections) {
       const el = document.getElementById(id);
@@ -63,19 +52,11 @@ export class NavbarComponent {
     this.activeSection.set(current);
   }
 
-  scrollTo(fragment: string, event?: Event): void {
-    if (event) event.preventDefault();
-    this.closeAll();
-    const el = document.getElementById(fragment);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
   toggleMenu(): void {
     this.menuOpen.update(v => !v);
     this._updateBodyScroll();
   }
+
 
   closeAll(): void {
     this.menuOpen.set(false);

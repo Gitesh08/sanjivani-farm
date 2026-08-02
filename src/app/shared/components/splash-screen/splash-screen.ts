@@ -88,7 +88,7 @@ export class SplashScreenComponent implements OnInit, AfterViewInit {
         this.cdr.detectChanges(); // update view to remove wrapper
         
         // Emit that splash is done so other components (like video popups) can trigger
-        this.splashState.splashComplete$.next(true);
+        this.splashState.complete();
 
         // Ensure body is scrollable in case we locked it
         document.body.style.overflow = '';
