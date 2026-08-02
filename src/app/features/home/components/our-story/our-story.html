@@ -29,6 +29,34 @@
             preload="metadata"
           ></video>
           <div class="our-story__image-overlay" aria-hidden="true"></div>
+
+          <!-- TOP RIGHT CONTROLS: MUTE + 360 TOUR -->
+          <div class="our-story__top-controls">
+            <button class="our-story__mute-btn" (click)="toggleMute($event)"
+              [attr.aria-label]="isMuted() ? 'Unmute video' : 'Mute video'">
+              @if (isMuted()) {
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                <line x1="23" y1="9" x2="17" y2="15" />
+                <line x1="17" y1="9" x2="23" y2="15" />
+              </svg>
+              } @else {
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+              </svg>
+              }
+            </button>
+            <button class="our-story__tour-btn" (click)="openTour()" aria-label="Open 360 Aerial Tour">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -85,6 +113,38 @@
           </a>
         </div>
 
+      </div>
+    </div>
+  </div>
+
+  <!-- 360 AERIAL TOUR MODAL -->
+  <div *ngIf="isTourOpen()" class="tour-modal">
+    <button class="tour-modal__close" (click)="closeTour()" aria-label="Close Tour">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    
+    <button class="tour-modal__nav tour-modal__nav--prev" (click)="prevVideo()" aria-label="Previous Video">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+
+    <div class="tour-modal__video-container">
+      <video 
+        class="tour-modal__video"
+        [src]="tourVideos[currentVideoIndex()].url" 
+        [poster]="tourVideos[currentVideoIndex()].poster"
+        autoplay controls playsinline loop>
+      </video>
+    </div>
+
+    <button class="tour-modal__nav tour-modal__nav--next" (click)="nextVideo()" aria-label="Next Video">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+    
+    <!-- MOBILE ORIENTATION PROMPT -->
+    <div class="tour-modal__orientation-prompt">
+      <div class="orientation-prompt__content">
+        <svg class="rotate-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+        <p>Please rotate your phone to landscape for the best experience.</p>
       </div>
     </div>
   </div>

@@ -19,10 +19,10 @@
   max-width: 640px;
 }
 
-/* ── Grid — 4 columns on desktop ── */
+/* ── Grid — 5 columns on desktop ── */
 .amenities__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: clamp(var(--space-3), 2vw, var(--space-5));
 }
 
