@@ -37,6 +37,23 @@ export class App implements OnInit {
         const seoConfig = { ...data['seo'] };
         seoConfig.url = this.router.url;
         this.seoService.updateSeo(seoConfig);
+
+        // Inject JSON-LD Schema
+        const schema = {
+          "@context": "https://schema.org",
+          "@type": ["Resort", "LocalBusiness"],
+          "name": seoConfig.title,
+          "description": seoConfig.description,
+          "url": `https://sanjivanifarm.com${this.router.url}`,
+          "image": seoConfig.image || "https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776530402/image_ucfeks.png",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Palghar",
+            "addressRegion": "Maharashtra",
+            "addressCountry": "IN"
+          }
+        };
+        this.seoService.injectStructuredData(schema);
       }
     });
   }

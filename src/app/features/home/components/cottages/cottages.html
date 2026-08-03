@@ -22,13 +22,13 @@
             <div class="cottage-card__img-wrap">
               @for (item of cottage.media; track item.url; let mediaIndex = $index) {
               @if (item.type === 'img') {
-              <img [src]="item.url" [alt]="cottage.name + ' — photo ' + (mediaIndex)" class="cottage-card__img"
+              <img [src]="item.url" [alt]="item.alt || cottage.name + ' — photo ' + (mediaIndex)" class="cottage-card__img"
                 [class.active]="activeSlides()[cottageIndex] === mediaIndex" loading="lazy">
               } @else {
               <div class="cottage-card__img" [class.active]="activeSlides()[cottageIndex] === mediaIndex">
                 <!-- Poster: Instantly loads HD still frame -->
                 <img [src]="item.posterUrl" class="cottage-card__internal-media cottage-card__poster"
-                  [class.opacity-0]="videoReady()[cottageIndex]" alt="Loading video...">
+                  [class.opacity-0]="videoReady()[cottageIndex]" [alt]="item.alt || 'Loading video...'">
 
                 <!-- Video: Silently buffers in background, fades in when perfect -->
                 <video [src]="item.url" class="cottage-card__internal-media cottage-card__video-player"

@@ -1,0 +1,25 @@
+{
+  "resortName": "Sanjivani Farm & Resort",
+  "currency": "INR",
+  "basePricePerPerson": 2000,
+  "cottages": [
+    {
+      "name": "Wooden Glass Cottage",
+      "capacity": "2-8 people",
+      "price": 2000,
+      "bookingUrl": "https://sanjivanifarmandresort.doorloom.com/p/woodenglasscottage01"
+    },
+    {
+      "name": "Red Stone Cottage",
+      "capacity": "3-10 people",
+      "price": 2000,
+      "bookingUrl": "https://sanjivanifarmandresort.doorloom.com/p/redstomecottage07"
+    },
+    {
+      "name": "Dormitory Cottage",
+      "capacity": "8-16 people",
+      "price": 2000,
+      "bookingUrl": "https://sanjivanifarmandresort.doorloom.com/p/dormitorycottage10"
+    }
+  ]
+}

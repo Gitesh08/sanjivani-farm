@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SeoService } from '../../../../core/services/seo.service';
 
 interface FaqItem {
   question: string;
@@ -15,7 +16,7 @@ interface FaqItem {
   styleUrl: './faq.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FaqComponent {
+export class FaqComponent implements OnInit {
   readonly questions: FaqItem[] = [
     {
       question: "How do I reach Sanjivani Farm from Mumbai or Vasai?",
@@ -46,6 +47,27 @@ export class FaqComponent {
   ];
 
   readonly openIndex = signal<number | null>(0);
+  private seoService = inject(SeoService);
+
+  ngOnInit() {
+    this.injectFaqSchema();
+  }
+
+  private injectFaqSchema() {
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": this.questions.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    };
+    this.seoService.injectStructuredData(schema);
+  }
 
   toggle(index: number): void {
     this.openIndex.update(current => current === index ? null : index);

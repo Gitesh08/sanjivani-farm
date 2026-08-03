@@ -6,7 +6,7 @@ export interface Cottage {
   name: string;
   tagline: string;
   description: string;
-  media: { type: 'img' | 'video', url: string, posterUrl?: string }[];
+  media: { type: 'img' | 'video', url: string, posterUrl?: string, alt?: string }[];
   size: string;
   baseCapacity: number;
   maxCapacity: number;
@@ -39,19 +39,20 @@ export class CottageService {
         {
           type: 'video',
           url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1776505637/wooden-glass-cottage_jgb0tc.mp4',
-          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1776505637/wooden-glass-cottage_jgb0tc.jpg'
+          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1776505637/wooden-glass-cottage_jgb0tc.jpg',
+          alt: 'Wooden Glass Cottage cinematic tour at Sanjivani Farm'
         },
         // All room images — f_auto (WebP/AVIF auto), q_auto (AI quality), w_1200 (capped width)
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496183/IMG_9359_pcldak.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496183/IMG_9360_rkzptx.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496182/IMG_9362_t9jnl7.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496182/IMG_9361_cqhmk9.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496181/IMG_9364_guct2r.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496181/IMG_9363_bk7s6l.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496180/IMG_9365_zzqxeg.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496179/IMG_9366_vqobur.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496179/IMG_9367_mx2fut.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496178/IMG_9368_yowi7y.jpg' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496183/IMG_9359_pcldak.jpg', alt: 'Wooden Glass Cottage interior exterior view at Sanjivani Farm Resort Palghar Maharashtra' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496183/IMG_9360_rkzptx.jpg', alt: 'Wooden Glass Cottage interior exterior view at Sanjivani Farm Resort Palghar Maharashtra' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496182/IMG_9362_t9jnl7.jpg', alt: 'Wooden Glass Cottage interior exterior view at Sanjivani Farm Resort Palghar Maharashtra' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496182/IMG_9361_cqhmk9.jpg', alt: 'Wooden Glass Cottage interior exterior view at Sanjivani Farm Resort Palghar Maharashtra' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496181/IMG_9364_guct2r.jpg', alt: 'Wooden Glass Cottage interior exterior view at Sanjivani Farm Resort Palghar Maharashtra' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496181/IMG_9363_bk7s6l.jpg', alt: 'Wooden Glass Cottage interior exterior view at Sanjivani Farm Resort Palghar Maharashtra' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496180/IMG_9365_zzqxeg.jpg', alt: 'Wooden Glass Cottage interior exterior view at Sanjivani Farm Resort Palghar Maharashtra' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496179/IMG_9366_vqobur.jpg', alt: 'Wooden Glass Cottage interior exterior view at Sanjivani Farm Resort Palghar Maharashtra' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496179/IMG_9367_mx2fut.jpg', alt: 'Wooden Glass Cottage interior exterior view at Sanjivani Farm Resort Palghar Maharashtra' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496178/IMG_9368_yowi7y.jpg', alt: 'Red Stone Cottage rustic luxury agritourism stay at Sanjivani Farm Near Mumbai' },
       ],
       size: '250 sq.ft',
       baseCapacity: 2,
@@ -78,14 +79,15 @@ export class CottageService {
         {
           type: 'video',
           url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1776505634/red-stone-cottage_g0haqq.mp4',
-          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1776505634/red-stone-cottage_g0haqq.jpg'
+          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1776505634/red-stone-cottage_g0haqq.jpg',
+          alt: 'Red Stone Cottage cinematic tour at Sanjivani Farm'
         },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496173/IMG-20260405-WA0016_xkkjiz.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496173/IMG-20260405-WA0017_caixto.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496172/IMG-20260405-WA0019_d2yfsa.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496172/IMG-20260405-WA0018_g71z1h.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496172/IMG-20260405-WA0020_ho0no9.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496171/IMG-20260405-WA0021_jyooym.jpg' }
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496173/IMG-20260405-WA0016_xkkjiz.jpg', alt: 'Red Stone Cottage rustic luxury agritourism stay at Sanjivani Farm Near Mumbai' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496173/IMG-20260405-WA0017_caixto.jpg', alt: 'Red Stone Cottage rustic luxury agritourism stay at Sanjivani Farm Near Mumbai' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496172/IMG-20260405-WA0019_d2yfsa.jpg', alt: 'Red Stone Cottage rustic luxury agritourism stay at Sanjivani Farm Near Mumbai' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496172/IMG-20260405-WA0018_g71z1h.jpg', alt: 'Red Stone Cottage rustic luxury agritourism stay at Sanjivani Farm Near Mumbai' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496172/IMG-20260405-WA0020_ho0no9.jpg', alt: 'Red Stone Cottage rustic luxury agritourism stay at Sanjivani Farm Near Mumbai' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496171/IMG-20260405-WA0021_jyooym.jpg', alt: 'Dormitory Cottage for large groups and corporate outings at Sanjivani Farm Saphale' }
       ],
       size: '300 sq.ft',
       baseCapacity: 3,
@@ -112,17 +114,18 @@ export class CottageService {
         {
           type: 'video',
           url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1776505587/dormitory-cottage_n3xjnw.mp4',
-          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1776505587/dormitory-cottage_n3xjnw.jpg'
+          posterUrl: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1776505587/dormitory-cottage_n3xjnw.jpg',
+          alt: 'Dormitory Cottage video tour for large groups at Sanjivani Farm'
         },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496178/IMG_9395_1_iojzsx.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496177/IMG_9394_1_qhqt7c.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496176/IMG_9396_1_ij0qk4.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496176/IMG_9399_1_slozdu.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496176/IMG_9398_1_yaehnj.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496176/IMG_9397_1_gmwbse.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496175/IMG_9401_1_qyxw6c.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496175/IMG_9400_1_aqp035.jpg' },
-        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496174/IMG_9402_1_dqb38s.jpg' }
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496178/IMG_9395_1_iojzsx.jpg', alt: 'Dormitory Cottage for large groups and corporate outings at Sanjivani Farm Saphale' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496177/IMG_9394_1_qhqt7c.jpg', alt: 'Dormitory Cottage for large groups and corporate outings at Sanjivani Farm Saphale' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496176/IMG_9396_1_ij0qk4.jpg', alt: 'Dormitory Cottage for large groups and corporate outings at Sanjivani Farm Saphale' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496176/IMG_9399_1_slozdu.jpg', alt: 'Dormitory Cottage for large groups and corporate outings at Sanjivani Farm Saphale' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496176/IMG_9398_1_yaehnj.jpg', alt: 'Dormitory Cottage for large groups and corporate outings at Sanjivani Farm Saphale' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496176/IMG_9397_1_gmwbse.jpg', alt: 'Dormitory Cottage for large groups and corporate outings at Sanjivani Farm Saphale' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496175/IMG_9401_1_qyxw6c.jpg', alt: 'Dormitory Cottage for large groups and corporate outings at Sanjivani Farm Saphale' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496175/IMG_9400_1_aqp035.jpg', alt: 'Dormitory Cottage for large groups and corporate outings at Sanjivani Farm Saphale' },
+        { type: 'img', url: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776496174/IMG_9402_1_dqb38s.jpg', alt: 'Dormitory Cottage for large groups and corporate outings at Sanjivani Farm Saphale' }
       ],
       size: '600 sq.ft',
       baseCapacity: 8,

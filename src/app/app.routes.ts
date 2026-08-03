@@ -9,8 +9,8 @@ export const routes: Routes = [
     data: {
       seo: {
         title: 'Sanjivani Farms | Where Nature Gives You Life Again',
-        description: 'Experience pure Konkan bliss at Sanjivani Farms. 16 acres of lush greenery, Toy Train, private boating & kayaking. The perfect weekend getaway near Vasai-Virar and Palghar.',
-        keywords: 'Sanjivani Farm & Resort, Palghar farm stay, weekend getaway vasai virar, resort near saphale, kelve beach resort, luxury farm stay'
+        description: 'Experience pure Konkan bliss at Sanjivani Farms. 16 acres of lush greenery, cozy cottages, best lawn, private boating & activities. The perfect resort and farm stay near Saphale, Palghar, Vasai-Virar and Mumbai stations.',
+        keywords: 'Sanjivani Farm & Resort, Palghar farm stay, resorts with activities near sapahale, resort near mumbai stations, kelve beach resort, luxury farm stay, cozy cottages, best lawn'
       }
     }
   },
@@ -36,8 +36,8 @@ export const routes: Routes = [
     data: {
       seo: {
         title: 'Cottages & Stays | Sanjivani Farms',
-        description: 'Explore our beautiful cottages. Wooden Glass Cottage, Red Stone Cottage, and Dormitories built for a perfect nature escape.',
-        keywords: 'cottages palghar, resort stay near mumbai, wooden glass cottage, luxury stays in nature'
+        description: 'Explore our beautiful cozy cottages and the best lawn. Wooden Glass Cottage, Red Stone Cottage, and Dormitories built for a perfect nature escape near Mumbai and Palghar.',
+        keywords: 'cozy cottages, best lawn, cottages palghar, resort stay near mumbai, wooden glass cottage, luxury stays in nature, resorts near beaches'
       }
     }
   },

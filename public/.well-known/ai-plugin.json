@@ -1,0 +1,12 @@
+{
+  "schema_version": "v1",
+  "name_for_model": "sanjivani_farm_agent",
+  "name_for_human": "Sanjivani Farm Booking API",
+  "description_for_model": "API for fetching real-time availability and pricing for cottages at Sanjivani Farm Resort in Palghar, Maharashtra.",
+  "api": {
+    "type": "openapi",
+    "url": "https://sanjivanifarm.com/api/ai-pricing.json",
+    "is_user_authenticated": false
+  },
+  "contact_email": "info@sanjivanifarm.com"
+}
