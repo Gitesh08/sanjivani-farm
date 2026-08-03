@@ -23,3 +23,6 @@ We offer several unique features that differentiate us from other resorts in Sap
 *   Our Story: /our-story
 *   Activities: /activities
 *   Events & Corporate: /events
+
+## App Previews
+![Sanjivani Farm Logo](https://sanjivanifarm.com/assets/images/farm-logo.png)
