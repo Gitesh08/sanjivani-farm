@@ -153,7 +153,7 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
 
   private animateEntrance(): void {
     // Initial states for elements that wait or depend on scroll
-    gsap.set('.hero__title-sub', { opacity: 0, y: 30, scale: 0.98 });
+    gsap.set(['.hero__title-sub', '.hero__title-suffix'], { opacity: 0, y: 30, scale: 0.98 });
     gsap.set('.hero__actions', { opacity: 0, y: 30, scale: 0.98 });
     gsap.set('.hero__scroll-hint', { opacity: 0 });
     gsap.set(['.hero__video', '.hero__poster'], { scale: 1.15 });
@@ -165,9 +165,13 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
       { opacity: 0, y: 30, scale: 0.98 },
       { opacity: 1, y: 0, scale: 1, duration: 2.5, ease: 'sine.out' }
     )
+    .to('.hero__title-suffix',
+      { opacity: 1, y: 0, scale: 1, duration: 2.5, ease: 'sine.out' },
+      '<0.1' // start 0.1s after brand starts
+    )
     .to('.hero__title-sub',
       { opacity: 1, y: 0, scale: 1, duration: 2.5, ease: 'sine.out' },
-      '<0.15' // start 0.15s after brand starts (almost immediately)
+      '<0.1' // start 0.1s after suffix starts
     )
     .to(['.btn-floating-tour', '.btn-floating-whatsapp'],
       { autoAlpha: 1, scale: 1, duration: 1.0, ease: 'back.out(1.5)', stagger: 0.1 },

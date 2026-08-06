@@ -153,12 +153,27 @@ a {
   transition: color var(--duration-fast) var(--ease-resort);
 }
 
-/* ─── Mobile Typography Overrides ─── */
-@media (max-width: 480px) {
-  .display-xl  { font-size: clamp(1.5rem,  8vw, 2.25rem); }
-  .display-lg  { font-size: clamp(1.25rem, 7vw, 1.875rem); }
-  .headline-xl { font-size: clamp(1.125rem, 6vw, 1.5rem); }
-  .headline-lg { font-size: clamp(1rem,    5vw, 1.25rem); }
-  .headline-md { font-size: clamp(0.875rem, 4.5vw, 1.125rem); }
-  .body-xl     { font-size: clamp(0.9375rem, 3.5vw, 1.0625rem); }
+/* ─── Mobile & Tablet Typography Overrides ─── */
+@media (max-width: 768px) {
+  /* Increase minimum sizes to ensure high readability on any screen */
+  .display-xl  { font-size: clamp(2.25rem, 8vw, 3rem); }
+  .display-lg  { font-size: clamp(2rem, 7vw, 2.5rem); }
+  .headline-xl { font-size: clamp(1.5rem, 6vw, 2rem); }
+  .headline-lg { font-size: clamp(1.25rem, 5vw, 1.75rem); }
+  .headline-md { font-size: clamp(1.125rem, 4.5vw, 1.5rem); }
+  
+  /* Bump body sizes slightly for comfortable reading */
+  body, p, .body-lg { 
+    font-size: 1.0625rem; /* 17px */
+    line-height: 1.7;
+  }
+  .body-xl { 
+    font-size: clamp(1.125rem, 3.5vw, 1.25rem); 
+  }
+  .body-md {
+    font-size: 1rem; /* 16px */
+  }
+  .body-sm, .label-lg {
+    font-size: 0.9375rem; /* 15px */
+  }
 }

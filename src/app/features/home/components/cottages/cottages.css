@@ -322,9 +322,9 @@ div.cottage-card__img {
 .cottage-card__main-info {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Align title block and button vertically */
+  align-items: flex-start; /* Better alignment when text wraps to multiple lines */
   margin-bottom: 0.95rem; /* Reduced gap to push text block lower towards features */
-  gap: 0.5rem; /* Ensure minimal separation */
+  gap: var(--space-3); /* Give some breathing room between text and button */
 }
 
 .cottage-card__text {
@@ -336,20 +336,20 @@ div.cottage-card__img {
 }
 
 .cottage-card__title {
-  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
-  font-weight: 400;
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  font-weight: 500;
   margin: 0;
   color: #fff;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  letter-spacing: 0.01em;
+  /* Allow text to wrap to the next line smoothly */
+  white-space: normal;
+  line-height: 1.25;
 }
 
 .cottage-card__tagline {
-  font-size: 0.775rem;
+  font-size: clamp(0.95rem, 3vw, 1.1rem);
   font-family: var(--font-body);
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.75);
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -383,7 +383,7 @@ div.cottage-card__img {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.875rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
   font-family: var(--font-body);
   color: rgba(255, 255, 255, 0.85);
 }
@@ -433,12 +433,16 @@ div.cottage-card__img {
   }
 
   .cottage-card__btn {
-    padding: var(--space-2) var(--space-3);
-    font-size: 0.75rem;
+    padding: var(--space-3) var(--space-4);
+    font-size: 0.95rem;
   }
 
   .cottage-card__title {
-    font-size: clamp(0.9375rem, 4vw, 1.125rem);
+    font-size: clamp(1.15rem, 5vw, 1.3rem);
+  }
+
+  .cottage-card__tagline {
+    font-size: clamp(1.05rem, 4.5vw, 1.15rem);
   }
 
   .cottage-card__dots {

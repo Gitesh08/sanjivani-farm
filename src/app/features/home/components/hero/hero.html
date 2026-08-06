@@ -27,7 +27,10 @@
       </span> -->
 
       <h1 class="hero__title font-heading">
-        <span class="hero__title-brand">Sanjivani</span>
+        <div class="hero__title-lockup">
+          <span class="hero__title-brand">Sanjivani</span>
+          <span class="hero__title-suffix">Farm And Resort</span>
+        </div>
         <span class="hero__title-sub">
           Where <em class="hero__title-em">Nature Gives You</em> Life Again
         </span>
@@ -38,7 +41,8 @@
         <a href="#cottages" (click)="scrollTo('cottages', $event)" class="btn btn-primary btn-lg" id="hero-book-stay">
           Book Your Stay
         </a>
-        <a href="https://drive.google.com/uc?export=download&id=1D6oPqq-dtfPBesZUEQhC58Ott9kIDaTh" target="_blank" class="btn btn-ghost btn-lg" id="hero-explore-farm">
+        <a href="https://drive.google.com/uc?export=download&id=1D6oPqq-dtfPBesZUEQhC58Ott9kIDaTh" target="_blank"
+          class="btn btn-ghost btn-lg" id="hero-explore-farm">
           Get E-Brochure
         </a>
       </div>
@@ -57,16 +61,19 @@
 
 <!-- FLOATING 360 TOUR BUTTON -->
 <button (click)="openTour()" class="btn-floating-tour" aria-label="Open 360 Aerial Tour">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
     <circle cx="12" cy="12" r="10"></circle>
     <polygon points="10 8 16 12 10 16 10 8"></polygon>
   </svg>
 </button>
 
 <!-- FLOATING WHATSAPP BUTTON -->
-<button type="button" (click)="toggleWaChat($event)" class="btn-floating-whatsapp" [class.btn-floating-whatsapp--active]="isWaChatOpen()" aria-label="Toggle WhatsApp Chat">
+<button type="button" (click)="toggleWaChat($event)" class="btn-floating-whatsapp"
+  [class.btn-floating-whatsapp--active]="isWaChatOpen()" aria-label="Toggle WhatsApp Chat">
   <svg viewBox="0 0 24 24" fill="currentColor">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.487-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    <path
+      d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.487-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
   </svg>
 </button>
 
@@ -81,10 +88,13 @@
       <p>Typically replies in minutes</p>
     </div>
     <button class="wa-chat-close" type="button" (click)="toggleWaChat($event)" aria-label="Close Chat">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M18 6L6 18M6 6l12 12"></path>
+      </svg>
     </button>
   </div>
-  
+
   <div class="wa-chat-body">
     <!-- Typing indicator -->
     <div class="wa-chat-bubble wa-chat-bubble--typing" *ngIf="isWaTyping()">
@@ -92,55 +102,75 @@
         <span></span><span></span><span></span>
       </div>
     </div>
-  
+
     <!-- Welcome message -->
     <div class="wa-chat-bubble" *ngIf="!isWaTyping() && hasShownWelcome()">
-      Hi there! 👋<br>Welcome to Sanjivani Farm! 🌿<br><br>Here are our beautiful cottages. You can tap 'View Details' to explore them, or use the <strong>+</strong> button to add one to your message!
-      
+      Hi there! 👋<br>Welcome to Sanjivani Farm! 🌿<br><br>Here are our beautiful cottages. You can tap 'View Details'
+      to explore them, or use the <strong>+</strong> button to add one to your message!
+
       <!-- Horizontal Scrollable Cards -->
       <div class="wa-cottage-cards">
         <div class="wa-cottage-card">
           <div class="wa-cottage-img-wrapper">
-            <img src="https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_300/v1776496183/IMG_9359_pcldak.jpg" alt="Wooden Glass Cottage">
-            <button class="wa-cottage-add" (click)="prefillWaMessage('I am interested in the Wooden Glass Cottage.')" title="Select Cottage">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            <img
+              src="https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_300/v1776496183/IMG_9359_pcldak.jpg"
+              alt="Wooden Glass Cottage">
+            <button class="wa-cottage-add" (click)="prefillWaMessage('I am interested in the Wooden Glass Cottage.')"
+              title="Select Cottage">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+              </svg>
             </button>
           </div>
           <div class="wa-cottage-name">Wooden Glass</div>
-          <a href="https://sanjivanifarmandresort.doorloom.com/p/woodenglasscottage01" target="_blank" class="wa-cottage-link">View Details</a>
+          <a href="https://sanjivanifarmandresort.doorloom.com/p/woodenglasscottage01" target="_blank"
+            class="wa-cottage-link">View Details</a>
         </div>
         <div class="wa-cottage-card">
           <div class="wa-cottage-img-wrapper">
-            <img src="https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_300/v1776496173/IMG-20260405-WA0017_caixto.jpg" alt="Red Stone Cottage">
-            <button class="wa-cottage-add" (click)="prefillWaMessage('I am interested in the Red Stone Cottage.')" title="Select Cottage">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            <img
+              src="https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_300/v1776496173/IMG-20260405-WA0017_caixto.jpg"
+              alt="Red Stone Cottage">
+            <button class="wa-cottage-add" (click)="prefillWaMessage('I am interested in the Red Stone Cottage.')"
+              title="Select Cottage">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+              </svg>
             </button>
           </div>
           <div class="wa-cottage-name">Red Stone</div>
-          <a href="https://sanjivanifarmandresort.doorloom.com/p/redstomecottage07" target="_blank" class="wa-cottage-link">View Details</a>
+          <a href="https://sanjivanifarmandresort.doorloom.com/p/redstomecottage07" target="_blank"
+            class="wa-cottage-link">View Details</a>
         </div>
         <div class="wa-cottage-card">
           <div class="wa-cottage-img-wrapper">
-            <img src="https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_300/v1776496178/IMG_9395_1_iojzsx.jpg" alt="Dormitory Cottage">
-            <button class="wa-cottage-add" (click)="prefillWaMessage('I am interested in the Dormitory Cottage.')" title="Select Cottage">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            <img
+              src="https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_300/v1776496178/IMG_9395_1_iojzsx.jpg"
+              alt="Dormitory Cottage">
+            <button class="wa-cottage-add" (click)="prefillWaMessage('I am interested in the Dormitory Cottage.')"
+              title="Select Cottage">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+              </svg>
             </button>
           </div>
           <div class="wa-cottage-name">Dormitory</div>
-          <a href="https://sanjivanifarmandresort.doorloom.com/p/dormitorycottage10" target="_blank" class="wa-cottage-link">View Details</a>
+          <a href="https://sanjivanifarmandresort.doorloom.com/p/dormitorycottage10" target="_blank"
+            class="wa-cottage-link">View Details</a>
         </div>
       </div>
-      
+
       <span class="wa-chat-time">Just now</span>
     </div>
   </div>
-  
+
   <div class="wa-chat-footer">
-    <input type="text" class="wa-chat-input" placeholder="Type a message..." 
-           [value]="waInputMessage()" (input)="waInputMessage.set($any($event.target).value)" 
-           (keyup.enter)="sendWaMessage(waInputMessage())">
+    <input type="text" class="wa-chat-input" placeholder="Type a message..." [value]="waInputMessage()"
+      (input)="waInputMessage.set($any($event.target).value)" (keyup.enter)="sendWaMessage(waInputMessage())">
     <button class="wa-chat-send" type="button" (click)="sendWaMessage(waInputMessage())" aria-label="Send Message">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+      </svg>
     </button>
   </div>
 </div>
@@ -148,30 +178,41 @@
 <!-- 360 AERIAL TOUR MODAL -->
 <div *ngIf="isTourOpen()" class="tour-modal">
   <button class="tour-modal__close" (click)="closeTour()" aria-label="Close Tour">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
   </button>
-  
+
   <button class="tour-modal__nav tour-modal__nav--prev" (click)="prevVideo()" aria-label="Previous Video">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
   </button>
 
   <div class="tour-modal__video-container">
-    <video 
-      class="tour-modal__video"
-      [src]="tourVideos[currentVideoIndex()].url" 
-      [poster]="tourVideos[currentVideoIndex()].poster"
-      autoplay controls playsinline loop>
+    <video class="tour-modal__video" [src]="tourVideos[currentVideoIndex()].url"
+      [poster]="tourVideos[currentVideoIndex()].poster" autoplay controls playsinline loop>
     </video>
   </div>
 
   <button class="tour-modal__nav tour-modal__nav--next" (click)="nextVideo()" aria-label="Next Video">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
   </button>
-  
+
   <!-- MOBILE ORIENTATION PROMPT -->
   <div class="tour-modal__orientation-prompt">
     <div class="orientation-prompt__content">
-      <svg class="rotate-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+      <svg class="rotate-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+        <line x1="12" y1="18" x2="12.01" y2="18"></line>
+      </svg>
       <p>Please rotate your phone to landscape for the best experience.</p>
     </div>
   </div>

@@ -127,6 +127,13 @@
   gap: var(--space-3);
 }
 
+/* Lockup for Brand + Suffix */
+.hero__title-lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* "Sanjivani" — the dominant brand word */
 .hero__title-brand {
   display: block;
@@ -134,9 +141,7 @@
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.03em;
-  /* Prevent bottom crop: background-clip:text paints only inside the line box,
-     so padding-bottom extends that box below the letter baseline */
-  padding-bottom: 0.14em;
+  padding-bottom: 0.15em; /* Ensure Playfair Display 'j' descender doesn't clip */
   overflow: visible;
   background: linear-gradient(
     135deg,
@@ -153,13 +158,28 @@
   opacity: 0; /* Hidden initially for GSAP entrance */
 }
 
+/* "Farm & Resort" — the premium suffix */
+.hero__title-suffix {
+  display: block;
+  font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+  font-weight: 500;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: rgba(248, 249, 245, 0.95);
+  margin-top: var(--space-2); /* Clears the descender from the brand font */
+  margin-bottom: var(--space-4); /* Larger gap before subheading */
+  text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  opacity: 0; /* Hidden initially for GSAP entrance */
+  margin-left: 0.45em; /* Visually center against the heavy letter-spacing */
+}
+
 /* Supporting phrase — smaller, lighter */
 .hero__title-sub {
   display: block;
-  font-size: clamp(1rem, 2.6vw, 1.75rem);
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
   font-weight: 400;
-  line-height: 1.4;
-  letter-spacing: 0.01em;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
   color: rgba(248, 249, 245, 0.78);
   text-shadow: 0 2px 20px rgba(0,0,0,0.4);
   opacity: 0; /* Hidden initially for GSAP entrance */
@@ -262,7 +282,21 @@
 
   /* Brand word scales down gracefully */
   .hero__title-brand {
-    font-size: clamp(2.6rem, 11vw, 4rem);
+    font-size: clamp(3rem, 13vw, 4.5rem);
+  }
+
+  .hero__title-suffix {
+    font-size: clamp(0.7rem, 3vw, 0.9rem);
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    margin-left: 0.35em;
+    margin-top: var(--space-2); /* Push away from Sanjivani descenders */
+    margin-bottom: var(--space-5); /* Push subheading away */
+  }
+
+  .hero__title-sub {
+    font-size: clamp(1rem, 4vw, 1.25rem); /* Explicit mobile sizing */
+    line-height: 1.5;
   }
 
   /* Buttons — single row, strict fit on mobile */
@@ -272,18 +306,18 @@
     flex-wrap: nowrap !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 10px !important;
+    gap: var(--space-4) !important; /* Increased gap between buttons */
     width: 100% !important;
-    padding: 0 10px !important;
+    padding: 0 var(--space-6) !important; /* Increased padding on the sides to reduce button width */
   }
   .hero__actions .btn,
   .hero__actions a.btn {
     flex: 1 1 0 !important;
     width: 100% !important;
     min-width: 0 !important;
-    max-width: none !important;
-    font-size: 0.8rem !important;
-    padding: 12px 0 !important;
+    max-width: 220px !important; /* Ensure they don't stretch excessively */
+    font-size: 0.95rem !important; /* Increased font size for readability */
+    padding: 16px 8px !important; /* Taller capsule shape */
     white-space: nowrap !important;
     text-align: center !important;
   }
@@ -293,7 +327,7 @@
   .hero { min-height: 100svh; }
 
   .hero__title-brand {
-    font-size: clamp(2.4rem, 12vw, 3.2rem);
+    font-size: clamp(2.6rem, 14vw, 3.5rem);
   }
 
 
@@ -391,27 +425,27 @@
 @media (max-width: 768px) {
   .btn-floating-tour {
     bottom: 2rem;
-    right: 1.5rem;
-    width: 44px;
-    height: 44px;
+    right: 1.25rem;
+    width: 52px;
+    height: 52px;
   }
   
   .btn-floating-tour svg {
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
   }
   
   .btn-floating-whatsapp {
     bottom: 2rem;
     right: auto;
-    left: 1.5rem;
-    width: 44px;
-    height: 44px;
+    left: 1.25rem;
+    width: 52px;
+    height: 52px;
   }
 
   .btn-floating-whatsapp svg {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
   }
   
   .btn-floating-whatsapp--scrolled {

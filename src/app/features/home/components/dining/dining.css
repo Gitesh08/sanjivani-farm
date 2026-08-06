@@ -124,7 +124,7 @@
 .dining__badge-title {
   display: block;
   font-family: var(--font-body);
-  font-size: 0.8125rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
   font-weight: 700;
   color: var(--color-cream);
   line-height: 1.2;
@@ -133,7 +133,7 @@
 .dining__badge-sub {
   display: block;
   font-family: var(--font-body);
-  font-size: 0.6875rem;
+  font-size: clamp(0.85rem, 1.8vw, 0.95rem);
   color: var(--color-secondary-light);
   letter-spacing: 0.06em;
 }
@@ -258,7 +258,7 @@
 
 .dining__chip-label {
   font-family: var(--font-body);
-  font-size: 0.9375rem;
+  font-size: clamp(1.05rem, 3.5vw, 1.2rem);
   font-weight: 600;
   color: var(--color-on-surface);
   flex: 1;
@@ -292,7 +292,7 @@
 
 .dining__chip-desc {
   font-family: var(--font-body);
-  font-size: 0.875rem;
+  font-size: clamp(0.95rem, 3vw, 1.05rem);
   line-height: 1.6;
   color: var(--color-on-surface-variant);
   margin: 0;
@@ -358,6 +358,6 @@
   }
 
   .dining__quote-text {
-    font-size: clamp(0.9375rem, 4vw, 1.125rem);
+    font-size: clamp(1.1rem, 5vw, 1.25rem);
   }
 }
