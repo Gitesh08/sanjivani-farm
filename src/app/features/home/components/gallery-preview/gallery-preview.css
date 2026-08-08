@@ -34,8 +34,8 @@
   display: flex;
   gap: var(--space-4);
   width: max-content;
-  /* Reduced speed from 40s to 100s for a calmer vibe */
-  animation: scrollMarquee 100s linear infinite;
+  /* Reduced speed for a calmer vibe */
+  animation: scrollMarquee 180s linear infinite;
 }
 
 /* Pause animation on hover for interactivity */
