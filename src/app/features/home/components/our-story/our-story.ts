@@ -41,6 +41,26 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
     this.splashSub?.unsubscribe();
   }
 
+  // Play State
+  readonly isPlaying = signal(false);
+
+  togglePlay(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    
+    if (!this.videoRef) return;
+    
+    if (this.isPlaying()) {
+      this.videoRef.pause();
+      this.isPlaying.set(false);
+    } else {
+      this.videoRef.play();
+      this.isPlaying.set(true);
+    }
+  }
+
   // Mute State
   readonly isMuted = signal(true);
 
@@ -90,8 +110,9 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
   openTour(): void {
     this.currentVideoIndex.set(0);
     this.isTourOpen.set(true);
-    if (this.videoRef) {
+    if (this.videoRef && this.isPlaying()) {
       this.videoRef.pause();
+      this.isPlaying.set(false);
     }
   }
 
@@ -120,17 +141,7 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
     
     this.splashSub = this.splashState.splashComplete$.subscribe(isComplete => {
       if (isComplete) {
-        // Explicitly play video to bypass browser autoplay restrictions
-        setTimeout(() => {
-          if (this.videoRef) {
-            this.videoRef.setMuted(true);
-            const p = this.videoRef.play();
-            if (p) p.catch(e => console.log('Video autoplay blocked:', e));
-            
-            // Wait for it to play since we removed native loadeddata binding
-          }
-        }, 50);
-        
+
         this.ngZone.runOutsideAngular(() => {
           setTimeout(() => {
             const section = this.el.nativeElement.querySelector('.our-story__section');

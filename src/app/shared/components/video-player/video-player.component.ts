@@ -24,23 +24,33 @@ import Hls from 'hls.js';
   template: `
     <!-- The poster is rendered as an img on top of the video in activities.html, 
          but here we can also apply it natively. -->
-    <video
-      #videoElement
-      [poster]="poster"
-      [loop]="loop"
-      [muted]="muted"
-      [attr.muted]="muted ? '' : null"
-      [attr.playsinline]="playsinline ? '' : null"
-      [attr.autoplay]="autoplay ? '' : null"
-      [preload]="preload"
-      [controls]="controls"
-      class="video-player-element"
-      [class]="customClass"
-      (canplay)="onCanPlay($event)"
-      (playing)="onPlaying($event)"
-      (pause)="onPause($event)"
-      (error)="onError($event)">
-    </video>
+    <div class="video-container">
+      <video
+        #videoElement
+        [poster]="poster"
+        [loop]="loop"
+        [muted]="muted"
+        [attr.muted]="muted ? '' : null"
+        [attr.playsinline]="playsinline ? '' : null"
+        [attr.autoplay]="autoplay ? '' : null"
+        [preload]="preload"
+        [controls]="controls"
+        class="video-player-element"
+        [class]="customClass"
+        (canplay)="onCanPlay($event)"
+        (playing)="onPlaying($event)"
+        (pause)="onPause($event)"
+        (waiting)="onWaiting()"
+        (timeupdate)="onTimeUpdate()"
+        (ended)="onEnded()"
+        (error)="onError($event)">
+      </video>
+      @if (isBuffering) {
+        <div class="video-spinner-overlay">
+          <div class="video-spinner"></div>
+        </div>
+      }
+    </div>
   `,
   styles: [`
     :host {
@@ -48,10 +58,36 @@ import Hls from 'hls.js';
       width: 100%;
       height: 100%;
     }
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
     .video-player-element {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+    .video-spinner-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.15);
+      z-index: 10;
+      pointer-events: none;
+    }
+    .video-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
   `]
 })
@@ -74,6 +110,9 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
   @Output() pauseEvent = new EventEmitter<Event>();
 
   @ViewChild('videoElement') videoRef!: ElementRef<HTMLVideoElement>;
+
+  isBuffering = false;
+  private lastTime = -1;
 
   private hls: Hls | null = null;
   private isBrowser: boolean;
@@ -224,15 +263,38 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
   }
 
   onCanPlay(event: Event) {
+    this.isBuffering = false;
     this.canplay.emit(event);
   }
 
   onPlaying(event: Event) {
+    this.isBuffering = false;
     this.playing.emit(event);
   }
   
   onPause(event: Event) {
     this.pauseEvent.emit(event);
+  }
+
+  onWaiting() {
+    this.isBuffering = true;
+  }
+
+  onTimeUpdate() {
+    if (this.videoRef?.nativeElement) {
+      const currentTime = this.videoRef.nativeElement.currentTime;
+      if (currentTime !== this.lastTime) {
+        this.isBuffering = false;
+        this.lastTime = currentTime;
+      }
+    }
+  }
+
+  onEnded() {
+    if (this.loop && this.videoRef?.nativeElement) {
+      this.videoRef.nativeElement.currentTime = 0;
+      this.videoRef.nativeElement.play().catch(() => {});
+    }
   }
   
   onError(event: Event) {

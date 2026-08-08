@@ -27,10 +27,19 @@
             [loop]="true"
             [muted]="isMuted()"
             [playsinline]="true"
-            [autoplay]="true"
+            [autoplay]="false"
             preload="metadata"
           ></app-video-player>
-          <div class="our-story__image-overlay" aria-hidden="true"></div>
+          <div class="our-story__image-overlay" aria-hidden="true" (click)="togglePlay($event)"></div>
+          
+          <!-- PLAY BUTTON OVERLAY -->
+          @if (!isPlaying()) {
+            <button class="our-story__play-overlay" (click)="togglePlay($event)" aria-label="Play Video">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+          }
 
           <!-- TOP RIGHT CONTROLS: MUTE + 360 TOUR -->
           <div class="our-story__top-controls">
