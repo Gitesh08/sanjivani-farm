@@ -88,11 +88,13 @@
   object-position: center;
   display: block;
   opacity: 0;
+  pointer-events: none; /* inactive slides must not steal clicks */
   transition: opacity 0.5s ease-in-out, transform 0.8s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .activity-card__img.active {
   opacity: 1;
+  pointer-events: auto; /* active slide receives clicks */
 }
 
 .activity-card:hover .activity-card__img.active,
@@ -115,12 +117,62 @@ div.activity-card__img {
   transition: opacity 0.8s ease-in-out;
 }
 
-/* Poster visible by default; video hidden until buffer confirmed */
+/* Poster visible by default; video hidden until playing */
 .activity-card__poster   { opacity: 1; }
 .activity-card__video-player { opacity: 0; }
 
-.activity-card__video-player.opacity-100 { opacity: 1; }
+app-video-player.opacity-100 .activity-card__video-player { opacity: 1; }
 .activity-card__poster.opacity-0         { opacity: 0; }
+
+/* Video wrap — clickable area */
+.activity-card__video-wrap {
+  cursor: pointer;
+}
+
+/* Play button overlay — centered circle */
+.activity-card__play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: none; /* let the parent div receive the click */
+  z-index: 5;
+  transition: transform 0.2s ease, background 0.2s ease;
+  color: #fff;
+}
+
+.activity-card__play-overlay svg {
+  width: 20px;
+  height: 20px;
+  margin-left: 3px;
+}
+
+.activity-card__video-wrap:hover .activity-card__play-overlay {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 768px) {
+  .activity-card__play-overlay {
+    width: 40px;
+    height: 40px;
+  }
+  .activity-card__play-overlay svg {
+    width: 17px;
+    height: 17px;
+    margin-left: 2px;
+  }
+}
 
 /* ── Mute / unmute button (top-right of card) ── */
 .activity-card__mute-btn {
@@ -309,6 +361,15 @@ div.activity-card__img {
   .nav-btn svg {
     width: 18px;
     height: 18px;
+  }
+
+  .activity-card__play-overlay {
+    width: 40px;
+    height: 40px;
+  }
+  .activity-card__play-overlay svg {
+    width: 17px;
+    height: 17px;
   }
 }
 

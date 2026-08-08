@@ -25,19 +25,19 @@ export class SightseeingComponent implements AfterViewInit {
       name: 'Kelva Beach',
       distance: '5 km away',
       desc: 'Beautiful, long beach lined with Suru trees.',
-      image: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_800/v1785528295/Kelve_Beach_zicfcw.jpg'
+      image: 'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/Kelve_Beach_zcos78.webp'
     },
     {
       name: 'Kelva Fort',
       distance: '5.8 km away',
       desc: 'Historic coastal fort standing tall by the sea.',
-      image: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_800/v1785529417/Kelva-Sea-Fort_uobzqu.jpg'
+      image: 'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/Kelva-Sea-Fort_asvbyk.webp'
     },
     {
       name: 'Karwale Dam',
       distance: '12 km away',
       desc: 'Peaceful earthfill dam surrounded by lush greenery.',
-      image: 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_800/v1785529418/karwale-dam_zrbjs4.jpg'
+      image: 'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/karwale-dam_ml3s0u.webp'
     }
   ];
 

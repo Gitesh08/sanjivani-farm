@@ -1,17 +1,18 @@
 import {
   Component, OnDestroy, AfterViewInit,
   ElementRef, ChangeDetectionStrategy,
-  PLATFORM_ID, inject
+  PLATFORM_ID, inject, signal, ViewChild
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
+import { MediaService } from '../../core/services/media.service';
+import { VideoPlayerComponent } from '../../shared/components/video-player/video-player.component';
 
 @Component({
   selector: 'app-our-story',
-  imports: [RouterLink],
+  imports: [RouterLink, VideoPlayerComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './our-story.html',
   styleUrl: './our-story.css',
@@ -20,6 +21,27 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 export class OurStoryComponent implements AfterViewInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
   private el = inject(ElementRef);
+  public media = inject(MediaService);
+
+  @ViewChild('section1Video') videoRef?: VideoPlayerComponent;
+
+  readonly storyHls = signal<string>(this.media.masterPlaylist('drone-shot_03'));
+  readonly storyMp4 = signal<string>(this.media.fallbackMp4('drone-shot_03') + '#t=0.001');
+  readonly storyPoster = signal<string>(this.media.poster('drone-shot_03'));
+  readonly isPlaying = signal<boolean>(false);
+
+  toggleVideoPlay(): void {
+    if (this.videoRef) {
+      if (this.isPlaying()) {
+        this.isPlaying.set(false);
+        this.videoRef.pause();
+      } else {
+        this.isPlaying.set(true);
+        const p = this.videoRef.play();
+        if (p) p.catch(() => this.isPlaying.set(false));
+      }
+    }
+  }
 
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
@@ -30,12 +52,36 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
     this.initHeroAnimations();
     this.initScrollReveal();
     this.initParallaxImages();
-    this.initParallaxBreak();
+    this.initCtaParallax();
     this.initValueCards();
   }
 
   ngOnDestroy(): void {
     ScrollTrigger.getAll().forEach(t => t.kill());
+  }
+
+  // ─────────────────────────────────────────────
+  // CTA PARALLAX
+  // ─────────────────────────────────────────────
+  private initCtaParallax(): void {
+    const ctaBg = this.el.nativeElement.querySelector(
+      '.os-cta-section__bg'
+    ) as HTMLImageElement | null;
+    if (ctaBg) {
+      gsap.fromTo(ctaBg,
+        { yPercent: -15 },
+        {
+          yPercent: 15,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.os-cta-section',
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.5,
+          },
+        }
+      );
+    }
   }
 
   // ─────────────────────────────────────────────
@@ -163,9 +209,9 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
   private initParallaxImages(): void {
     const parallaxImgs = this.el.nativeElement.querySelectorAll(
       '.os-parallax-img__img'
-    ) as NodeListOf<HTMLImageElement>;
+    ) as NodeListOf<HTMLElement>;
 
-    parallaxImgs.forEach((img: HTMLImageElement) => {
+    parallaxImgs.forEach((img: HTMLElement) => {
       const wrap = img.closest('.os-parallax-img__inner');
       if (!wrap) return;
 
@@ -183,50 +229,6 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
         }
       );
     });
-  }
-
-  // ─────────────────────────────────────────────
-  // PARALLAX BREAK — full-width cinematic scroll
-  // ─────────────────────────────────────────────
-  private initParallaxBreak(): void {
-    const breakImg = this.el.nativeElement.querySelector(
-      '.os-parallax-break__img'
-    ) as HTMLImageElement | null;
-    if (!breakImg) return;
-
-    gsap.fromTo(breakImg,
-      { yPercent: -18 },
-      {
-        yPercent: 18,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.os-parallax-break',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1.5,
-        },
-      }
-    );
-
-    // CTA section bg parallax
-    const ctaBg = this.el.nativeElement.querySelector(
-      '.os-cta-section__bg'
-    ) as HTMLImageElement | null;
-    if (ctaBg) {
-      gsap.fromTo(ctaBg,
-        { yPercent: -15 },
-        {
-          yPercent: 15,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '.os-cta-section',
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.5,
-          },
-        }
-      );
-    }
   }
 
   // ─────────────────────────────────────────────

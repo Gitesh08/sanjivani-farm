@@ -28,7 +28,7 @@ import { CottagesComponent } from '../home/components/cottages/cottages';
       <!-- Dynamic Location Hero -->
       <section class="location-hero">
         <div class="location-hero__bg">
-          <img src="https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1920/v1776530402/image_ucfeks.png" alt="Sanjivani Farm Aerial" fetchpriority="high">
+          <img src="https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:best,w_1920/v1786185697/16-acre-farm_y2ikvq.webp" alt="Sanjivani Farm Aerial" fetchpriority="high">
           <div class="location-hero__overlay"></div>
         </div>
         

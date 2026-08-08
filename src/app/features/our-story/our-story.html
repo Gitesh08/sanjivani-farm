@@ -16,7 +16,7 @@
 
   <div class="os-hero__parallax-wrap">
     <img
-      src="https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776530402/image_ucfeks.png"
+      src="https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1200/IMG20260215125824_fycjy9.webp"
       alt="Sanjivani Farm"
       class="os-hero__bg-img"
       #heroBg
@@ -72,16 +72,33 @@
       </div>
     </div>
 
-    <div class="os-section__image-wrap os-parallax-img" data-reveal="right">
+    <div class="os-section__image-wrap os-parallax-img" data-reveal="right" (click)="toggleVideoPlay()" style="cursor: pointer;">
       <div class="os-parallax-img__inner">
-        <img
-          src="https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776530497/download_14_j3juv1.jpg"
-          alt="Private lake at golden hour"
-          class="os-parallax-img__img"
-          loading="lazy"
-        />
+        <app-video-player
+          #section1Video
+          customClass="os-parallax-img__img"
+          [hlsUrl]="storyHls()"
+          [fallbackMp4]="storyMp4()"
+          [poster]="storyPoster()"
+          [autoplay]="false"
+          [loop]="true"
+          [playsinline]="true"
+          [muted]="false"
+          [controls]="false"
+          [preferHighQuality]="true"
+          (playing)="isPlaying.set(true)"
+          (pauseEvent)="isPlaying.set(false)">
+        </app-video-player>
       </div>
       <div class="os-section__image-accent" aria-hidden="true"></div>
+      
+      @if (!isPlaying()) {
+      <button class="os-section__play-btn" aria-label="Play Video" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 72px; height: 72px; border-radius: 50%; background: rgba(0, 0, 0, 0.4); color: white; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px); transition: transform 0.3s ease, background 0.3s ease; z-index: 10;">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 32px; height: 32px; margin-left: 4px;">
+          <path d="M8 5v14l11-7z"></path>
+        </svg>
+      </button>
+      }
     </div>
 
   </div>
@@ -94,8 +111,8 @@
     <div class="os-section__image-wrap os-parallax-img" data-reveal="left">
       <div class="os-parallax-img__inner">
         <img
-          src="https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776500316/IMG20260215125824_acfgbw.jpg"
-          alt="700 coconut trees in morning light"
+          src="https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1200/IMG_9391_1_lqsyvu.webp"
+          alt="Activities and Leisure"
           class="os-parallax-img__img"
           loading="lazy"
         />
@@ -147,8 +164,8 @@
     <div class="os-section__image-wrap os-parallax-img" data-reveal="right">
       <div class="os-parallax-img__inner">
         <img
-          src="https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776500180/IMG20260110175042_a5umau.jpg"
-          alt="Open skies and lake reflections"
+          src="https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1200/IMG20251205164424_dg7pra.webp"
+          alt="Gather and celebrate"
           class="os-parallax-img__img"
           loading="lazy"
         />
@@ -159,33 +176,14 @@
   </div>
 </section>
 
-<!-- ── FULL-WIDTH PARALLAX BREAK SECTION ── -->
-<section class="os-parallax-break" #parallaxBreak aria-label="Sanjivani landscape">
-  <div class="os-parallax-break__img-wrap">
-    <img
-      src="https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776530497/download_14_j3juv1.jpg"
-      alt="Sanjivani Farm panoramic view"
-      class="os-parallax-break__img"
-      loading="lazy"
-    />
-    <div class="os-parallax-break__overlay" aria-hidden="true"></div>
-  </div>
-  <div class="os-parallax-break__content container">
-    <p class="os-parallax-break__quote" style="font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2;">
-      Come away from the city.<br>
-      Come closer to nature.<br>
-      Come create memories.
-    </p>
-    <span class="os-parallax-break__attr" style="margin-top: 1.5rem; font-size: 1.25rem; font-style: italic; color: var(--color-primary-light);">Your Nature. Your People. Your Memories.</span>
-  </div>
-</section>
+
 
 <!-- ── CLOSING CTA SECTION ── -->
 <section class="os-cta-section" #ctaSection aria-label="Visit Sanjivani">
   <div class="os-cta-section__bg-wrap">
     <img
-      src="https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776500316/IMG20260215125824_acfgbw.jpg"
-      alt="Sanjivani Farm at golden hour"
+      src="https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1200/farming-mango_jwlste.webp"
+      alt="Sanjivani Farm CTA backdrop"
       class="os-cta-section__bg"
       loading="lazy"
     />

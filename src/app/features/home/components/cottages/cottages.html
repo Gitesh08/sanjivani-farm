@@ -25,18 +25,44 @@
               <img [src]="item.url" [alt]="item.alt || cottage.name + ' — photo ' + (mediaIndex)" class="cottage-card__img"
                 [class.active]="activeSlides()[cottageIndex] === mediaIndex" loading="lazy">
               } @else {
-              <div class="cottage-card__img" [class.active]="activeSlides()[cottageIndex] === mediaIndex">
-                <!-- Poster: Instantly loads HD still frame -->
-                <img [src]="item.posterUrl" class="cottage-card__internal-media cottage-card__poster"
-                  [class.opacity-0]="videoReady()[cottageIndex]" [alt]="item.alt || 'Loading video...'">
+              <!-- Video slide — clickable to play/pause, same as activities -->
+              <div class="cottage-card__img cottage-card__video-wrap"
+                   [attr.data-mi]="mediaIndex"
+                   [class.active]="activeSlides()[cottageIndex] === mediaIndex"
+                   (click)="playingState()[cottageIndex] ? pauseVideo(cottageIndex, mediaIndex, $event) : playVideo(cottageIndex, mediaIndex, $event)">
 
-                <!-- Video: Silently buffers in background, fades in when perfect -->
-                <video [src]="item.url" class="cottage-card__internal-media cottage-card__video-player"
-                  [class.opacity-100]="videoReady()[cottageIndex]" 
-                  (playing)="onVideoCanPlay(cottageIndex)"
-                  (canplay)="onVideoCanPlay(cottageIndex)"
-                  loop muted playsinline preload="none">
-                </video>
+                <!-- HD Poster — shown until playing -->
+                <img [src]="item.poster" class="cottage-card__internal-media cottage-card__poster"
+                  [class.opacity-0]="playingState()[cottageIndex]" [alt]="item.alt || 'Loading video...'">
+
+                <!-- Video player — mount only when active to prevent MediaSource limits -->
+                @if (activeSlides()[cottageIndex] === mediaIndex) {
+                  <app-video-player
+                         [hlsUrl]="item.hls || ''"
+                         [fallbackMp4]="item.fallbackMp4 || item.url || ''"
+                         customClass="cottage-card__internal-media cottage-card__video-player"
+                         [class.opacity-100]="playingState()[cottageIndex]"
+                         (playing)="onVideoCanPlay(cottageIndex)"
+                         (pauseEvent)="onVideoPause(cottageIndex)"
+                         [loop]="true"
+                         [muted]="mutedState()[cottageIndex]"
+                         [playsinline]="true"
+                         preload="metadata"
+                         [preferHighQuality]="true"
+                         [autoplay]="false"
+                         [controls]="false"
+                         [forceInit]="true">
+                  </app-video-player>
+                }
+
+                <!-- Centered play button — hidden once playing -->
+                @if (!playingState()[cottageIndex]) {
+                  <div class="cottage-card__play-overlay" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                }
               </div>
               }
               }
@@ -44,9 +70,9 @@
           </div>
 
 
-          <!-- Top-right controls: mute (video only) + counter -->
+          <!-- Top-right controls: mute (video only when playing) + counter -->
           <div class="cottage-card__top-controls">
-            @if (cottage.media[activeSlides()[cottageIndex]]?.type === 'video') {
+            @if (cottage.media[activeSlides()[cottageIndex]]?.type === 'video' && playingState()[cottageIndex]) {
             <button class="cottage-card__mute-btn" (click)="toggleMute(cottageIndex, $event)"
               [attr.aria-label]="mutedState()[cottageIndex] ? 'Unmute video' : 'Mute video'">
               @if (mutedState()[cottageIndex]) {

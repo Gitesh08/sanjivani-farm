@@ -884,6 +884,38 @@
   height: 32px;
 }
 
+.tour-modal__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: white;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.tour-modal__play:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.tour-modal__play svg {
+  width: 40px;
+  height: 40px;
+  margin-left: 6px; /* Optically center the play triangle */
+}
+
 .tour-modal__nav--prev {
   left: 2rem;
 }
@@ -937,6 +969,16 @@
   .tour-modal__nav svg {
     width: 24px;
     height: 24px;
+  }
+  
+  .tour-modal__play {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .tour-modal__play svg {
+    width: 28px;
+    height: 28px;
   }
   
   .tour-modal__nav--prev {

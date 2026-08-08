@@ -4,14 +4,24 @@
   <div class="hero__video-wrapper" aria-hidden="true">
     <!-- Instant Poster Image -->
     <img
-      src="https://res.cloudinary.com/dsepjvm2l/video/upload/f_auto,q_auto:best,w_1920/v1785608600/boating-hero-section_ngkw3z.jpg"
+      [src]="heroPoster()"
       alt="" class="hero__poster" [class.hero__poster--hidden]="videoReady()" fetchpriority="high" loading="eager">
 
-    <!-- Video (Native streaming, bound directly to prevent Chromium cached MP4 sync freeze) -->
-    <video #heroVideo class="hero__video" [class.hero__video--ready]="videoReady()" (playing)="onVideoReady()"
-      (canplay)="onVideoReady()" (loadeddata)="onVideoReady()" [src]="videoUrl()" loop muted playsinline
+    <!-- Video -->
+    <app-video-player #heroVideo 
+      customClass="hero__video" 
+      [class.hero__video--ready]="videoReady()" 
+      (playing)="onVideoReady()"
+      (canplay)="onVideoReady()" 
+      [hlsUrl]="heroHls()"
+      [fallbackMp4]="heroMp4()" 
+      [loop]="true" 
+      [muted]="true" 
+      [playsinline]="true"
+      [autoplay]="true"
+      [preferHighQuality]="true"
       preload="metadata">
-    </video>
+    </app-video-player>
   </div>
 
   <!-- VIGNETTE LAYERS -->
@@ -192,10 +202,28 @@
     </svg>
   </button>
 
-  <div class="tour-modal__video-container">
-    <video class="tour-modal__video" [src]="tourVideos[currentVideoIndex()].url"
-      [poster]="tourVideos[currentVideoIndex()].poster" autoplay controls playsinline loop>
-    </video>
+  <div class="tour-modal__video-container" (click)="toggleTourVideoPlay()">
+    <app-video-player #tourVideo
+      customClass="tour-modal__video" 
+      [hlsUrl]="tourVideos[currentVideoIndex()].hls || ''"
+      [fallbackMp4]="tourVideos[currentVideoIndex()].fallbackMp4 || ''"
+      [poster]="tourVideos[currentVideoIndex()].poster || ''" 
+      [autoplay]="false" 
+      [loop]="true"
+      [playsinline]="true"
+      [muted]="false"
+      [controls]="false"
+      [preferHighQuality]="true"
+      (playing)="tourVideoPlaying.set(true)"
+      (pauseEvent)="tourVideoPlaying.set(false)">
+    </app-video-player>
+
+    <!-- Custom Center Play Button -->
+    <button *ngIf="!tourVideoPlaying()" class="tour-modal__play" aria-label="Play Video">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"></path>
+      </svg>
+    </button>
   </div>
 
   <button class="tour-modal__nav tour-modal__nav--next" (click)="nextVideo()" aria-label="Next Video">

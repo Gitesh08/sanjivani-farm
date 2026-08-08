@@ -8,13 +8,15 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { animateSectionTitle } from '../../../../shared/utils/gsap-animations';
 import { SplashStateService } from '../../../../core/services/splash-state.service';
+import { MediaService } from '../../../../core/services/media.service';
+import { VideoPlayerComponent } from '../../../../shared/components/video-player/video-player.component';
 import { Subscription } from 'rxjs';
 
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-our-story',
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, VideoPlayerComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './our-story.html',
   styleUrl: './our-story.css',
@@ -25,12 +27,15 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
   private el = inject(ElementRef);
   private ngZone = inject(NgZone);
   private splashState = inject(SplashStateService);
+  public media = inject(MediaService);
   private splashSub?: Subscription;
 
-  @ViewChild('storyVideo') videoRef?: ElementRef<HTMLVideoElement>;
+  @ViewChild('storyVideo') videoRef?: VideoPlayerComponent;
 
   readonly videoReady = signal(false);
-  readonly videoUrl = signal<string>('https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1200/v1785529662/VN20260730_193435_asxyre.mp4#t=0.001');
+  readonly storyHls = signal<string>(this.media.masterPlaylist('drone-shot_03'));
+  readonly storyMp4 = signal<string>(this.media.fallbackMp4('drone-shot_03') + '#t=0.001');
+  readonly storyPoster = signal<string>(this.media.poster('drone-shot_03'));
 
   ngOnDestroy(): void {
     this.splashSub?.unsubscribe();
@@ -45,8 +50,8 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
       event.stopPropagation();
     }
     this.isMuted.update(v => !v);
-    if (this.videoRef?.nativeElement) {
-      this.videoRef.nativeElement.muted = this.isMuted();
+    if (this.videoRef) {
+      this.videoRef.setMuted(this.isMuted());
     }
   }
 
@@ -56,39 +61,45 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
   
   readonly tourVideos = [
     {
-      url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1785529662/VN20260730_193435_asxyre.mp4',
-      poster: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1785529662/VN20260730_193435_asxyre.jpg'
+      hls: this.media.masterPlaylist('drone-shot_01'),
+      fallbackMp4: this.media.fallbackMp4('drone-shot_01'),
+      poster: this.media.poster('drone-shot_01')
     },
     {
-      url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1785529696/VN20260730_192651_zijlum.mp4',
-      poster: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1785529696/VN20260730_192651_zijlum.jpg'
+      hls: this.media.masterPlaylist('drone-shot_02'),
+      fallbackMp4: this.media.fallbackMp4('drone-shot_02'),
+      poster: this.media.poster('drone-shot_02')
     },
     {
-      url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1785529693/VN20260730_193050_m2uvzl.mp4',
-      poster: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1785529693/VN20260730_193050_m2uvzl.jpg'
+      hls: this.media.masterPlaylist('drone-shot_03'),
+      fallbackMp4: this.media.fallbackMp4('drone-shot_03'),
+      poster: this.media.poster('drone-shot_03')
     },
     {
-      url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1785529716/VN20260730_192230_kqdwvo.mp4',
-      poster: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1785529716/VN20260730_192230_kqdwvo.jpg'
+      hls: this.media.masterPlaylist('drone-shot_04'),
+      fallbackMp4: this.media.fallbackMp4('drone-shot_04'),
+      poster: this.media.poster('drone-shot_04')
     },
     {
-      url: 'https://res.cloudinary.com/dsepjvm2l/video/upload/f_mp4,q_auto:best,w_1920/v1785529722/VN20260730_194051_eaqemg.mp4',
-      poster: 'https://res.cloudinary.com/dsepjvm2l/video/upload/so_0,f_auto,q_auto:best,w_1920/v1785529722/VN20260730_194051_eaqemg.jpg'
+      hls: this.media.masterPlaylist('drone-shot_05'),
+      fallbackMp4: this.media.fallbackMp4('drone-shot_05'),
+      poster: this.media.poster('drone-shot_05')
     }
   ];
 
   openTour(): void {
     this.currentVideoIndex.set(0);
     this.isTourOpen.set(true);
-    if (this.videoRef?.nativeElement) {
-      this.videoRef.nativeElement.pause();
+    if (this.videoRef) {
+      this.videoRef.pause();
     }
   }
 
   closeTour(): void {
     this.isTourOpen.set(false);
-    if (this.videoRef?.nativeElement) {
-      this.videoRef.nativeElement.play().catch(() => {});
+    if (this.videoRef) {
+      const p = this.videoRef.play();
+      if (p) p.catch(() => {});
     }
   }
 
@@ -111,14 +122,12 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
       if (isComplete) {
         // Explicitly play video to bypass browser autoplay restrictions
         setTimeout(() => {
-          if (this.videoRef?.nativeElement) {
-            const vid = this.videoRef.nativeElement;
-            vid.muted = true;
-            vid.play().catch(e => console.log('Video autoplay blocked:', e));
+          if (this.videoRef) {
+            this.videoRef.setMuted(true);
+            const p = this.videoRef.play();
+            if (p) p.catch(e => console.log('Video autoplay blocked:', e));
             
-            if (vid.readyState >= 3) {
-              this.onVideoReady();
-            }
+            // Wait for it to play since we removed native loadeddata binding
           }
         }, 50);
         

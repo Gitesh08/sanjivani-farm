@@ -20,11 +20,12 @@
 
         <article class="activity-card snap-start"
                  [attr.data-activity-idx]="ri"
+                 [attr.data-loop-idx]="loopIdx"
                  [attr.aria-label]="item.title">
 
           <!-- ── Media Gallery ── -->
           <div class="activity-card__image-wrap">
-            @for (m of item.media; track m.url; let mi = $index) {
+            @for (m of item.media; track $index; let mi = $index) {
 
               @if (m.type === 'img') {
                 <!-- Plain image slide -->
@@ -35,21 +36,40 @@
                      onerror="this.style.display='none'">
 
               } @else {
-                <!-- Netflix crossfade: HD poster loads instantly, video fades in when buffered -->
-                <div class="activity-card__img" [class.active]="activeSlides()[ri] === mi">
-                  <!-- HD poster — first frame extracted by Cloudinary so_0 -->
-                  <img [src]="m.posterUrl" alt="Loading video..."
+                <!-- Video slide: poster shows until user clicks play, like /our-story pattern -->
+                <div class="activity-card__img activity-card__video-wrap"
+                     [attr.data-mi]="mi"
+                     [class.active]="activeSlides()[ri] === mi"
+                     (click)="playingVideosSet().has(loopIdx + '-' + mi) ? pauseVideo(loopIdx, mi, $event) : playVideo(loopIdx, mi, $event)">
+
+                  <!-- HD poster — always visible until video plays -->
+                  <img [src]="m.poster" alt="Loading video..."
                        class="activity-card__internal-media activity-card__poster"
-                       [class.opacity-0]="videoReadySet().has(ri + '-' + mi)">
-                  <!-- Video — hidden until (playing)/(canplay) fires -->
-                  <video [src]="m.url"
-                         class="activity-card__internal-media activity-card__video-player"
-                         [attr.data-media-idx]="mi"
-                         [class.opacity-100]="videoReadySet().has(ri + '-' + mi)"
-                         (playing)="onVideoCanPlay(ri, mi)"
-                         (canplay)="onVideoCanPlay(ri, mi)"
-                         loop muted playsinline preload="none">
-                  </video>
+                       [class.opacity-0]="playingVideosSet().has(loopIdx + '-' + mi)">
+
+                  <!-- Video player — mount only when active to prevent browser MediaSource limit crashes -->
+                  @if (activeSlides()[ri] === mi) {
+                    <app-video-player
+                           [hlsUrl]="m.hls || ''"
+                           [fallbackMp4]="m.fallbackMp4 || m.url || ''"
+                           customClass="activity-card__internal-media activity-card__video-player"
+                           [class.opacity-100]="playingVideosSet().has(loopIdx + '-' + mi)"
+                           (playing)="onVideoPlay(loopIdx, mi)"
+                           (pauseEvent)="onVideoPause(loopIdx, mi)"
+                           [loop]="true" [muted]="mutedState()[ri]" [playsinline]="true"
+                           preload="metadata" [preferHighQuality]="true"
+                           [autoplay]="false" [controls]="false" [forceInit]="true">
+                    </app-video-player>
+                  }
+
+                  <!-- Centered play button — hidden once playing -->
+                  @if (!playingVideosSet().has(loopIdx + '-' + mi)) {
+                    <div class="activity-card__play-overlay" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
+                  }
                 </div>
               }
 
@@ -60,7 +80,7 @@
           </div>
 
           <!-- ── Mute button — top-right, only when active slide is a video ── -->
-          @if (item.media[activeSlides()[ri]]?.type === 'video') {
+          @if (item.media[activeSlides()[ri]]?.type === 'video' && playingVideosSet().has(loopIdx + '-' + activeSlides()[ri])) {
             <button class="activity-card__mute-btn"
                     (click)="toggleMute(ri, $event)"
                     [attr.aria-label]="mutedState()[ri] ? 'Unmute video' : 'Mute video'">

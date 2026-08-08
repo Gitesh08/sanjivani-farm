@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
         {
           "@type": ["Resort", "LocalBusiness"],
           "name": "Sanjivani Farm & Resort",
-          "image": "https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776530402/image_ucfeks.png",
+          "image": "https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:best,w_1200/v1786185697/16-acre-farm_y2ikvq.webp",
           "telephone": "+918108446040",
           "priceRange": "$$",
           "address": {

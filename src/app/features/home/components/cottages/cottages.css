@@ -79,12 +79,18 @@
   height: 100%;
   object-fit: cover;
   opacity: 0;
+  pointer-events: none; /* inactive slides must not steal clicks */
   transition: opacity 0.5s ease-in-out, transform var(--duration-slow) var(--ease-resort);
 }
 
 /* ── Netflix Crossfade Container Styles ── */
 div.cottage-card__img {
   overflow: hidden; /* Contains the scale hover effect for inner media */
+}
+
+.cottage-card__img.active {
+  opacity: 1;
+  pointer-events: auto; /* active slide receives clicks */
 }
 
 /* Both poster and video stretch to fill the slide perfectly */
@@ -106,17 +112,57 @@ div.cottage-card__img {
 }
 
 /* Flipped instantly by Angular when network buffer is secure */
-.cottage-card__video-player.opacity-100 {
+app-video-player.opacity-100 .cottage-card__video-player {
   opacity: 1;
 }
 .cottage-card__poster.opacity-0 {
   opacity: 0;
 }
-/* ──────────────────────────────────── */
 
-.cottage-card__img.active {
-  opacity: 1;
+/* Play button overlay — centered circle */
+.cottage-card__play-overlay {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: none; /* let the parent div receive the click */
+  z-index: 5;
+  transition: transform 0.2s ease, background 0.2s ease;
+  color: #fff;
 }
+
+.cottage-card__play-overlay svg {
+  width: 20px;
+  height: 20px;
+  margin-left: 3px;
+}
+
+.cottage-card__video-wrap:hover .cottage-card__play-overlay {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+/* On mobile — slightly smaller */
+@media (max-width: 768px) {
+  .cottage-card__play-overlay {
+    width: 40px;
+    height: 40px;
+  }
+  .cottage-card__play-overlay svg {
+    width: 17px;
+    height: 17px;
+  }
+}
+/* ──────────────────────────────────── */
 
 /* Hover passes the scale down to the media */
 .cottage-card:hover .cottage-card__img.active img,
@@ -335,19 +381,30 @@ div.cottage-card__img {
   min-width: 0; /* Critical for ellipsis to work in flexbox child */
 }
 
+/* 
+ * Title & Tagline — fluid type that works across all mobile sizes:
+ * 320px (iPhone SE 1st), 375px (iPhone 6-13 mini), 390px (iPhone 14),
+ * 393px (iPhone 15), 414px (iPhone Plus), 430px (iPhone 15 Plus/Pro Max),
+ * 360-412px (Android phones), 768px (tablets)
+ */
 .cottage-card__title {
-  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  font-size: clamp(1rem, 4vw, 1.25rem);
   font-weight: 500;
   margin: 0;
   color: #fff;
   letter-spacing: 0.01em;
-  /* Allow text to wrap to the next line smoothly */
   white-space: normal;
   line-height: 1.25;
+  /* Prevent overflow — allow 2 lines max */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .cottage-card__tagline {
-  font-size: clamp(0.95rem, 3vw, 1.1rem);
+  font-size: clamp(0.8rem, 3.2vw, 0.95rem);
   font-family: var(--font-body);
   color: rgba(255, 255, 255, 0.75);
   margin: 0;
@@ -425,24 +482,62 @@ div.cottage-card__img {
   .cottage-card__video-badge {
     bottom: 7.25rem;
   }
+
+  /* Tighten content padding on mobile */
+  .cottage-card__content {
+    padding: 1rem 1rem 0.9rem 1rem;
+  }
+
+  .cottage-card__title {
+    font-size: clamp(0.95rem, 4vw, 1.15rem);
+  }
+
+  .cottage-card__tagline {
+    font-size: clamp(0.75rem, 3.2vw, 0.9rem);
+  }
 }
 
-@media (max-width: 480px) {
+/* iPhone SE (320px) and very small phones */
+@media (max-width: 360px) {
+  .cottage-card {
+    height: 460px;
+  }
+
+  .cottage-card__content {
+    padding: 0.85rem 0.85rem 0.75rem 0.85rem;
+  }
+
+  .cottage-card__title {
+    font-size: 0.9rem;
+  }
+
+  .cottage-card__tagline {
+    font-size: 0.72rem;
+  }
+
+  .cottage-card__btn {
+    padding: var(--space-2) var(--space-3);
+    font-size: 0.8rem;
+  }
+
+  .cottage-card__dots {
+    bottom: 5.5rem;
+  }
+
+  .cottage-card__video-badge {
+    bottom: 7rem;
+  }
+}
+
+/* Standard mobile 361–480px (most Android + iPhone 6–14) */
+@media (min-width: 361px) and (max-width: 480px) {
   .cottage-card {
     height: 500px;
   }
 
   .cottage-card__btn {
-    padding: var(--space-3) var(--space-4);
-    font-size: 0.95rem;
-  }
-
-  .cottage-card__title {
-    font-size: clamp(1.15rem, 5vw, 1.3rem);
-  }
-
-  .cottage-card__tagline {
-    font-size: clamp(1.05rem, 4.5vw, 1.15rem);
+    padding: var(--space-2) var(--space-3);
+    font-size: 0.85rem;
   }
 
   .cottage-card__dots {

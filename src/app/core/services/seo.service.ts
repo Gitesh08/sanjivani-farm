@@ -15,7 +15,7 @@ export interface SeoConfig {
   providedIn: 'root'
 })
 export class SeoService {
-  private defaultImage = 'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776530402/image_ucfeks.png';
+  private defaultImage = 'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:best,w_1200/v1786185697/16-acre-farm_y2ikvq.webp';
 
   constructor(
     private titleService: Title,
