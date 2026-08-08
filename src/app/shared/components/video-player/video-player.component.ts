@@ -45,7 +45,7 @@ import Hls from 'hls.js';
         (ended)="onEnded()"
         (error)="onError($event)">
       </video>
-      @if (isBuffering) {
+      @if (isBuffering && !hideSpinner) {
         <div class="video-spinner-overlay">
           <div class="video-spinner"></div>
         </div>
@@ -102,6 +102,8 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
   @Input({ transform: booleanAttribute }) playsinline: boolean = true;
   @Input({ transform: booleanAttribute }) controls: boolean = false;
   @Input({ transform: booleanAttribute }) preferHighQuality: boolean = false;
+  @Input({ transform: booleanAttribute }) isHero: boolean = false;
+  @Input({ transform: booleanAttribute }) hideSpinner: boolean = false;
   @Input() preload: string = 'none';
   @Input() customClass: string = '';
 
@@ -188,7 +190,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
     if (this.hlsUrl && Hls.isSupported()) {
       this.hls = new Hls({
         capLevelToPlayerSize: !this.preferHighQuality, // Optimizes bandwidth if true
-        maxBufferLength: 30,
+        maxBufferLength: this.isHero ? 60 : 30, // Double buffer for hero
       });
 
       this.hls.loadSource(this.hlsUrl);
@@ -219,7 +221,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
           const highestLevel = data.levels.length - 1;
           if (this.hls) {
             this.hls.startLevel = highestLevel;
-            // Optionally, also force currentLevel immediately
+            // Force currentLevel immediately so it switches to highest quality instantly
             this.hls.currentLevel = highestLevel;
           }
         });

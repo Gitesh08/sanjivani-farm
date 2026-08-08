@@ -8,6 +8,7 @@ import { SplashStateService } from '../../../../core/services/splash-state.servi
 import { MediaService } from '../../../../core/services/media.service';
 import { VideoPlayerComponent } from '../../../../shared/components/video-player/video-player.component';
 import { Subscription } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -175,6 +176,7 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
+
       this.splashSub = this.splashState.splashComplete$.subscribe(isComplete => {
         if (isComplete) {
           setTimeout(() => {
