@@ -154,16 +154,20 @@
 
 /* Mobile Native Scroll Setup */
 @media (max-width: 1023px) {
-  .nature__track-wrap {
-    display: flex;
+  .nature__track {
+    width: 100%;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-    will-change: scroll-position;
+    scroll-padding-left: max(var(--space-4), calc((100vw - var(--container-2xl)) / 2 + var(--space-4)));
+    scroll-padding-right: var(--space-8);
+    will-change: scroll-position; /* Override transform */
+    transform: none !important; /* Force prevent GSAP from applying transforms on resize edge cases */
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
-  .nature__track-wrap::-webkit-scrollbar {
+  .nature__track::-webkit-scrollbar {
     display: none;
   }
 }
@@ -211,7 +215,8 @@
 
 @media (max-width: 767px) {
   .nature-card {
-    height: clamp(380px, 65vh, 480px);
+    width: clamp(260px, 65vw, 320px);
+    height: auto;
   }
 
   .nature__track {
@@ -243,7 +248,8 @@
 
 @media (max-width: 480px) {
   .nature-card {
-    height: clamp(340px, 60vh, 440px);
+    width: clamp(240px, 75vw, 300px);
+    height: auto;
   }
 
   .nature-card__title {
