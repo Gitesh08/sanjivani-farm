@@ -45,7 +45,7 @@ export class App implements OnInit {
           "name": seoConfig.title,
           "description": seoConfig.description,
           "url": `https://sanjivanifarm.com${this.router.url}`,
-          "image": seoConfig.image || "https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:best,w_1200/v1786185697/16-acre-farm_y2ikvq.webp",
+          "image": seoConfig.image || "https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_1200/v1786185697/16-acre-farm_y2ikvq.webp",
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Palghar",

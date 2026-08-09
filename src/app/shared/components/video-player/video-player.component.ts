@@ -17,7 +17,7 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
-import Hls from 'hls.js';
+// hls.js is lazy-loaded on first use to avoid adding ~1MB to the initial JS bundle
 
 @Component({
   selector: 'app-video-player',
@@ -112,7 +112,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
   isBuffering = false;
   private lastTime = -1;
 
-  private hls: Hls | null = null;
+  private hls: any | null = null;
   private isBrowser: boolean;
   private io?: IntersectionObserver;
   private isInitialized = false;
@@ -230,7 +230,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
     });
   }
 
-  private initPlayer() {
+  private async initPlayer() {
     if (!this.videoRef) return;
     const video = this.videoRef.nativeElement;
 
@@ -240,50 +240,54 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
       this.hls = null;
     }
 
-    if (this.hlsUrl && Hls.isSupported()) {
-      this.hls = new Hls({
-        capLevelToPlayerSize: !this.preferHighQuality, // Optimizes bandwidth if true
-        maxBufferLength: this.isHero ? 60 : 30, // Double buffer for hero
-      });
+    if (this.hlsUrl) {
+      // Dynamically import hls.js only when a video actually needs to play
+      const { default: Hls } = await import('hls.js');
 
-      this.hls.loadSource(this.hlsUrl);
-      this.hls.attachMedia(video);
+      if (Hls.isSupported()) {
+        this.hls = new Hls({
+          capLevelToPlayerSize: !this.preferHighQuality,
+          maxBufferLength: this.isHero ? 60 : 30,
+        });
 
-      this.hls.on(Hls.Events.ERROR, (event, data) => {
-        if (data.fatal) {
-          switch (data.type) {
-            case Hls.ErrorTypes.NETWORK_ERROR:
-              console.warn('HLS Network Error, trying to recover...', data);
-              this.hls?.startLoad();
-              break;
-            case Hls.ErrorTypes.MEDIA_ERROR:
-              console.warn('HLS Media Error, trying to recover...', data);
-              this.hls?.recoverMediaError();
-              break;
-            default:
-              console.error('HLS Fatal Error, falling back to MP4', data);
-              this.fallbackToMp4(video);
-              break;
-          }
-        }
-      });
+        this.hls.loadSource(this.hlsUrl);
+        this.hls.attachMedia(video);
 
-      if (this.preferHighQuality) {
-        this.hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
-          // Set startLevel to the highest available quality
-          const highestLevel = data.levels.length - 1;
-          if (this.hls) {
-            this.hls.startLevel = highestLevel;
-            // Force currentLevel immediately so it switches to highest quality instantly
-            this.hls.currentLevel = highestLevel;
+        this.hls.on(Hls.Events.ERROR, (event: any, data: any) => {
+          if (data.fatal) {
+            switch (data.type) {
+              case Hls.ErrorTypes.NETWORK_ERROR:
+                console.warn('HLS Network Error, trying to recover...', data);
+                this.hls?.startLoad();
+                break;
+              case Hls.ErrorTypes.MEDIA_ERROR:
+                console.warn('HLS Media Error, trying to recover...', data);
+                this.hls?.recoverMediaError();
+                break;
+              default:
+                console.error('HLS Fatal Error, falling back to MP4', data);
+                this.fallbackToMp4(video);
+                break;
+            }
           }
         });
+
+        if (this.preferHighQuality) {
+          this.hls.on(Hls.Events.MANIFEST_PARSED, (event: any, data: any) => {
+            const highestLevel = data.levels.length - 1;
+            if (this.hls) {
+              this.hls.startLevel = highestLevel;
+              this.hls.currentLevel = highestLevel;
+            }
+          });
+        }
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        // Native Safari HLS
+        video.src = this.hlsUrl;
+      } else {
+        this.fallbackToMp4(video);
       }
-    } else if (this.hlsUrl && video.canPlayType('application/vnd.apple.mpegurl')) {
-      // Native Safari HLS support
-      video.src = this.hlsUrl;
     } else {
-      // Browser doesn't support HLS at all or no hlsUrl provided
       this.fallbackToMp4(video);
     }
   }

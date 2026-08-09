@@ -407,8 +407,9 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
         }
       });
     }, {
-      root: this.trackRef.nativeElement,
-      threshold: 0.4
+      root: null, // use the real viewport, not the scroll track
+      threshold: 0.3,
+      rootMargin: '0px 0px 0px 0px'
     });
 
     const cards = this.trackRef.nativeElement
