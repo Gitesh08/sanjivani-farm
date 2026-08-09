@@ -12,7 +12,9 @@ import {
   NgZone, 
   booleanAttribute,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import Hls from 'hls.js';
@@ -21,6 +23,7 @@ import Hls from 'hls.js';
   selector: 'app-video-player',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- The poster is rendered as an img on top of the video in activities.html, 
          but here we can also apply it natively. -->
@@ -36,14 +39,7 @@ import Hls from 'hls.js';
         [preload]="preload"
         [controls]="controls"
         class="video-player-element"
-        [class]="customClass"
-        (canplay)="onCanPlay($event)"
-        (playing)="onPlaying($event)"
-        (pause)="onPause($event)"
-        (waiting)="onWaiting()"
-        (timeupdate)="onTimeUpdate()"
-        (ended)="onEnded()"
-        (error)="onError($event)">
+        [class]="customClass">
       </video>
       @if (isBuffering && !hideSpinner) {
         <div class="video-spinner-overlay">
@@ -123,6 +119,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
 
   private ngZone = inject(NgZone);
   private el = inject(ElementRef);
+  private cdr = inject(ChangeDetectorRef);
 
   constructor() {
     this.isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
@@ -132,6 +129,9 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
 
   ngAfterViewInit(): void {
     if (!this.isBrowser) return;
+    
+    this.bindEvents();
+    
     if (this.autoplay || this.forceInit) {
       this.initPlayer();
       this.isInitialized = true;
@@ -139,6 +139,43 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
       this.setupIntersectionObserver();
     }
     this.checkReadyState();
+  }
+
+  private bindEvents(): void {
+    if (!this.videoRef?.nativeElement) return;
+    const video = this.videoRef.nativeElement;
+
+    this.ngZone.runOutsideAngular(() => {
+      video.addEventListener('canplay', (e) => {
+        this.updateBuffering(false);
+        this.canplay.emit(e);
+      });
+      video.addEventListener('playing', (e) => {
+        this.updateBuffering(false);
+        this.playing.emit(e);
+      });
+      video.addEventListener('pause', (e) => this.pauseEvent.emit(e));
+      video.addEventListener('waiting', () => this.updateBuffering(true));
+      video.addEventListener('timeupdate', () => {
+        if (this.isBuffering) this.updateBuffering(false);
+      });
+      video.addEventListener('ended', () => {
+        if (this.loop) {
+          video.currentTime = 0;
+          video.play().catch(() => {});
+        }
+      });
+      video.addEventListener('error', (e) => this.onError(e));
+    });
+  }
+
+  private updateBuffering(buffering: boolean): void {
+    if (this.isBuffering !== buffering) {
+      this.ngZone.run(() => {
+        this.isBuffering = buffering;
+        this.cdr.markForCheck();
+      });
+    }
   }
 
   private checkReadyState(): void {
@@ -280,40 +317,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
     }
   }
 
-  onCanPlay(event: Event) {
-    this.isBuffering = false;
-    this.canplay.emit(event);
-  }
-
-  onPlaying(event: Event) {
-    this.isBuffering = false;
-    this.playing.emit(event);
-  }
-  
-  onPause(event: Event) {
-    this.pauseEvent.emit(event);
-  }
-
-  onWaiting() {
-    this.isBuffering = true;
-  }
-
-  onTimeUpdate() {
-    if (this.videoRef?.nativeElement) {
-      const currentTime = this.videoRef.nativeElement.currentTime;
-      if (currentTime !== this.lastTime) {
-        this.isBuffering = false;
-        this.lastTime = currentTime;
-      }
-    }
-  }
-
-  onEnded() {
-    if (this.loop && this.videoRef?.nativeElement) {
-      this.videoRef.nativeElement.currentTime = 0;
-      this.videoRef.nativeElement.play().catch(() => {});
-    }
-  }
+  // Removed template-bound event handlers to prevent Zone thrashing
   
   onError(event: Event) {
     // If native playback errors (e.g. Safari HLS fails), try MP4 fallback

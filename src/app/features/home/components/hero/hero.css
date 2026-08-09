@@ -27,7 +27,9 @@
   object-fit: cover;
   object-position: center;
   display: block;
-  transform: scale(1.15); /* Initial GSAP state to prevent flash */
+  transform: scale(1.15) translateZ(0); /* Initial GSAP state to prevent flash + GPU */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
   transition: opacity 1.2s var(--ease-resort, ease-in-out), visibility 1.2s var(--ease-resort, ease-in-out);
 }
 
