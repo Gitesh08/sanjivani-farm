@@ -77,17 +77,19 @@
   background: rgba(255, 255, 255, 0.45);
   cursor: pointer;
   padding: 0;
-  transition: background 0.3s ease, transform 0.2s ease, width 0.3s ease;
+  transform-origin: left center;
+  transition: transform 0.3s ease, opacity 0.3s ease, border-radius 0.3s ease;
 }
 
 .dining__dot.active {
-  background: #fff;
-  width: 20px;
+  transform: scaleX(2.86); /* 7px → 20px equivalent */
   border-radius: 4px;
+  opacity: 1;
+  background: #fff;
 }
 
 .dining__dot:hover {
-  background: rgba(255, 255, 255, 0.75);
+  opacity: 0.9;
 }
 
 .dining__image-overlay {

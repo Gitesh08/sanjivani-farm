@@ -50,6 +50,8 @@
   overflow: hidden;
   box-shadow: var(--shadow-ambient);
   flex-shrink: 0;
+  content-visibility: auto;
+  contain-intrinsic-size: 300px 200px;
 }
 
 .gallery-preview__img {
