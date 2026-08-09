@@ -138,6 +138,22 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
     } else {
       this.setupIntersectionObserver();
     }
+    this.checkReadyState();
+  }
+
+  private checkReadyState(): void {
+    if (this.videoRef?.nativeElement) {
+      const video = this.videoRef.nativeElement;
+      if (video.readyState >= 3) {
+        setTimeout(() => {
+          this.isBuffering = false;
+          this.canplay.emit(new Event('canplay'));
+          if (!video.paused) {
+            this.playing.emit(new Event('playing'));
+          }
+        }, 50);
+      }
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

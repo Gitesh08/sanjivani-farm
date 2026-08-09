@@ -61,6 +61,8 @@
   cursor: pointer; /* Change back to pointer to indicate interactive tap */
   background-color: var(--color-surface-container);
   transition: box-shadow 0.4s ease, transform 0.2s ease;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 300px;
 }
 
 .activity-card:hover {

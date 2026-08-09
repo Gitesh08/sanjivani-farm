@@ -241,9 +241,9 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
     this.mutedState.set(new Array(len).fill(true));
   }
 
-  /** Create 4 sets for infinite loop illusion */
+  /** Create 3 sets for infinite loop illusion */
   get loopItems() {
-    return [...this.items, ...this.items, ...this.items, ...this.items];
+    return [...this.items, ...this.items, ...this.items];
   }
 
   /** Strip loop offset to get the real item index */
@@ -366,7 +366,7 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
       if (this.trackRef?.nativeElement) {
         const track = this.trackRef.nativeElement;
         // Start at 2nd set for infinite illusion
-        track.scrollTo({ left: track.scrollWidth / 4, behavior: 'instant' });
+        track.scrollTo({ left: track.scrollWidth / 3, behavior: 'instant' });
       }
       this.setupVideoObserver();
     }, 100);
@@ -450,11 +450,11 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
   }
 
   checkInfiniteScroll(track: HTMLElement): void {
-    const oneSetWidth = track.scrollWidth / 4;
-    if (track.scrollLeft > oneSetWidth * 2.5) {
+    const oneSetWidth = track.scrollWidth / 3;
+    if (track.scrollLeft > oneSetWidth * 1.8) {
       track.scrollTo({ left: track.scrollLeft - oneSetWidth, behavior: 'instant' });
     }
-    if (track.scrollLeft < oneSetWidth * 0.5) {
+    if (track.scrollLeft < oneSetWidth * 0.2) {
       track.scrollTo({ left: track.scrollLeft + oneSetWidth, behavior: 'instant' });
     }
   }

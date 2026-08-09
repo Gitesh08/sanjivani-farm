@@ -1,6 +1,8 @@
-import { Component, signal, computed, HostListener, ChangeDetectionStrategy, input } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { Component, signal, computed, ChangeDetectionStrategy, input, OnInit, OnDestroy, PLATFORM_ID, inject, NgZone } from '@angular/core';
+import { RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { fromEvent, Subscription, filter } from 'rxjs';
+import { throttleTime } from 'rxjs/operators';
 
 interface NavItem {
   label: string;
@@ -15,7 +17,7 @@ interface NavItem {
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit, OnDestroy {
   /** True once user scrolls past 60px */
   private _scrolled = signal(false);
   /** If true, always show the glass style regardless of scroll position */
@@ -27,6 +29,12 @@ export class NavbarComponent {
   /** Active Section Tracking */
   readonly activeSection = signal<string>('');
 
+  private platformId = inject(PLATFORM_ID);
+  private ngZone = inject(NgZone);
+  private router = inject(Router);
+  private scrollSub?: Subscription;
+  private routerSub?: Subscription;
+
   readonly navItems: NavItem[] = [
     { label: 'Our Story',  route: '/our-story' },
     { label: 'Cottages',   route: '/cottages' },
@@ -35,17 +43,49 @@ export class NavbarComponent {
     { label: 'Visit Us',   route: '/', fragment: 'visit-us' },
   ];
 
-  @HostListener('window:scroll')
-  onScroll(): void {
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Check initial position immediately
+      this.checkScrollPosition();
+
+      // Update on route changes to ensure logo state resets when navigating back to top
+      this.routerSub = this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd)
+      ).subscribe(() => {
+        setTimeout(() => this.checkScrollPosition(), 50);
+      });
+
+      // Throttle scroll events outside Angular zone to prevent layout thrashing
+      this.ngZone.runOutsideAngular(() => {
+        this.scrollSub = fromEvent(window, 'scroll')
+          .pipe(throttleTime(50, undefined, { leading: true, trailing: true }))
+          .subscribe(() => {
+            this.checkScrollPosition();
+          });
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.scrollSub?.unsubscribe();
+    this.routerSub?.unsubscribe();
+  }
+
+  private checkScrollPosition(): void {
     const y = window.scrollY;
 
-    // Check if we have passed the hero section (our-story reaches navbar height)
+    let isScrolled = false;
     const ourStoryEl = document.getElementById('our-story');
     if (ourStoryEl) {
       const rect = ourStoryEl.getBoundingClientRect();
-      this._scrolled.set(rect.top <= 80);
+      isScrolled = rect.top <= 80;
     } else {
-      this._scrolled.set(y > 60);
+      isScrolled = y > 60;
+    }
+    
+    // Only trigger change detection if the value actually changes
+    if (this._scrolled() !== isScrolled) {
+      this.ngZone.run(() => this._scrolled.set(isScrolled));
     }
 
     // ScrollSpy Logic for homepage fragments
@@ -57,8 +97,12 @@ export class NavbarComponent {
         current = id;
       }
     }
-    this.activeSection.set(current);
+    if (this.activeSection() !== current) {
+      this.ngZone.run(() => this.activeSection.set(current));
+    }
   }
+
+
 
   toggleMenu(): void {
     this.menuOpen.update(v => !v);
