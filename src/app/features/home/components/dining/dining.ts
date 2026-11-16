@@ -36,10 +36,13 @@ export class DiningComponent implements AfterViewInit, OnDestroy {
   // Tracks which highlight card is expanded on mobile (-1 = none)
   expandedIndex = signal<number>(-1);
 
-  /** The two Cloudinary images for the auto-slider */
+  /** The Cloudinary images for the auto-slider */
   readonly sliderImages = [
-    'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776530541/download_11_yfhud9.jpg',
-    'https://res.cloudinary.com/dsepjvm2l/image/upload/f_auto,q_auto,w_1200/v1776530546/download_18_s3vafq.jpg',
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1000/v1794840874/IMG_6106_lks3dx.webp',
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1000/v1794840874/IMG_6103_k2lx1q.webp',
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1000/v1794840874/IMG_6104_kmprao.webp',
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1000/v1794840873/IMG_6102_z39svq.webp',
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1000/v1794840874/IMG_6105_rc6xht.webp',
   ];
 
   /** Currently active slide index */
@@ -101,7 +104,7 @@ export class DiningComponent implements AfterViewInit, OnDestroy {
     this.ngZone.runOutsideAngular(() => {
       this.autoPlayTimer = setInterval(() => {
         this.activeSlide.update(i => (i + 1) % this.sliderImages.length);
-      }, 2000);
+      }, 3000);
     });
   }
 

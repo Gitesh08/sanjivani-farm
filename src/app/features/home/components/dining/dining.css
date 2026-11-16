@@ -72,13 +72,13 @@
 .dining__dot {
   width: 7px;
   height: 7px;
-  border-radius: 50%;
+  border-radius: 4px;
   border: none;
   background: rgba(255, 255, 255, 0.45);
   cursor: pointer;
   padding: 0;
   transform-origin: left center;
-  transition: transform 0.3s ease, opacity 0.3s ease, border-radius 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .dining__dot.active {

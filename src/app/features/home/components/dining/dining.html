@@ -23,7 +23,9 @@
                alt="Farm-to-table dining at Sanjivani Farm"
                class="dining__image"
                [class.active]="activeSlide() === i"
-               loading="lazy">
+               loading="lazy"
+               decoding="async"
+               crossorigin="anonymous">
         }
         <div class="dining__image-overlay" aria-hidden="true"></div>
 
