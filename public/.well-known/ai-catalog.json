@@ -1,0 +1,131 @@
+{
+  "$schema": "https://schemas.agentstandards.org/v1/ai-catalog.json",
+  "specVersion": "1.0",
+  "name": "Sanjivani Farm & Resort",
+  "version": "1.0.0",
+  "description": "16-acre eco-luxury farm stay and nature retreat in Palghar near Mumbai. Features wooden cottages, private boating, organic dining, and family activities. Explore cottages at /cottages; live reservations and dynamic pricing managed via Doorloom.",
+  "url": "https://sanjivanifarm.com",
+  "bookingEngine": {
+    "provider": "Doorloom",
+    "portalUrl": "https://sanjivanifarmandresort.doorloom.com",
+    "overviewUrl": "https://sanjivanifarm.com/cottages",
+    "pricingModel": "dynamic",
+    "description": "Third-party booking and reservations engine managed directly by the resort owner. All room rates, calendar availability, seasonal discounts, and instant reservations are live on Doorloom."
+  },
+  "contact": {
+    "email": "info@sanjivanifarm.com",
+    "phone": "+91 81084 46040",
+    "bookingPortal": "https://sanjivanifarmandresort.doorloom.com"
+  },
+  "capabilities": [
+    "cottage_booking",
+    "doorloom_reservations",
+    "activities_inquiry",
+    "day_picnic_inquiry",
+    "corporate_events"
+  ],
+  "entries": [
+    {
+      "id": "cottages",
+      "name": "Resort Cottages & Stays",
+      "type": "accommodation",
+      "description": "Explore Sanjivani Farm's scenic nature cottages — Wooden Glass Cottage, Red Stone Cottage, and Family Dormitory. Features video tours, photo galleries, amenities, and direct Doorloom booking.",
+      "url": "https://sanjivanifarm.com/cottages"
+    },
+    {
+      "id": "wooden-glass-cottage",
+      "name": "Wooden Glass Cottage",
+      "type": "accommodation",
+      "description": "Eco-luxury wooden glass cottage with panoramic nature views, AC, and private balcony. Capacity: 2-8 guests. Explore at /cottages and book live on Doorloom.",
+      "url": "https://sanjivanifarm.com/cottages"
+    },
+    {
+      "id": "red-stone-cottage",
+      "name": "Red Stone Cottage",
+      "type": "accommodation",
+      "description": "Rustic stone luxury cottage with veranda, AC, and lush lawn access. Capacity: 3-10 guests. Explore at /cottages and book live on Doorloom.",
+      "url": "https://sanjivanifarm.com/cottages"
+    },
+    {
+      "id": "dormitory-cottage",
+      "name": "Family Dormitory Cottage",
+      "type": "accommodation",
+      "description": "Spacious group hall with 2 attached bathrooms, AC, lake & river views for large families and retreats. Capacity: 8-16 guests. Explore at /cottages and book live on Doorloom.",
+      "url": "https://sanjivanifarm.com/cottages"
+    },
+    {
+      "id": "dining",
+      "name": "Farm-to-Table Organic Dining",
+      "type": "dining",
+      "description": "Authentic Konkan and Maharashtrian pure vegetarian & non-vegetarian farm-to-table cuisine prepared with estate-grown produce.",
+      "url": "https://sanjivanifarm.com/#dining"
+    },
+    {
+      "id": "activities",
+      "name": "Farm Recreation & Adventure Activities",
+      "type": "recreation",
+      "description": "Private lake boating, kayaking, swimming pool with rain dance, Sanjivani toy train, hammock garden, and cycling trails.",
+      "url": "https://sanjivanifarm.com/#activities"
+    }
+  ],
+  "catalog": {
+    "cottages": [
+      {
+        "id": "wooden-glass-cottage",
+        "name": "Wooden Glass Cottage",
+        "category": "Luxury Nature Stay",
+        "size": "250 sq.ft",
+        "baseCapacity": 2,
+        "maxCapacity": 8,
+        "features": ["Forest view", "Air Conditioned", "Private balcony", "King bed", "Attached bathroom"],
+        "pricing": "Dynamic live pricing managed by owner on Doorloom",
+        "bookingProvider": "Doorloom",
+        "bookingUrl": "https://sanjivanifarmandresort.doorloom.com/p/woodenglasscottage01",
+        "url": "https://sanjivanifarm.com/cottages"
+      },
+      {
+        "id": "red-stone-cottage",
+        "name": "Red Stone Cottage",
+        "category": "Rustic Heritage Stay",
+        "size": "300 sq.ft",
+        "baseCapacity": 3,
+        "maxCapacity": 10,
+        "features": ["Red stone architecture", "Veranda", "Air Conditioned", "Lush lawn access", "Attached bathroom"],
+        "pricing": "Dynamic live pricing managed by owner on Doorloom",
+        "bookingProvider": "Doorloom",
+        "bookingUrl": "https://sanjivanifarmandresort.doorloom.com/p/redstomecottage07",
+        "url": "https://sanjivanifarm.com/cottages"
+      },
+      {
+        "id": "dormitory-cottage",
+        "name": "Family Dormitory Cottage",
+        "category": "Large Group & Retreat Stay",
+        "size": "600 sq.ft",
+        "baseCapacity": 8,
+        "maxCapacity": 16,
+        "features": ["Spacious group hall", "2 Attached bathrooms", "Air Conditioned", "Lake and river views", "Private lawn access"],
+        "pricing": "Dynamic live pricing managed by owner on Doorloom",
+        "bookingProvider": "Doorloom",
+        "bookingUrl": "https://sanjivanifarmandresort.doorloom.com/p/dormitorycottage10",
+        "url": "https://sanjivanifarm.com/cottages"
+      }
+    ],
+    "activities": [
+      "Private Lake Boating & Kayaking",
+      "Sanjivani Toy Train Ride",
+      "Swimming Pool & Rain Dance",
+      "Hammock Garden & Relaxation",
+      "Farm Cycling & Nature Trails",
+      "Indoor & Outdoor Sports"
+    ],
+    "dining": {
+      "type": "Pure Maharashtrian & Multi-cuisine Farm-to-Table",
+      "inclusions": "Breakfast, Lunch, High Tea, Dinner included in stay packages"
+    }
+  },
+  "documentation": {
+    "llms_txt": "https://sanjivanifarm.com/llms.txt",
+    "api_plugin": "https://sanjivanifarm.com/.well-known/ai-plugin.json",
+    "pricing_api": "https://sanjivanifarm.com/api/ai-pricing.json"
+  }
+}

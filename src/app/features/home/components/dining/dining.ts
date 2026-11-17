@@ -38,11 +38,11 @@ export class DiningComponent implements AfterViewInit, OnDestroy {
 
   /** The Cloudinary images for the auto-slider */
   readonly sliderImages = [
-    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1000/v1794840874/IMG_6106_lks3dx.webp',
-    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1000/v1794840874/IMG_6103_k2lx1q.webp',
-    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1000/v1794840874/IMG_6104_kmprao.webp',
-    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1000/v1794840873/IMG_6102_z39svq.webp',
-    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1000/v1794840874/IMG_6105_rc6xht.webp',
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:best,w_1400/v1794840874/IMG_6106_lks3dx.webp',
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:best,w_1400/v1794840874/IMG_6103_k2lx1q.webp',
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:best,w_1400/v1794840874/IMG_6104_kmprao.webp',
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:best,w_1400/v1794840873/IMG_6102_z39svq.webp',
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:best,w_1400/v1794840874/IMG_6105_rc6xht.webp',
   ];
 
   /** Currently active slide index */
@@ -104,7 +104,7 @@ export class DiningComponent implements AfterViewInit, OnDestroy {
     this.ngZone.runOutsideAngular(() => {
       this.autoPlayTimer = setInterval(() => {
         this.activeSlide.update(i => (i + 1) % this.sliderImages.length);
-      }, 3000);
+      }, 6000);
     });
   }
 

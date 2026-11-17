@@ -34,8 +34,8 @@
   display: flex;
   gap: var(--space-4);
   width: max-content;
-  /* Reduced speed for a calmer vibe */
-  animation: scrollMarquee 180s linear infinite;
+  /* Calm, relaxing luxury resort pace — gentle glide that gives visitors time to appreciate each moment */
+  animation: scrollMarquee 40s linear infinite;
 }
 
 /* Pause animation on hover for interactivity */

@@ -99,29 +99,29 @@ export class SplashScreenComponent implements OnInit, AfterViewInit {
     document.body.style.overflow = 'hidden';
 
     tl
-      // Phase 1: Logo fades in and scales slightly
-      .set(logo, { autoAlpha: 0, scale: 0.85 })
+      // Phase 1: Logo fades in and scales smoothly
+      .set(logo, { autoAlpha: 0, scale: 0.9 })
       .to(logo, {
         autoAlpha: 1,
         scale: 1,
-        duration: 1.5,
-        ease: 'power3.out'
+        duration: 0.5,
+        ease: 'power2.out'
       })
-      // Hold for a moment to let the user admire the logo
-      .to({}, { duration: 0.6 })
+      // Subtle hold
+      .to({}, { duration: 0.2 })
       // Phase 2: Fade logo down gently
       .to(logo, {
         autoAlpha: 0,
-        scale: 1.05,
-        duration: 0.6,
-        ease: 'power2.inOut'
+        scale: 1.03,
+        duration: 0.35,
+        ease: 'power2.in'
       })
       // Phase 3: The whole splash screen slides up to reveal the site 
       // (a smooth, premium curtain-lift effect)
       .to(wrap, {
         yPercent: -100,
-        duration: 0.9,
+        duration: 0.45,
         ease: 'power3.inOut'
-      }, "-=0.2");
+      }, "-=0.15");
   }
 }

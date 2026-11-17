@@ -1,50 +1,264 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Core Resort Pages -->
   <url>
-    <loc>/</loc><lastmod>2026-08-03</lastmod>
+    <loc>https://sanjivanifarm.com/</loc>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://pub-8e1fd72b3cee44b5894ac8fd05c44727.r2.dev/hero-section/poster.webp</image:loc>
+      <image:title>Sanjivani Farm &amp; Resort Palghar</image:title>
+    </image:image>
   </url>
+
   <url>
-    <loc>/our-story</loc><lastmod>2026-08-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>/cottages</loc><lastmod>2026-08-03</lastmod>
+    <loc>https://sanjivanifarm.com/cottages</loc>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://pub-8e1fd72b3cee44b5894ac8fd05c44727.r2.dev/wooden-glass-cottage/poster.webp</image:loc>
+      <image:title>Wooden Glass Cottage at Sanjivani Farm</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://pub-8e1fd72b3cee44b5894ac8fd05c44727.r2.dev/red-stone-cottage/poster.webp</image:loc>
+      <image:title>Red Stone Cottage at Sanjivani Farm</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://pub-8e1fd72b3cee44b5894ac8fd05c44727.r2.dev/family-dormitory/poster.webp</image:loc>
+      <image:title>Family Dormitory Cottage at Sanjivani Farm</image:title>
+    </image:image>
   </url>
-  
-  <!-- Programmatic Local & Experience SEO Routes -->
-  <url><loc>/resort-near/saphale</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>/stay-near/kelve</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>/weekend-getaway/vasai-virar</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>/resort-near/palghar</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>/resort-near/kelve-road</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>/resort-near/mahim-beach</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>/resort-near/virar</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>/resort-near/mumbai</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <!-- Experience Matrix -->
-  <url><loc>/kayaking-resort-near/mumbai</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>/kayaking-resort-near/palghar</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>/kayaking-resort-near/vasai-virar</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>/kayaking-resort-near/saphale</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url>
+    <loc>https://sanjivanifarm.com/gallery</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://pub-8e1fd72b3cee44b5894ac8fd05c44727.r2.dev/drone-shot_01/poster.webp</image:loc>
+      <image:title>Sanjivani Farm Aerial Nature Views</image:title>
+    </image:image>
+  </url>
 
-  <url><loc>/resort-with-toy-train-in/palghar</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>/resort-with-toy-train-in/mumbai</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url>
+    <loc>https://sanjivanifarm.com/our-story</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
 
-  <url><loc>/nature-resort-with-lakes-near/vasai-virar</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>/nature-resort-with-lakes-near/saphale</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url>
+    <loc>https://sanjivanifarm.com/insider-guide</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
 
-  <url><loc>/monsoon-getaway-in/kelve</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>/monsoon-getaway-in/palghar</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Insider Guide Journal Articles -->
+  <url>
+    <loc>https://sanjivanifarm.com/insider-guide/kelve-beach-guide</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_1200/Kelve_Beach_zcos78.webp</image:loc>
+      <image:title>The Ultimate Local Guide to Kelve Beach</image:title>
+    </image:image>
+  </url>
 
-  <url><loc>/corporate-outing-near/saphale</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>/corporate-outing-near/vasai-virar</loc><lastmod>2026-08-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url>
+    <loc>https://sanjivanifarm.com/insider-guide/digital-detox-weekend</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_1200/v1786185697/private-lakes_xunogz.webp</image:loc>
+      <image:title>Digital Detox Weekend at Sanjivani Farm</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/insider-guide/agritourism-over-hotels</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_1200/v1786100151/farming-sunflower_kfdj4l.webp</image:loc>
+      <image:title>Agritourism over Standard Hotels</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/insider-guide/corporate-outings-mumbai</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_1200/v1786185697/16-acre-farm_y2ikvq.webp</image:loc>
+      <image:title>Corporate Outings Near Mumbai at Sanjivani Farm</image:title>
+    </image:image>
+  </url>
+
+  <!-- Legal & Policies -->
+  <url>
+    <loc>https://sanjivanifarm.com/privacy-policy</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.40</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/terms</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.40</priority>
+  </url>
+
+  <!-- Programmatic Local & Experience SEO Landing Routes -->
+  <url>
+    <loc>https://sanjivanifarm.com/resort-near/saphale</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/stay-near/kelve</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/resort-near/palghar</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/weekend-getaway/vasai-virar</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/resort-near/mumbai</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/resort-near/virar</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/resort-near/kelve-road</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/resort-near/mahim-beach</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Experience SEO Routes -->
+  <url>
+    <loc>https://sanjivanifarm.com/kayaking-resort-near/mumbai</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/kayaking-resort-near/palghar</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/kayaking-resort-near/vasai-virar</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/kayaking-resort-near/saphale</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/resort-with-toy-train-in/palghar</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/resort-with-toy-train-in/mumbai</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/nature-resort-with-lakes-near/vasai-virar</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/nature-resort-with-lakes-near/saphale</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/monsoon-getaway-in/kelve</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/monsoon-getaway-in/palghar</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/corporate-outing-near/saphale</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/corporate-outing-near/vasai-virar</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
 </urlset>

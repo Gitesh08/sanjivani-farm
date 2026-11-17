@@ -1,82 +1,186 @@
 <section class="reviews section bg-surface" id="reviews" aria-labelledby="reviews-title">
   <div class="container reviews__inner">
-    <!-- Header -->
-    <div class="reviews__header">
-      <span class="section-tag reviews__label">Real Guest Reviews</span>
-      <h2 class="display-lg reviews__title font-heading" id="reviews-title">
-        Loved By Families & Travelers
-      </h2>
-      <p class="body-xl reviews__tag text-muted">
-        Read genuine stories from our guests who experienced the magic of Sanjivani Farm.
-      </p>
-    </div>
 
-    <!-- Carousel -->
-    <div class="reviews__carousel">
-      <div class="reviews__track-container">
-        <div class="reviews__track" [style.transform]="'translateX(-' + activeIndex() * 100 + '%)'">
-          @for (review of reviews(); track review.name) {
-            <article class="review-slide">
-              <div class="review-slide__content">
-                <div class="review-slide__quote-mark">“</div>
-                <div class="review-slide__stars">
-                  @for (star of [1,2,3,4,5]; track $index) {
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FBBC05" class="review-star">
-                      <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                    </svg>
-                  }
-                </div>
-                
-                <div class="review-slide__text-container" [class.is-expanded]="expandedReviews().has(review.name)">
-                  <p class="review-slide__text">"{{ review.text }}"</p>
-                  @if (review.text.length > 200) {
-                    <button class="review-read-more" (click)="toggleExpand(review.name)">
-                      {{ expandedReviews().has(review.name) ? 'Read less' : 'Read more...' }}
-                    </button>
-                  }
-                </div>
-                
-                <div class="review-slide__author">
-                  @if (review.profile_photo_url) {
-                    <img [src]="review.profile_photo_url" class="review-slide__avatar" alt="Avatar">
-                  } @else {
-                    <div class="review-slide__avatar-placeholder">{{ review.name.charAt(0) }}</div>
-                  }
-                  <div class="review-slide__author-meta">
-                    <h3 class="review-slide__name">{{ review.name }}</h3>
-                    <span class="review-slide__source">
-                      <svg class="google-icon" viewBox="0 0 48 48" width="16" height="16">
-                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.7 17.74 9.5 24 9.5z"/>
-                        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.11 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-                      </svg>
-                      {{ review.source }}
-                      @if (review.relative_time_description) {
-                        <span class="review-time">• {{ review.relative_time_description }}</span>
-                      }
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </article>
-          }
-        </div>
+    <!-- Section Header & Google Proof -->
+    <div class="reviews__header">
+      <div class="reviews__header-left">
+        <span class="section-tag reviews__label">Guest Experiences</span>
+        <h2 class="display-lg reviews__title font-heading" id="reviews-title">
+          Loved by Over {{ userRatingsTotal() }}+ Guests
+        </h2>
+        <p class="body-xl reviews__tag text-muted">
+          Read unfiltered stories from travelers and families who experienced the authentic Konkan charm of Sanjivani Farm.
+        </p>
       </div>
 
-      <!-- Navigation Controls -->
-      <div class="reviews__nav">
-        <button class="reviews__nav-btn" (click)="prev()" aria-label="Previous review">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <!-- Google Live Social Proof Pill -->
+      <a href="https://www.google.com/maps/place/Sanjivani+Farm+%26+Resort/@19.5983845,72.7671736,17z/data=!4m11!3m10!1s0x3be7039d2a6f5b01:0x89b4fe262a5bd81f!5m2!4m1!1i2!8m2!3d19.5983845!4d72.7671736!9m1!1b1!16s%2Fg%2F11rsdqvzq8"
+         target="_blank" 
+         rel="noopener noreferrer" 
+         class="reviews__google-badge"
+         [attr.aria-label]="rating() + ' stars - ' + userRatingsTotal() + '+ Verified Google Reviews on Google Maps'">
+        <div class="google-badge__icon">
+          <svg viewBox="0 0 48 48" width="28" height="28" aria-hidden="true">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.7 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.11 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+        </div>
+        <div class="google-badge__meta">
+          <div class="google-badge__rating-row">
+            <span class="google-badge__score">{{ rating() }}</span>
+            <div class="google-badge__stars">
+              <svg *ngFor="let s of [1,2,3,4,5]" viewBox="0 0 24 24" width="16" height="16" fill="#FBBC05" aria-hidden="true">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+              </svg>
+            </div>
+          </div>
+          <span class="google-badge__count">{{ userRatingsTotal() }}+ Verified Google Reviews ↗</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Multi-Card Horizon Carousel -->
+    <div class="reviews__carousel-wrapper">
+
+      <!-- Navigation Arrows (Desktop / Tablet) -->
+      <div class="reviews__controls">
+        <button class="reviews__arrow-btn reviews__arrow-btn--prev"
+                (click)="scrollPrev()" 
+                [disabled]="!canScrollPrev()"
+                aria-label="Previous review">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
         </button>
-        <button class="reviews__nav-btn" (click)="next()" aria-label="Next review">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <button class="reviews__arrow-btn reviews__arrow-btn--next"
+                (click)="scrollNext()" 
+                [disabled]="!canScrollNext()"
+                aria-label="Next review">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="9 18 15 12 9 6"></polyline>
           </svg>
         </button>
       </div>
+
+      <!-- Fluid Swipe Track -->
+      <div class="reviews__track" #reviewsTrack (scroll)="onTrackScroll()">
+        @for (review of reviews(); track review.name) {
+          <article class="review-card">
+
+            <!-- Card Top: Avatar, Name, Rating & Meta -->
+            <div class="review-card__header">
+              <div class="review-card__avatar-wrap">
+                <!-- Brand Fallback Initials (Always rendered underneath so it never leaves a blank hole) -->
+                <div class="review-card__avatar review-card__avatar--placeholder" 
+                     [style.background-color]="getAvatarBg(review.name)"
+                     [attr.aria-label]="review.name">
+                  <span>{{ getInitials(review.name) }}</span>
+                </div>
+
+                <!-- Live Google Profile Photo with referrerpolicy="no-referrer" -->
+                @if (review.profile_photo_url) {
+                  <img [src]="review.profile_photo_url"
+                       class="review-card__avatar review-card__avatar--img"
+                       [alt]="review.name + ' avatar'"
+                       referrerpolicy="no-referrer"
+                       loading="lazy"
+                       decoding="async"
+                       width="54"
+                       height="54"
+                       (error)="$any($event.target).style.display = 'none'">
+                }
+                <div class="review-card__google-dot" title="Verified Google Review">
+                  <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="review-card__author-info">
+                <div class="review-card__name-row">
+                  <h3 class="review-card__name">{{ review.name }}</h3>
+                </div>
+                <div class="review-card__badge-row">
+                  <span class="review-card__badge">{{ review.badge }}</span>
+                  <span class="review-card__time">• {{ review.relative_time_description }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stars & Tag Pill -->
+            <div class="review-card__rating-row">
+              <div role="img" class="review-card__stars" aria-label="5 out of 5 stars">
+                @for (star of [1,2,3,4,5]; track $index) {
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#FBBC05" class="review-star" aria-hidden="true">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  </svg>
+                }
+              </div>
+              @if (review.highlight) {
+                <span class="review-card__pill">{{ review.highlight }}</span>
+              }
+            </div>
+
+            <!-- Review Body Text -->
+            <div class="review-card__body" [class.is-expanded]="expandedReviews().has(review.name)">
+              <p class="review-card__text">“{{ review.text }}”</p>
+              @if (review.text.length > 170) {
+                <button class="review-card__more-btn" (click)="toggleExpand(review.name)">
+                  {{ expandedReviews().has(review.name) ? 'Show less' : 'Read more' }}
+                </button>
+              }
+            </div>
+
+            <!-- Card Bottom: Google Verified Source -->
+            <div class="review-card__footer">
+              <span class="review-card__source">
+                <svg viewBox="0 0 48 48" width="14" height="14" class="google-mini-icon" aria-hidden="true">
+                  <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.7 17.74 9.5 24 9.5z"/>
+                  <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                  <path fill="#34A853" d="M24 48c6.48 0 11.93-2.11 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                </svg>
+                Verified Google Review
+              </span>
+              <span class="review-card__tag-sub">{{ review.tag }}</span>
+            </div>
+
+          </article>
+        }
+      </div>
+
+      <!-- Pagination Indicator Dots -->
+      <div class="reviews__dots" role="group" aria-label="Review pagination">
+        @for (review of reviews(); track $index) {
+          <button class="reviews__dot"
+                  [class.is-active]="activeIndex() === $index"
+                  (click)="scrollToIndex($index)"
+                  [attr.aria-label]="'Go to review ' + ($index + 1)">
+          </button>
+        }
+      </div>
+
     </div>
+
+    <!-- Bottom Action CTA -->
+    <div class="reviews__cta-box">
+      <div class="reviews__cta-content">
+        <h4 class="reviews__cta-title">Visited Sanjivani Farm & Resort Recently?</h4>
+        <p class="reviews__cta-desc">Your review helps future travelers discover the magic of our 16-acre Konkan sanctuary.</p>
+      </div>
+      <a href="https://search.google.com/local/writereview?placeid=ChIJARVvKm8D5zsRH9hbKib-tIk"
+         target="_blank" 
+         rel="noopener noreferrer" 
+         class="btn btn-primary btn-sm reviews__cta-btn">
+        Write a Review on Google
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="7" y1="17" x2="17" y2="7"></line>
+          <polyline points="7 7 17 7 17 17"></polyline>
+        </svg>
+      </a>
+    </div>
+
   </div>
 </section>

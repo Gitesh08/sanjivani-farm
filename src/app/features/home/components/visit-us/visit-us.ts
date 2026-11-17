@@ -19,7 +19,7 @@ export class VisitUsComponent implements AfterViewInit {
     const sectionInner = this.el.nativeElement.querySelector('.visit-us__inner');
     if (sectionInner) {
       animateSectionTitle('.visit-us__label, .visit-us__title, .visit-us__tag', sectionInner);
-      animateScrollReveal('.visit-us__grid > *', sectionInner, 0.2);
+      animateScrollReveal('.visit-us__card-wrapper > *', sectionInner, 0.2);
     }
   }
 }

@@ -4,12 +4,32 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /**
+ * Defensive guard to ensure elements exist in DOM before passing to GSAP,
+ * preventing noisy "GSAP target not found" warnings in the console.
+ */
+function hasValidElements(targets: any): boolean {
+  if (!targets) return false;
+  if (typeof document === 'undefined') return false;
+  if (typeof targets === 'string') {
+    try {
+      return document.querySelectorAll(targets).length > 0;
+    } catch {
+      return false;
+    }
+  }
+  if (targets instanceof Element) return true;
+  if ('length' in targets && targets.length === 0) return false;
+  return true;
+}
+
+/**
  * Fade up with stagger — for title + subtitle + CTA groups
  */
 export function animateFadeUp(
   targets: string | Element | Element[],
   options: { delay?: number; stagger?: number; duration?: number } = {}
-): gsap.core.Tween {
+): gsap.core.Tween | undefined {
+  if (!hasValidElements(targets)) return undefined;
   return gsap.fromTo(
     targets,
     { opacity: 0, y: 50 },
@@ -31,7 +51,8 @@ export function animateFadeLeft(
   target: string | Element,
   trigger: string | Element,
   delay = 0
-): ScrollTrigger {
+): ScrollTrigger | undefined {
+  if (!hasValidElements(target)) return undefined;
   gsap.fromTo(
     target,
     { opacity: 0, x: -80 },
@@ -59,6 +80,7 @@ export function animateFadeRight(
   trigger: string | Element,
   delay = 0
 ): void {
+  if (!hasValidElements(target)) return;
   gsap.fromTo(
     target,
     { opacity: 0, x: 80 },
@@ -81,10 +103,11 @@ export function animateFadeRight(
  * Scroll reveal for cards — staggered
  */
 export function animateScrollReveal(
-  targets: string | Element[],
+  targets: string | Element[] | NodeListOf<Element>,
   trigger: string | Element,
   stagger = 0.12
 ): void {
+  if (!hasValidElements(targets)) return;
   gsap.fromTo(
     targets,
     { opacity: 0, y: 60 },
@@ -110,6 +133,7 @@ export function animateSectionTitle(
   target: string | Element | NodeListOf<Element> | Element[],
   trigger: string | Element
 ): void {
+  if (!hasValidElements(target)) return;
   gsap.fromTo(
     target,
     { opacity: 0, scale: 0.95, y: 30 },
@@ -136,6 +160,7 @@ export function animateParallaxY(
   trigger: string | Element,
   yAmount = 50
 ): void {
+  if (!hasValidElements(target)) return;
   gsap.fromTo(
     target,
     { y: -yAmount },

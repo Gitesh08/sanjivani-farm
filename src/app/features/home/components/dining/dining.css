@@ -70,6 +70,7 @@
 }
 
 .dining__dot {
+  position: relative;
   width: 7px;
   height: 7px;
   border-radius: 4px;
@@ -79,6 +80,16 @@
   padding: 0;
   transform-origin: left center;
   transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.dining__dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 32px;
+  min-height: 32px;
 }
 
 .dining__dot.active {

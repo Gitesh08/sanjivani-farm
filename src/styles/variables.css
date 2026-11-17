@@ -13,6 +13,7 @@
   /* ─── Secondary Palette (Luminous Cyan — from logo wave & "Farm and Resort") ─── */
   --color-secondary:            #22B8DA;
   --color-secondary-warm:       #0891B2;
+  --color-secondary-dark:       #087592;
   --color-secondary-light:      #67D4EC;
   --color-on-secondary:         #042530;
 
@@ -28,7 +29,7 @@
   --color-on-surface:           #0A2940;
   --color-on-background:        #0E3456;
   --color-on-surface-variant:   #2E6A8C;
-  --color-on-surface-dim:       #5A8FAA;
+  --color-on-surface-dim:       #386F8A;
 
   /* ─── Special Purpose ─── */
   --color-cream:                #EFF9FF;

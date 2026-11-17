@@ -17,7 +17,7 @@
           <h3 class="footer__col-title">Contact<span class="footer__col-title-line"></span></h3>
           <div class="footer__contact-items">
 
-            <a [href]="phoneHref" class="footer__contact-link" aria-label="Call us">
+            <a [href]="phoneHref" class="footer__contact-link" [attr.aria-label]="'Call ' + phone">
               <span class="footer__contact-icon">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.21 12.09 19.79 19.79 0 0 1 1.14 3.47 2 2 0 0 1 3.11 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
@@ -64,6 +64,9 @@
                 <a [routerLink]="link.path" class="footer__link">{{ link.label }}</a>
               </li>
             }
+            <li>
+              <a href="/sitemap.xml" target="_blank" class="footer__link">Sitemap</a>
+            </li>
           </ul>
         </div>
 
@@ -100,7 +103,7 @@
     <div class="container">
       <div class="footer__bottom-inner">
         <span class="footer__copy body-sm">
-          &copy; {{ year }} Sanjivani Farms. All rights reserved.
+          &copy; {{ year }} Sanjivani Farms. All rights reserved. • <a href="/sitemap.xml" target="_blank" class="footer__dev-link">Sitemap</a>
         </span>
         <span class="footer__made body-sm">
           Developed with care by <a href="https://gitesh.is-a.dev" target="_blank" rel="noopener noreferrer" class="footer__dev-link">Gitesh</a> <span style="color: rgba(248,249,245,0.9);">🧑🏻‍💻</span>

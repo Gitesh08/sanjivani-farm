@@ -43,8 +43,9 @@
                      (click)="playingVideosSet().has(loopIdx + '-' + mi) ? pauseVideo(loopIdx, mi, $event) : playVideo(loopIdx, mi, $event)">
 
                   <!-- HD poster — always visible until video plays -->
-                  <img [src]="m.poster" alt="Loading video..."
+                  <img [src]="m.poster" [attr.alt]="item.title + ' activity'"
                        class="activity-card__internal-media activity-card__poster"
+                       loading="lazy" decoding="async"
                        [class.opacity-0]="playingVideosSet().has(loopIdx + '-' + mi)">
 
                   <!-- Video player — mount only when active to prevent browser MediaSource limit crashes -->

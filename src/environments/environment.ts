@@ -1,4 +1,5 @@
 export const environment = {
   production: false,
-  mediaBaseUrl: 'https://pub-8e1fd72b3cee44b5894ac8fd05c44727.r2.dev'
+  mediaBaseUrl: 'https://pub-8e1fd72b3cee44b5894ac8fd05c44727.r2.dev',
+  googleAnalyticsId: '' // Set your GA4 Measurement ID (e.g. 'G-XXXXXXXXXX')
 };

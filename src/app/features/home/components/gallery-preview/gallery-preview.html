@@ -17,12 +17,12 @@
       <div class="gallery-preview__track">
         @for (img of images; track $index) {
           <div class="gallery-preview__slide">
-            <img [src]="img" alt="Gallery glimpse" loading="lazy" class="gallery-preview__img">
+            <img [src]="img" alt="Sanjivani Farm resort moment" loading="lazy" decoding="async" class="gallery-preview__img" onerror="this.closest('.gallery-preview__slide')?.remove()">
           </div>
         }
         @for (img of images; track 'dup' + $index) {
           <div class="gallery-preview__slide">
-            <img [src]="img" alt="Gallery glimpse" loading="lazy" class="gallery-preview__img">
+            <img [src]="img" alt="Sanjivani Farm resort moment" loading="lazy" decoding="async" class="gallery-preview__img" onerror="this.closest('.gallery-preview__slide')?.remove()">
           </div>
         }
       </div>

@@ -33,7 +33,8 @@
 
                 <!-- HD Poster — shown until playing -->
                 <img [src]="item.poster" class="cottage-card__internal-media cottage-card__poster"
-                  [class.opacity-0]="playingState()[cottageIndex]" [alt]="item.alt || 'Loading video...'">
+                  loading="lazy" decoding="async"
+                  [class.opacity-0]="playingState()[cottageIndex]" [alt]="item.alt || cottage.name + ' video poster'">
 
                 <!-- Video player — mount only when active to prevent MediaSource limits -->
                 @if (activeSlides()[cottageIndex] === mediaIndex) {
@@ -133,7 +134,7 @@
               <p class="cottage-card__tagline">{{ cottage.tagline }}</p>
             </div>
             <div class="cottage-card__action">
-              <a [href]="cottage.externalUrl || '#'" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm cottage-card__btn">View Details</a>
+              <a [href]="cottage.externalUrl || '#'" [attr.aria-label]="'View details for ' + cottage.name" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm cottage-card__btn">View Details</a>
             </div>
           </div>
 

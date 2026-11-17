@@ -3,6 +3,7 @@ import { RouterOutlet, Router, NavigationEnd, ActivatedRoute } from '@angular/ro
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { SplashScreenComponent } from './shared/components/splash-screen/splash-screen';
 import { SeoService } from './core/services/seo.service';
+import { AnalyticsService } from './core/services/analytics.service';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class App implements OnInit {
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
   private seoService = inject(SeoService);
+  private analytics = inject(AnalyticsService);
 
   ngOnInit(): void {
     this.router.events.pipe(
@@ -37,6 +39,7 @@ export class App implements OnInit {
         const seoConfig = { ...data['seo'] };
         seoConfig.url = this.router.url;
         this.seoService.updateSeo(seoConfig);
+        this.analytics.trackPageView(this.router.url, seoConfig.title);
 
         // Inject JSON-LD Schema
         const schema = {
@@ -54,6 +57,8 @@ export class App implements OnInit {
           }
         };
         this.seoService.injectStructuredData(schema);
+      } else {
+        this.analytics.trackPageView(this.router.url);
       }
     });
   }

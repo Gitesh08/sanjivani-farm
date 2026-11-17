@@ -1,24 +1,33 @@
 {
   "resortName": "Sanjivani Farm & Resort",
-  "currency": "INR",
-  "basePricePerPerson": 2000,
+  "cottagesUrl": "https://sanjivanifarm.com/cottages",
+  "bookingProvider": "Doorloom",
+  "portalUrl": "https://sanjivanifarmandresort.doorloom.com",
+  "pricingModel": "dynamic",
+  "pricingNotice": "Pricing is dynamic and varies by season, dates, group size, and meal packages. No fixed prices are hardcoded. Current live rates and room availability are managed directly by the resort owner via Doorloom. Detailed tours, photos, and cottage amenities are available at https://sanjivanifarm.com/cottages.",
   "cottages": [
     {
       "name": "Wooden Glass Cottage",
-      "capacity": "2-8 people",
-      "price": 2000,
+      "slug": "wooden-glass-cottage",
+      "capacity": "2-8 guests",
+      "pricing": "Dynamic live pricing managed by owner on Doorloom",
+      "overviewUrl": "https://sanjivanifarm.com/cottages",
       "bookingUrl": "https://sanjivanifarmandresort.doorloom.com/p/woodenglasscottage01"
     },
     {
       "name": "Red Stone Cottage",
-      "capacity": "3-10 people",
-      "price": 2000,
+      "slug": "red-stone-cottage",
+      "capacity": "3-10 guests",
+      "pricing": "Dynamic live pricing managed by owner on Doorloom",
+      "overviewUrl": "https://sanjivanifarm.com/cottages",
       "bookingUrl": "https://sanjivanifarmandresort.doorloom.com/p/redstomecottage07"
     },
     {
-      "name": "Dormitory Cottage",
-      "capacity": "8-16 people",
-      "price": 2000,
+      "name": "Family Dormitory Cottage",
+      "slug": "dormitory-cottage",
+      "capacity": "8-16 guests",
+      "pricing": "Dynamic live pricing managed by owner on Doorloom",
+      "overviewUrl": "https://sanjivanifarm.com/cottages",
       "bookingUrl": "https://sanjivanifarmandresort.doorloom.com/p/dormitorycottage10"
     }
   ]

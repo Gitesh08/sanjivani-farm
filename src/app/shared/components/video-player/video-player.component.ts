@@ -40,6 +40,7 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
         [controls]="controls"
         class="video-player-element"
         [class]="customClass">
+        <track kind="captions" srclang="en" label="English" default src="data:text/vtt,WEBVTT">
       </video>
       @if (isBuffering && !hideSpinner) {
         <div class="video-spinner-overlay">
@@ -245,10 +246,22 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
       const { default: Hls } = await import('hls.js');
 
       if (Hls.isSupported()) {
-        this.hls = new Hls({
-          capLevelToPlayerSize: !this.preferHighQuality,
-          maxBufferLength: this.isHero ? 60 : 30,
-        });
+        const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 1024;
+
+        const hlsConfig: any = {
+          capLevelToPlayerSize: !this.preferHighQuality && !this.isHero,
+          maxBufferLength: 15,
+          maxMaxBufferLength: 30,
+          maxBufferSize: 30 * 1000 * 1000,
+        };
+
+        if (this.isHero || this.preferHighQuality) {
+          // Provide an initial high bandwidth estimate (10 Mbps) so HLS picks 1080p Full HD on first probe
+          hlsConfig.abrEwmaDefaultEstimate = 10000000;
+          hlsConfig.testBandwidth = false;
+        }
+
+        this.hls = new Hls(hlsConfig);
 
         this.hls.loadSource(this.hlsUrl);
         this.hls.attachMedia(video);
@@ -272,15 +285,18 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
           }
         });
 
-        if (this.preferHighQuality) {
-          this.hls.on(Hls.Events.MANIFEST_PARSED, (event: any, data: any) => {
+        // Smart Initial Resolution: Bypass blurry 480p cold-start
+        this.hls.on(Hls.Events.MANIFEST_PARSED, (event: any, data: any) => {
+          if (!this.hls || !data.levels || data.levels.length === 0) return;
+
+          if (this.isHero || this.preferHighQuality) {
+            // Stream 1080p Full HD from chunk #0 for crystal clarity on mobile & desktop
             const highestLevel = data.levels.length - 1;
-            if (this.hls) {
-              this.hls.startLevel = highestLevel;
-              this.hls.currentLevel = highestLevel;
-            }
-          });
-        }
+            this.hls.startLevel = highestLevel;
+            this.hls.nextLevel = highestLevel;
+            this.hls.currentLevel = highestLevel;
+          }
+        });
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         // Native Safari HLS
         video.src = this.hlsUrl;

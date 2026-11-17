@@ -96,7 +96,8 @@ export class CottagesPageComponent implements OnInit {
             { "@type": "LocationFeatureSpecification", "name": "Air conditioning", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Comfortable double bed", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Bunk bed with two sleeping levels", "value": true }
-          ]
+          ],
+          "url": "https://sanjivanifarmandresort.doorloom.com/p/woodenglasscottage01"
         }
       ]
     };

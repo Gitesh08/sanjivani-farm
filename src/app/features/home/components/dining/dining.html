@@ -54,7 +54,7 @@
       <div class="dining__content">
         <div class="dining__highlights-grid">
           @for (item of highlights; track item.label) {
-          <div class="dining__highlight-card" [attr.aria-label]="item.ariaLabel">
+          <div class="dining__highlight-card">
             <span class="dining__highlight-icon" aria-hidden="true">{{ item.icon }}</span>
             <div class="dining__highlight-text">
               <strong class="dining__highlight-label">{{ item.label }}</strong>
@@ -82,7 +82,6 @@
         (click)="toggleExpand(i)"
         role="button"
         [attr.aria-expanded]="expandedIndex() === i"
-        [attr.aria-label]="item.ariaLabel"
         tabindex="0"
         (keydown.enter)="toggleExpand(i)"
         (keydown.space)="toggleExpand(i)"

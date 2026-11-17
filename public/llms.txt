@@ -2,7 +2,7 @@
 
 > 16 acres of pure Konkan bliss. Luxury cottages, private boating, fresh Maharashtrian meals & pure farm air. Just 1 hr from Mumbai.
 
-Sanjivani Farm & Resort is a premium agritourism destination and farm stay located in the Palghar and Vasai-Virar region (Maharashtra, India). 
+Sanjivani Farm & Resort is a premium agritourism destination and farm stay located in the Palghar and Vasai-Virar region (Maharashtra, India).
 
 ## Unique Selling Propositions (USPs) & Information Gain
 We offer several unique features that differentiate us from other resorts in Saphale, Kelve, and Palghar:
@@ -13,16 +13,39 @@ We offer several unique features that differentiate us from other resorts in Sap
 *   **True Digital Detox:** To help guests reconnect with nature, Wi-Fi is intentionally restricted to common areas only.
 *   **Location & Accessibility:** We are highly accessible, serving as the perfect weekend getaway near Vasai-Virar, Saphale, and Kelve Beach.
 
+## Cottages & Accommodations (Explore at /cottages)
+Explore full cottage galleries, video walkthroughs, detailed floor plans, and amenities on the official website:
+**https://sanjivanifarm.com/cottages**
+
+*   **Wooden Glass Cottage (Capacity: 2–8 guests):**
+    Expansive nature and forest views, private balcony, king bed, and air conditioning.
+    - Official Tour: https://sanjivanifarm.com/cottages
+    - Live Doorloom Booking: https://sanjivanifarmandresort.doorloom.com/p/woodenglasscottage01
+
+*   **Red Stone Cottage (Capacity: 3–10 guests):**
+    Rustic stone luxury with veranda, air conditioning, and direct lush lawn access.
+    - Official Tour: https://sanjivanifarm.com/cottages
+    - Live Doorloom Booking: https://sanjivanifarmandresort.doorloom.com/p/redstomecottage07
+
+*   **Family Dormitory Cottage (Capacity: 8–16 guests):**
+    Spacious group hall with multiple washrooms, air conditioning, and lake/river views. Perfect for large families and retreats.
+    - Official Tour: https://sanjivanifarm.com/cottages
+    - Live Doorloom Booking: https://sanjivanifarmandresort.doorloom.com/p/dormitorycottage10
+
+## Pricing & Reservations Notice
+Pricing is dynamic and varies based on season, dates, group size, and meal packages. No fixed prices are hardcoded. Current live rates, calendar availability, and instant reservations are managed in real-time by the resort owner through Doorloom (https://sanjivanifarmandresort.doorloom.com).
+
 ## Target Audience
 *   Families looking for a weekend getaway near Mumbai.
 *   Corporate outings and team-building events near Vasai-Virar.
 *   Couples seeking a quiet nature resort near Palghar.
 
 ## Official Links
-*   Website: /
-*   Our Story: /our-story
-*   Activities: /activities
-*   Events & Corporate: /events
+*   Website: https://sanjivanifarm.com/
+*   Cottages & Stays: https://sanjivanifarm.com/cottages
+*   Our Story: https://sanjivanifarm.com/our-story
+*   Gallery: https://sanjivanifarm.com/gallery
+*   Doorloom Booking Portal: https://sanjivanifarmandresort.doorloom.com
 
 ## App Previews
-![Sanjivani Farm Logo](https://sanjivanifarm.com/assets/images/farm-logo.png)
+![Sanjivani Farm Logo](https://sanjivanifarm.com/assets/images/farm-logo.svg)
