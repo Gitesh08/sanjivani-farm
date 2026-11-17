@@ -22,7 +22,7 @@ export const routes: Routes = [
     data: {
       seo: {
         title: 'Our Story | Sanjivani Farms',
-        description: 'Learn about the history of Sanjivani Farm. Our mission is to provide a pure Konkan agritourism experience with 700+ coconut trees and authentic Maharashtrian culture.',
+        description: 'Learn about the history of Sanjivani Farm. Our mission is to provide a pure Konkan agritourism experience with 300+ coconut trees and authentic Maharashtrian culture.',
         keywords: 'Sanjivani farm story, Konkan agritourism, organic farm stay Maharashtra'
       }
     }

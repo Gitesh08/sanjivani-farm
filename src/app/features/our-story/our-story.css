@@ -238,11 +238,30 @@
   font-weight: 700;
   color: var(--color-primary);
   line-height: 1;
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.os-stat__counter {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+.os-stat__unit {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-primary);
 }
 
 .os-stat__number sup {
   font-size: 0.55em;
   vertical-align: super;
+  margin-left: 1px;
 }
 
 .os-stat__label {

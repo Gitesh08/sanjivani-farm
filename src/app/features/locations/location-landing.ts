@@ -204,7 +204,7 @@ import { CottagesComponent } from '../home/components/cottages/cottages';
 })
 export class LocationLandingComponent implements OnInit {
   location: LocationData | undefined;
-  
+
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private seoService = inject(SeoService);
@@ -213,23 +213,23 @@ export class LocationLandingComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const locParam = params.get('location');
       const intentParam = params.get('intent-near');
-      
+
       if (locParam && LOCATIONS[locParam]) {
         // Deep copy so we don't mutate the global locations data
         this.location = { ...LOCATIONS[locParam] };
-        
+
         // Dynamically build intent string (e.g. "resort-near" -> "Resort near")
         const intentString = intentParam ? intentParam.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : 'Stay near';
         const dynamicTitle = `${intentString} ${this.location.name} - Sanjivani Farm & Resort`;
-        
+
         // --- EXPERIENCE ENGINE OVERRIDES ---
         const intentLower = intentParam ? intentParam.toLowerCase() : '';
-        
+
         if (intentLower.includes('kayaking')) {
           this.location.heroHeadline = `The Ultimate Kayaking Resort Near ${this.location.name}`;
           this.location.heroSubheadline = `Experience the thrill of private kayaking on our serene lakes, just ${this.location.driveTime} from ${this.location.name}.`;
           this.location.seoDescription = `Looking for a kayaking resort near ${this.location.name}? Sanjivani Farm offers private boating, luxury cottages, and 16 acres of nature.`;
-        } 
+        }
         else if (intentLower.includes('toy-train')) {
           this.location.heroHeadline = `Resort with Private Toy Train Near ${this.location.name}`;
           this.location.heroSubheadline = `The perfect family getaway! Enjoy unlimited rides on our private Sanjivani Toy Train, surrounded by nature near ${this.location.name}.`;
@@ -237,7 +237,7 @@ export class LocationLandingComponent implements OnInit {
         }
         else if (intentLower.includes('nature') || intentLower.includes('lake')) {
           this.location.heroHeadline = `Pristine Nature & Lake Resort Near ${this.location.name}`;
-          this.location.heroSubheadline = `Disconnect from the city and wake up to 700+ coconut trees, tranquil lakes, and pure air near ${this.location.name}.`;
+          this.location.heroSubheadline = `Disconnect from the city and wake up to 300+ coconut trees, tranquil lakes, and pure air near ${this.location.name}.`;
           this.location.seoDescription = `Escape to a beautiful nature resort with lakes near ${this.location.name}. Sanjivani Farm is a 16-acre agritourism paradise.`;
         }
         else if (intentLower.includes('monsoon')) {
@@ -250,7 +250,7 @@ export class LocationLandingComponent implements OnInit {
           this.location.heroSubheadline = `Spacious lawns, team-building activities, and delicious food. The ideal destination for your next company offsite near ${this.location.name}.`;
           this.location.seoDescription = `Book the best corporate outing and day picnic resort near ${this.location.name}. Huge lawns, great food, and fun activities for teams.`;
         }
-        
+
         // Update SEO
         this.seoService.updateSeo({
           title: dynamicTitle,

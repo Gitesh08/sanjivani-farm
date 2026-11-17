@@ -173,11 +173,30 @@
   font-weight: 600;
   color: var(--color-primary);
   line-height: 1;
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.our-story__counter {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+.our-story__highlight-unit {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-primary);
 }
 
 .our-story__highlight-num sup {
   font-size: 0.9rem;
   vertical-align: super;
+  margin-left: 1px;
 }
 
 .our-story__highlight-desc {

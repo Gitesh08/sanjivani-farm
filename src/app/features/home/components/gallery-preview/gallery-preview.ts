@@ -18,7 +18,7 @@ export class GalleryPreviewComponent implements AfterViewInit {
   // Curated showcase of top high-res resort highlights for the preview slider
   readonly images = [
     'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1786185697/16-acre-farm_y2ikvq.webp',
-    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1786100151/farming-sunflower_kfdj4l.webp',
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1794927492/IMG_6117_cequ1q.webp',
     'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1786185697/private-lakes_xunogz.webp',
     'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1786100206/IMG20260215125824_fycjy9.webp',
     'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1786100189/IMG_9379_1_qrdefg.webp',

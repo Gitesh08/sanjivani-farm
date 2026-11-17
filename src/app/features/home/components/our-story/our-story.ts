@@ -29,6 +29,8 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
   private splashState = inject(SplashStateService);
   public media = inject(MediaService);
   private splashSub?: Subscription;
+  private triggers: ScrollTrigger[] = [];
+  private counterTweens: gsap.core.Tween[] = [];
 
   @ViewChild('storyVideo') videoRef?: VideoPlayerComponent;
 
@@ -39,6 +41,8 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.splashSub?.unsubscribe();
+    this.counterTweens.forEach(t => t.kill());
+    this.triggers.forEach(t => t.kill());
   }
 
   // Play State
@@ -186,11 +190,120 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
                 }
               }
             );
+
+            this.initCounters();
             
             ScrollTrigger.refresh();
           }, 100);
         });
       }
     });
+  }
+
+  private initCounters(): void {
+    const highlightsEl = this.el.nativeElement.querySelector('.our-story__highlights');
+    const counters = this.el.nativeElement.querySelectorAll('.our-story__counter');
+    const items = this.el.nativeElement.querySelectorAll('.our-story__highlight-item');
+
+    if (!highlightsEl || !counters.length) return;
+
+    const prefersReducedMotion = typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    // Set initial text to '0' while waiting to scroll into view
+    counters.forEach((c: HTMLElement) => {
+      c.textContent = '0';
+    });
+
+    let hasCountedInView = false;
+    let isAnimating = false;
+
+    const startCounters = () => {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      this.counterTweens.forEach(t => t.kill());
+      this.counterTweens = [];
+
+      if (items.length) {
+        gsap.fromTo(
+          items,
+          { y: 14, opacity: 0.6 },
+          { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power2.out' }
+        );
+      }
+
+      counters.forEach((counterEl: HTMLElement, index: number) => {
+        const target = parseFloat(counterEl.dataset['target'] || '0');
+        const countObj = { val: 0 };
+        counterEl.textContent = '0';
+
+        const tween = gsap.to(countObj, {
+          val: target,
+          duration: 1.7,
+          delay: index * 0.08,
+          ease: 'power2.out',
+          onUpdate: () => {
+            counterEl.textContent = Math.round(countObj.val).toString();
+          },
+          onComplete: () => {
+            counterEl.textContent = target.toString();
+            gsap.fromTo(
+              counterEl,
+              { scale: 1 },
+              { scale: 1.1, duration: 0.16, yoyo: true, repeat: 1, ease: 'power1.inOut' }
+            );
+
+            if (index === counters.length - 1) {
+              isAnimating = false;
+            }
+          }
+        });
+
+        this.counterTweens.push(tween);
+      });
+    };
+
+    const trigger = ScrollTrigger.create({
+      trigger: highlightsEl,
+      start: 'top 88%',
+      end: 'bottom 10%',
+      onEnter: () => {
+        if (!hasCountedInView) {
+          hasCountedInView = true;
+          startCounters();
+        }
+      },
+      onEnterBack: () => {
+        if (!hasCountedInView) {
+          hasCountedInView = true;
+          startCounters();
+        }
+      },
+      onLeave: () => {
+        hasCountedInView = false;
+        this.counterTweens.forEach(t => t.kill());
+        isAnimating = false;
+        counters.forEach((c: HTMLElement) => (c.textContent = '0'));
+      },
+      onLeaveBack: () => {
+        hasCountedInView = false;
+        this.counterTweens.forEach(t => t.kill());
+        isAnimating = false;
+        counters.forEach((c: HTMLElement) => (c.textContent = '0'));
+      }
+    });
+
+    this.triggers.push(trigger);
+
+    // If already in view upon init, trigger immediately
+    if (trigger.progress > 0 && trigger.progress < 1) {
+      hasCountedInView = true;
+      startCounters();
+    }
   }
 }

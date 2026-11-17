@@ -42,26 +42,32 @@ export class EventsComponent implements AfterViewInit, OnDestroy {
   private mobileObservers: IntersectionObserver[] = [];
 
   readonly images = [
-    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/IMG20250816180940_01_o2tm7n.webp',
-    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1786185697/16-acre-farm_y2ikvq.webp',
-    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1786100206/IMG20260215125824_fycjy9.webp'
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1794928123/IMG_6118_pf6n7p.webp',
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1794928122/IMG_6112_ssncuj.webp',
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1794928122/IMG_6113_dboiik.webp',
+    'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1794928123/IMG_6114_cm85kf.webp'
   ];
 
   readonly eventTypes: EventType[] = [
     {
-      iconId: 'wedding',
-      title: 'Destination Weddings',
-      desc: 'A beautiful place to celebrate your special day with the people you love.'
+      iconId: 'lawn',
+      title: 'Grand Lawn Celebrations',
+      desc: 'Expansive manicured lawns with custom stage setups and ample seating for milestone events and family reunions under the open sky.'
     },
     {
-      iconId: 'corporate',
-      title: 'Corporate Retreats',
-      desc: 'A quiet space for your team to connect, relax, and spend time together.'
+      iconId: 'gazebo',
+      title: 'Thatched Gazebo Parties',
+      desc: 'Celebrate in our rustic open-air gazebo, styled with glowing fairy lights, candlelit dining, fresh rose petals, and festive decor.'
     },
     {
-      iconId: 'party',
-      title: 'Private Parties',
-      desc: 'Celebrate your biggest milestones under the open sky.'
+      iconId: 'candlelight',
+      title: 'Candlelight Evenings & Birthdays',
+      desc: 'Magical twilight celebrations under bamboo canopies — with illuminated neon backdrops, rose petals, and intimate open-air dining.'
+    },
+    {
+      iconId: 'cottage',
+      title: 'Romantic Cottage Surprises',
+      desc: 'Surprise your partner with special cottage room styling — delicate rose petals, warm fairy lights, and romantic touches in our wooden cottages.'
     }
   ];
 

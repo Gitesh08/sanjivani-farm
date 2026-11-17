@@ -80,7 +80,7 @@ export const LOCATIONS: Record<string, LocationData> = {
     "distance": "45 km",
     "driveTime": "1 hour",
     "heroHeadline": "The Ultimate Weekend Getaway from Vasai-Virar",
-    "heroSubheadline": "Trade the city noise for 700+ coconut trees, best lawns, and private kayaking. The perfect family resort near Vasai Virar.",
+    "heroSubheadline": "Trade the city noise for 300+ coconut trees, best lawns, and private kayaking. The perfect family resort near Vasai Virar.",
     "seoDescription": "The best weekend getaway from Vasai-Virar. Book your stay at Sanjivani Farm for a luxury nature retreat with a toy train, cozy cottages, and boating.",
     "keywords": "resorts with activities near vasai virar, weekend getaway vasai virar, resort near vasai, corporate outing vasai, cozy cottages, best lawn",
     "attractions": [

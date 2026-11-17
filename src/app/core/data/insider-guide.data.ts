@@ -51,7 +51,7 @@ export const GUIDE_POSTS: Record<string, GuidePost> = {
       <h2>Swapping Screens for Real Experiences</h2>
       <p>What do you do when you put the phone down? You live.</p>
       <ul>
-        <li><strong>Sunrise Walks:</strong> Wander through 700+ coconut trees listening to the morning birds.</li>
+        <li><strong>Sunrise Walks:</strong> Wander through 300+ coconut trees listening to the morning birds.</li>
         <li><strong>Kayaking:</strong> Paddle across our private lakes, feeling the water and the breeze instead of a glass screen.</li>
         <li><strong>The Toy Train:</strong> Embrace childlike joy with a ride on our exclusive miniature railway.</li>
         <li><strong>Farm-to-Table Dining:</strong> Actually taste your food and engage in deep, uninterrupted conversations with your loved ones.</li>
@@ -63,7 +63,7 @@ export const GUIDE_POSTS: Record<string, GuidePost> = {
     id: 'agritourism-over-hotels',
     title: '5 Reasons to Choose Agritourism Over a Standard Hotel',
     description: 'Discover why farm stays and agritourism resorts are becoming the top choice for travelers seeking authentic experiences.',
-    image: 'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_1200/v1786100151/farming-sunflower_kfdj4l.webp',
+    image: 'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_1200/v1794927492/IMG_6117_cequ1q.webp',
     date: '2026-06-02',
     author: 'Sanjivani Experts',
     readTime: '7 min read',
@@ -131,7 +131,7 @@ export const GUIDE_POSTS: Record<string, GuidePost> = {
       
       <h2>Comparing the Experiences</h2>
       <p>While <strong>Sula Vineyards</strong> offers incredible wine tours and a bustling, highly social atmosphere, and the <strong>Taj Exotica</strong> provides unparalleled coastal service, <strong>Sanjivani Farm</strong> carved out a completely different niche: Private, raw nature luxury.</p>
-      <p>At Sanjivani Farm, you aren't sharing a swimming pool with hundreds of other guests. Instead, you have access to private lakes for kayaking. You aren't confined to a hotel room; you sleep in a stunning Wooden Glass Cottage surrounded by 700 organic coconut trees.</p>
+      <p>At Sanjivani Farm, you aren't sharing a swimming pool with hundreds of other guests. Instead, you have access to private lakes for kayaking. You aren't confined to a hotel room; you sleep in a stunning Wooden Glass Cottage surrounded by 300 organic coconut trees.</p>
       
       <h2>Why Agritourism is the New Luxury</h2>
       <p>True luxury is space, privacy, and authenticity. Much like the premium estates of Sula, Sanjivani offers vast expanses of greenery (16 acres). But it trades the commercialized feel for something deeply personal. From the custom-built Sanjivani Toy Train to the authentic, farm-to-table Maharashtrian cuisine prepared with local ingredients, it provides a grounded, soulful experience.</p>
