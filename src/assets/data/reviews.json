@@ -42,7 +42,7 @@
       "hotelHighlights": [
         "Quiet"
       ],
-      "tripType": "Holiday",
+      "tripType": "Vacation",
       "travelGroup": "Family"
     },
     "time": {
@@ -70,7 +70,7 @@
         "Quiet",
         "Child-friendly"
       ],
-      "tripType": "Holiday",
+      "tripType": "Vacation",
       "travelGroup": "Family"
     },
     "time": {
@@ -100,7 +100,7 @@
         "Child-friendly",
         "Great value"
       ],
-      "tripType": "Holiday",
+      "tripType": "Vacation",
       "travelGroup": "Family"
     },
     "time": {
