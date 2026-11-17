@@ -276,21 +276,10 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
       const videoEl = card.querySelector(`[data-mi="${mi}"] video`) as HTMLVideoElement | null;
       if (videoEl) {
         videoEl.muted = this.mutedState()[loopIdx % this.items.length];
-        const attemptPlay = () => {
-          const p = videoEl.play();
-          if (p) {
-            p.catch(e => {
-              console.warn('[Activity] play failed or deferred:', e);
-            });
-          }
-        };
-
-        if (videoEl.readyState >= 1) {
-          attemptPlay();
-        } else {
-          videoEl.addEventListener('loadedmetadata', attemptPlay, { once: true });
-          attemptPlay();
-        }
+        videoEl.play().catch(e => {
+          console.warn('[Activity] play failed:', e);
+          this.playingVideosSet.update(s => { const ns = new Set(s); ns.delete(`${loopIdx}-${mi}`); return ns; });
+        });
       }
     }
   }
@@ -400,11 +389,7 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
           card.setAttribute('data-intersecting', 'true');
         } else {
           card.setAttribute('data-intersecting', 'false');
-          // Pause and reset any playing video when card scrolls out
-          const videoEl = card.querySelector('video') as HTMLVideoElement | null;
-          if (videoEl && !videoEl.paused) {
-            videoEl.pause();
-          }
+          // Destroy any playing video when card scrolls out
           this.playingVideosSet.update(s => {
             const newSet = new Set(s);
             for (const key of Array.from(newSet)) {
@@ -423,8 +408,8 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
       });
     }, {
       root: null, // use the real viewport, not the scroll track
-      threshold: 0.1,
-      rootMargin: '50px'
+      threshold: 0.3,
+      rootMargin: '0px 0px 0px 0px'
     });
 
     const cards = this.trackRef.nativeElement

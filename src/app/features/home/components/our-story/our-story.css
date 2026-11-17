@@ -35,6 +35,13 @@
   background: linear-gradient(160deg, #0C4A6E 0%, #0E3A52 100%);
 }
 
+.our-story__image-wrap app-video-player {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* Each slide image — absolute stacked, cross-fade */
 .our-story__slide-img {
   position: absolute;

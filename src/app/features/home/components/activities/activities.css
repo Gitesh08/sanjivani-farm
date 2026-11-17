@@ -119,34 +119,24 @@ div.activity-card__img {
   transition: opacity 0.8s ease-in-out;
 }
 
-/* Poster visible by default; video hidden until playing */
+.activity-card__video-wrap app-video-player {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
 .activity-card__poster {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 1;
-  opacity: 1;
-  transition: opacity 0.6s ease-in-out;
-}
-
-app-video-player {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
   z-index: 2;
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out;
-}
-
-app-video-player.opacity-100 {
-  opacity: 1 !important;
-}
-
-::ng-deep app-video-player.opacity-100 .activity-card__video-player {
-  opacity: 1 !important;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
 }
 
 .activity-card__poster.opacity-0 {

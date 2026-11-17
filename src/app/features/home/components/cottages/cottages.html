@@ -33,25 +33,22 @@
 
                 <!-- HD Poster — shown until playing -->
                 <img [src]="item.poster" class="cottage-card__internal-media cottage-card__poster"
-                  loading="lazy" decoding="async"
-                  [class.opacity-0]="videoReady()[cottageIndex]" [alt]="item.alt || cottage.name + ' video poster'">
+                  [class.opacity-0]="playingState()[cottageIndex]" [alt]="item.alt || 'Loading video...'">
 
                 <!-- Video player — mount only when active to prevent MediaSource limits -->
                 @if (activeSlides()[cottageIndex] === mediaIndex) {
                   <app-video-player
                          [hlsUrl]="item.hls || ''"
                          [fallbackMp4]="item.fallbackMp4 || item.url || ''"
-                         [poster]="item.poster || ''"
                          customClass="cottage-card__internal-media cottage-card__video-player"
-                         [class.opacity-100]="videoReady()[cottageIndex]"
+                         [class.opacity-100]="playingState()[cottageIndex]"
                          (playing)="onVideoCanPlay(cottageIndex)"
                          (pauseEvent)="onVideoPause(cottageIndex)"
                          [loop]="true"
                          [muted]="mutedState()[cottageIndex]"
                          [playsinline]="true"
-                         preload="auto"
+                         preload="metadata"
                          [preferHighQuality]="true"
-                         [forceInit]="true"
                          [autoplay]="false"
                          [controls]="false">
                   </app-video-player>
@@ -136,7 +133,7 @@
               <p class="cottage-card__tagline">{{ cottage.tagline }}</p>
             </div>
             <div class="cottage-card__action">
-              <a [href]="cottage.externalUrl || '#'" [attr.aria-label]="'View details for ' + cottage.name" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm cottage-card__btn">View Details</a>
+              <a [href]="cottage.externalUrl || '#'" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm cottage-card__btn">View Details</a>
             </div>
           </div>
 

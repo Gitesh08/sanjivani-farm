@@ -248,6 +248,9 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
             onEnterBack: () => {
               document.querySelector('.btn-floating-tour')?.classList.remove('btn-floating-tour--scrolled');
               document.querySelector('.btn-floating-whatsapp')?.classList.remove('btn-floating-whatsapp--scrolled');
+              if (this.videoRef) {
+                this.videoRef.play();
+              }
             }
           }
         });

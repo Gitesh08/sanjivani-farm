@@ -43,24 +43,21 @@
                      (click)="playingVideosSet().has(loopIdx + '-' + mi) ? pauseVideo(loopIdx, mi, $event) : playVideo(loopIdx, mi, $event)">
 
                   <!-- HD poster — always visible until video plays -->
-                  <img [src]="m.poster" [attr.alt]="item.title + ' activity'"
+                  <img [src]="m.poster" alt="Loading video..."
                        class="activity-card__internal-media activity-card__poster"
-                       loading="lazy" decoding="async"
-                       [class.opacity-0]="videoReadySet().has(loopIdx + '-' + mi)">
+                       [class.opacity-0]="playingVideosSet().has(loopIdx + '-' + mi)">
 
                   <!-- Video player — mount only when active to prevent browser MediaSource limit crashes -->
                   @if (activeSlides()[ri] === mi) {
                     <app-video-player
                            [hlsUrl]="m.hls || ''"
                            [fallbackMp4]="m.fallbackMp4 || m.url || ''"
-                           [poster]="m.poster || ''"
                            customClass="activity-card__internal-media activity-card__video-player"
-                           [class.opacity-100]="videoReadySet().has(loopIdx + '-' + mi)"
+                           [class.opacity-100]="playingVideosSet().has(loopIdx + '-' + mi)"
                            (playing)="onVideoPlay(loopIdx, mi)"
                            (pauseEvent)="onVideoPause(loopIdx, mi)"
                            [loop]="true" [muted]="mutedState()[ri]" [playsinline]="true"
-                           preload="auto" [preferHighQuality]="true"
-                           [forceInit]="true"
+                           preload="metadata" [preferHighQuality]="true"
                            [autoplay]="false" [controls]="false">
                     </app-video-player>
                   }
