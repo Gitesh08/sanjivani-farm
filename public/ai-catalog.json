@@ -13,8 +13,8 @@
     "description": "Third-party booking and reservations engine managed directly by the resort owner. All room rates, calendar availability, seasonal discounts, and instant reservations are live on Doorloom."
   },
   "contact": {
-    "email": "info@sanjivanifarm.com",
     "phone": "+91 81084 46040",
+    "whatsapp": "https://wa.me/918108446040",
     "bookingPortal": "https://sanjivanifarmandresort.doorloom.com"
   },
   "capabilities": [

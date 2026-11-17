@@ -44,6 +44,11 @@ export class CottagesPageComponent implements OnInit {
   private seoService = inject(SeoService);
 
   ngOnInit(): void {
+    this.seoService.injectBreadcrumbs([
+      { name: 'Home', url: '/' },
+      { name: 'Cottages & Stays', url: '/cottages' }
+    ]);
+
     const schema = {
       "@context": "https://schema.org",
       "@graph": [

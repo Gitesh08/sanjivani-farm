@@ -60,18 +60,33 @@ export class SeoService {
   }
 
   // Inject JSON-LD Schema
-  injectStructuredData(schemaData: any): void {
+  injectStructuredData(schemaData: any, scriptId: string = 'structured-data-main'): void {
     const head = this.doc.getElementsByTagName('head')[0];
-    // Remove existing
-    const existing = this.doc.getElementById('structured-data');
+    // Remove existing script with this specific scriptId
+    const existing = this.doc.getElementById(scriptId);
     if (existing) {
       existing.remove();
     }
     
     const script = this.doc.createElement('script');
     script.type = 'application/ld+json';
-    script.id = 'structured-data';
+    script.id = scriptId;
     script.text = JSON.stringify(schemaData);
     head.appendChild(script);
+  }
+
+  // Inject Breadcrumbs Schema for Google Sitelinks & Rich Results
+  injectBreadcrumbs(breadcrumbs: { name: string; url: string }[]): void {
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbs.map((b, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "name": b.name,
+        "item": b.url.startsWith('/') ? `https://sanjivanifarm.com${b.url}` : b.url
+      }))
+    };
+    this.injectStructuredData(schema, 'structured-data-breadcrumbs');
   }
 }

@@ -66,7 +66,7 @@ export class FaqComponent implements OnInit {
         }
       }))
     };
-    this.seoService.injectStructuredData(schema);
+    this.seoService.injectStructuredData(schema, 'structured-data-faq');
   }
 
   toggle(index: number): void {

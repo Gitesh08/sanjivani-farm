@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
+import { SeoService } from '../../core/services/seo.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -9,7 +10,15 @@ import { RouterLink } from '@angular/router';
   styleUrl: './gallery.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GalleryComponent {
+export class GalleryComponent implements OnInit {
+  private seoService = inject(SeoService);
+
+  ngOnInit(): void {
+    this.seoService.injectBreadcrumbs([
+      { name: 'Home', url: '/' },
+      { name: 'Photo Gallery', url: '/gallery' }
+    ]);
+  }
   readonly images = [
     'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1786185697/16-acre-farm_y2ikvq.webp',
     'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1786100151/farming-sunflower_kfdj4l.webp',

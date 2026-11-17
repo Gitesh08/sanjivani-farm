@@ -8,5 +8,5 @@
     "url": "https://sanjivanifarm.com/api/ai-pricing.json",
     "is_user_authenticated": false
   },
-  "contact_email": "info@sanjivanifarm.com"
+  "legal_info_url": "https://sanjivanifarm.com/terms"
 }

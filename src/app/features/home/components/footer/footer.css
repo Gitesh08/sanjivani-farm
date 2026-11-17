@@ -188,15 +188,6 @@
   box-shadow: 0 8px 28px rgba(37, 211, 102, 0.6);
 }
 
-/* Email — Gmail red */
-.footer__social-link--email {
-  background: #ea4335;
-  box-shadow: 0 4px 14px rgba(234, 67, 53, 0.35);
-}
-.footer__social-link--email:hover {
-  box-shadow: 0 8px 28px rgba(234, 67, 53, 0.6);
-}
-
 /* Phone — teal */
 .footer__social-link--phone {
   background: rgba(34, 184, 218, 0.1);

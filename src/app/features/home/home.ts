@@ -18,6 +18,7 @@ import { FaqComponent }            from './components/faq/faq';
 import { VisitUsComponent }        from './components/visit-us/visit-us';
 import { EventsComponent }         from './components/events/events';
 import { SeoService } from '../../core/services/seo.service';
+import rawSummary from '../../../assets/data/reviews-summary.json';
 
 @Component({
   selector: 'app-home',
@@ -66,53 +67,126 @@ export class HomeComponent implements OnInit {
   private seoService = inject(SeoService);
 
   ngOnInit(): void {
+    const ratingValue = rawSummary?.rating || 4.4;
+    const reviewCount = rawSummary?.userRatingsTotal || 503;
+
     const schema = {
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": ["Resort", "LocalBusiness"],
+          "@type": "WebSite",
+          "@id": "https://sanjivanifarm.com/#website",
+          "url": "https://sanjivanifarm.com/",
           "name": "Sanjivani Farm & Resort",
-          "image": "https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_1200/v1786185697/16-acre-farm_y2ikvq.webp",
+          "alternateName": [
+            "Sanjivani Farms",
+            "Sanjivani Farm Palghar",
+            "Sanjivani Farm Saphale",
+            "Sanjivani Resort"
+          ],
+          "description": "16-acre authentic Konkan agro-tourism resort in Saphale, Palghar near Mumbai with private toy train, kayaking, and cottages.",
+          "inLanguage": "en",
+          "publisher": {
+            "@id": "https://sanjivanifarm.com/#resort"
+          }
+        },
+        {
+          "@type": ["Resort", "LodgingBusiness", "TouristAttraction"],
+          "@id": "https://sanjivanifarm.com/#resort",
+          "name": "Sanjivani Farm & Resort",
+          "alternateName": "Sanjivani Farms",
+          "url": "https://sanjivanifarm.com/",
+          "logo": "https://sanjivanifarm.com/assets/images/farm-logo.svg",
+          "image": [
+            "https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_1600/v1786185697/16-acre-farm_y2ikvq.webp"
+          ],
           "telephone": "+918108446040",
-          "priceRange": "$$",
+          "priceRange": "₹₹",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Vartak Nagar, Vivalvedhe, Saphale",
-            "addressLocality": "Palghar",
+            "streetAddress": "Vartak Nagar, Vivalvedhe",
+            "addressLocality": "Saphale, Palghar",
             "postalCode": "401102",
             "addressCountry": "IN",
             "addressRegion": "Maharashtra"
           },
           "geo": {
             "@type": "GeoCoordinates",
-            "latitude": 19.5833,
-            "longitude": 72.8167
+            "latitude": 19.5983845,
+            "longitude": 72.7671736
+          },
+          "hasMap": "https://www.google.com/maps/place/Sanjivani+Farm+%26+Resort/@19.5983845,72.7671736,17z/data=!4m11!3m10!1s0x3be7039d2a6f5b01:0x89b4fe262a5bd81f!5m2!4m1!1i2!8m2!3d19.5983845!4d72.7671736!9m1!1b1!16s%2Fg%2F11rsdqvzq8",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": ratingValue,
+            "reviewCount": reviewCount,
+            "bestRating": 5,
+            "worstRating": 1
           },
           "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Private Toy Train", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Kayaking & Boating", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "16 Acres Nature", "value": true }
+            { "@type": "LocationFeatureSpecification", "name": "Kayaking & Boating on Lake", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Swimming Pool", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "16 Acres Nature Farm", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Authentic Maharashtrian Dining", "value": true }
           ],
-          "sameAs": ["https://www.instagram.com/sanjivani.farms/?hl=en"]
+          "sameAs": [
+            "https://www.instagram.com/sanjivani.farms/?hl=en",
+            "https://www.google.com/maps/place/Sanjivani+Farm+%26+Resort/@19.5983845,72.7671736,17z/data=!4m11!3m10!1s0x3be7039d2a6f5b01:0x89b4fe262a5bd81f!5m2!4m1!1i2!8m2!3d19.5983845!4d72.7671736!9m1!1b1!16s%2Fg%2F11rsdqvzq8"
+          ]
         },
         {
-          "@type": "FAQPage",
-          "mainEntity": [
+          "@type": "ItemList",
+          "@id": "https://sanjivanifarm.com/#sitelinks",
+          "name": "Sanjivani Farm & Resort Quick Links",
+          "itemListElement": [
             {
-              "@type": "Question",
-              "name": "What makes Sanjivani Farm different from other resorts in Palghar or Lonavala?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Sanjivani Farm is a 16-acre authentic Konkan agritourism experience. We are uniquely known for our private Sanjivani Toy Train, kayaking on private lakes, and over 700 lush coconut trees." }
+              "@type": "SiteNavigationElement",
+              "position": 1,
+              "name": "Cottages & Stays",
+              "description": "Explore Wooden Glass Cottages, Red Stone Cottages, and Dormitories amidst 16 acres of greenery.",
+              "url": "https://sanjivanifarm.com/cottages"
             },
             {
-              "@type": "Question",
-              "name": "How far is the farm from Mumbai, Vasai, or Saphale?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Located in Saphale (Palghar District), we are just a 1-hour drive from the Vasai-Virar belt, and about 1.5 to 2 hours from central Mumbai. Kelve Beach is 15 km away." }
+              "@type": "SiteNavigationElement",
+              "position": 2,
+              "name": "Activities & Toy Train",
+              "description": "Private Sanjivani Toy Train rides, kayaking, boating, archery, cycling & manicured lawns.",
+              "url": "https://sanjivanifarm.com/#activities"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 3,
+              "name": "Photo Gallery",
+              "description": "Browse 40+ photos of cottages, nature trails, private lakes, and scenic spots.",
+              "url": "https://sanjivanifarm.com/gallery"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 4,
+              "name": "Our Story",
+              "description": "Discover the heritage, 700+ coconut trees, and authentic Konkan agritourism philosophy.",
+              "url": "https://sanjivanifarm.com/our-story"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 5,
+              "name": "Farm Dining",
+              "description": "Fresh, home-cooked Maharashtrian meals, pure vegetarian thalis and fresh fish.",
+              "url": "https://sanjivanifarm.com/#dining"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 6,
+              "name": "Insider Guide",
+              "description": "Local travel tips for Kelve Beach, Palghar tourism, and weekend getaways from Mumbai.",
+              "url": "https://sanjivanifarm.com/insider-guide"
             }
           ]
         }
       ]
     };
 
-    this.seoService.injectStructuredData(schema);
+    this.seoService.injectStructuredData(schema, 'structured-data-main');
   }
 }
