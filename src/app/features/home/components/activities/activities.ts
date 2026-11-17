@@ -276,12 +276,20 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
       const videoEl = card.querySelector(`[data-mi="${mi}"] video`) as HTMLVideoElement | null;
       if (videoEl) {
         videoEl.muted = this.mutedState()[loopIdx % this.items.length];
-        const p = videoEl.play();
-        if (p) {
-          p.catch(e => {
-            console.warn('[Activity] play failed:', e);
-            this.playingVideosSet.update(s => { const ns = new Set(s); ns.delete(`${loopIdx}-${mi}`); return ns; });
-          });
+        const attemptPlay = () => {
+          const p = videoEl.play();
+          if (p) {
+            p.catch(e => {
+              console.warn('[Activity] play failed or deferred:', e);
+            });
+          }
+        };
+
+        if (videoEl.readyState >= 1) {
+          attemptPlay();
+        } else {
+          videoEl.addEventListener('loadedmetadata', attemptPlay, { once: true });
+          attemptPlay();
         }
       }
     }

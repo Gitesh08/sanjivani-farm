@@ -53,6 +53,7 @@
                     <app-video-player
                            [hlsUrl]="m.hls || ''"
                            [fallbackMp4]="m.fallbackMp4 || m.url || ''"
+                           [poster]="m.poster || ''"
                            customClass="activity-card__internal-media activity-card__video-player"
                            [class.opacity-100]="videoReadySet().has(loopIdx + '-' + mi)"
                            (playing)="onVideoPlay(loopIdx, mi)"

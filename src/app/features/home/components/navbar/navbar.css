@@ -386,7 +386,7 @@
     display: block;
   }
 
-  .navbar__backdrop {
+  .navbar--menu-open .navbar__backdrop {
     display: block;
   }
 

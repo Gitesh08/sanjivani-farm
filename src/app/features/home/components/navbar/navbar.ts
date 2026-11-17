@@ -73,15 +73,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   private checkScrollPosition(): void {
     const y = window.scrollY;
-
-    let isScrolled = false;
-    const ourStoryEl = document.getElementById('our-story');
-    if (ourStoryEl) {
-      const rect = ourStoryEl.getBoundingClientRect();
-      isScrolled = rect.top <= 80;
-    } else {
-      isScrolled = y > 60;
-    }
+    const isScrolled = y > 40;
     
     // Only trigger change detection if the value actually changes
     if (this._scrolled() !== isScrolled) {

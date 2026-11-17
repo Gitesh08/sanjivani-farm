@@ -34,7 +34,10 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
         [loop]="loop"
         [muted]="muted"
         [attr.muted]="muted ? '' : null"
+        playsinline
+        webkit-playsinline
         [attr.playsinline]="playsinline ? '' : null"
+        [attr.webkit-playsinline]="playsinline ? '' : null"
         [attr.autoplay]="autoplay ? '' : null"
         [preload]="preload"
         [controls]="controls"
@@ -361,8 +364,13 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
       this.hls = null;
     }
     if (this.fallbackMp4) {
+      const wasPlaying = !video.paused;
       video.src = this.fallbackMp4;
       video.load();
+      if (wasPlaying || this.autoplay) {
+        const p = video.play();
+        if (p) p.catch(() => {});
+      }
     }
   }
 
@@ -393,8 +401,8 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
   // Removed template-bound event handlers to prevent Zone thrashing
   
   onError(event: Event) {
-    // If native playback errors (e.g. Safari HLS fails), try MP4 fallback
-    if (this.videoRef?.nativeElement && !this.hls && !this.hasFallenBackToMp4) {
+    // If native or HLS playback errors (e.g. Safari HLS fails), smoothly switch to MP4 fallback
+    if (this.videoRef?.nativeElement && !this.hasFallenBackToMp4) {
        this.fallbackToMp4(this.videoRef.nativeElement);
     }
   }

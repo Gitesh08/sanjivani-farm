@@ -41,6 +41,7 @@
                   <app-video-player
                          [hlsUrl]="item.hls || ''"
                          [fallbackMp4]="item.fallbackMp4 || item.url || ''"
+                         [poster]="item.poster || ''"
                          customClass="cottage-card__internal-media cottage-card__video-player"
                          [class.opacity-100]="videoReady()[cottageIndex]"
                          (playing)="onVideoCanPlay(cottageIndex)"
