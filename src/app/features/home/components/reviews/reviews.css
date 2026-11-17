@@ -455,14 +455,15 @@
 
   .reviews__track {
     gap: 16px;
-    padding-bottom: 14px;
-    margin-inline: -16px;
-    padding-inline: 16px;
+    margin-inline: 0;
+    padding: 8px 6px 18px;
+    scroll-padding-inline-start: 6px;
+    scroll-padding-inline-end: 6px;
   }
 
   .review-card {
-    flex: 0 0 85vw;
-    max-width: 340px;
+    flex: 0 0 clamp(270px, 80vw, 330px);
+    max-width: 330px;
     padding: 20px 18px;
     border-radius: 20px;
   }

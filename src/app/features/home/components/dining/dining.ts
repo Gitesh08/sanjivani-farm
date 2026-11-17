@@ -49,6 +49,8 @@ export class DiningComponent implements AfterViewInit, OnDestroy {
   readonly activeSlide = signal<number>(0);
 
   private autoPlayTimer?: ReturnType<typeof setInterval>;
+  private touchStartX = 0;
+  private touchStartY = 0;
 
   readonly highlights: DiningHighlight[] = [
     {
@@ -98,6 +100,32 @@ export class DiningComponent implements AfterViewInit, OnDestroy {
     // Reset timer on manual navigation
     this.stopAutoPlay();
     this.startAutoPlay();
+  }
+
+  onTouchStart(e: TouchEvent): void {
+    if (e.touches.length === 1) {
+      this.touchStartX = e.touches[0].clientX;
+      this.touchStartY = e.touches[0].clientY;
+    }
+  }
+
+  onTouchEnd(e: TouchEvent): void {
+    if (e.changedTouches.length === 1) {
+      const diffX = e.changedTouches[0].clientX - this.touchStartX;
+      const diffY = e.changedTouches[0].clientY - this.touchStartY;
+
+      // Only respond when horizontal swipe is intentional and exceeds 35px
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 35) {
+        if (diffX < 0) {
+          // Swipe left -> next slide
+          this.goToSlide((this.activeSlide() + 1) % this.sliderImages.length);
+        } else {
+          // Swipe right -> previous slide
+          const total = this.sliderImages.length;
+          this.goToSlide((this.activeSlide() - 1 + total) % total);
+        }
+      }
+    }
   }
 
   private startAutoPlay(): void {

@@ -16,7 +16,9 @@
     <div class="dining__body">
 
       <!-- IMAGE COLUMN — Auto-slide gallery -->
-      <div class="dining__image-wrap">
+      <div class="dining__image-wrap"
+           (touchstart)="onTouchStart($event)"
+           (touchend)="onTouchEnd($event)">
         <!-- Stacked images: active one fades in via .active class -->
         @for (img of sliderImages; track img; let i = $index) {
           <img [src]="img"
@@ -29,7 +31,16 @@
         }
         <div class="dining__image-overlay" aria-hidden="true"></div>
 
-        <!-- Dot pagination -->
+        <!-- Floating badge (Bottom Left) -->
+        <div class="dining__badge">
+          <span class="dining__badge-icon">🌾</span>
+          <div>
+            <span class="dining__badge-title">100% Organic</span>
+            <span class="dining__badge-sub">Where it grows</span>
+          </div>
+        </div>
+
+        <!-- Dot pagination in frosted glass capsule (Bottom Right) -->
         <div class="dining__dots" aria-label="Slide navigation">
           @for (img of sliderImages; track img; let i = $index) {
             <button class="dining__dot"
@@ -38,15 +49,6 @@
                     [attr.aria-label]="'Go to slide ' + (i + 1)">
             </button>
           }
-        </div>
-
-        <!-- Floating badge -->
-        <div class="dining__badge">
-          <span class="dining__badge-icon">🌾</span>
-          <div>
-            <span class="dining__badge-title">100% Organic</span>
-            <span class="dining__badge-sub">Where it grows</span>
-          </div>
         </div>
       </div>
 
