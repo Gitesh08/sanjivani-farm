@@ -87,14 +87,11 @@ export function parseAndBeautifyGoogleReview(rawText: string): {
   }
 
   // Remove the concatenated metadata block from the body text
-  const metaRegex = /(?:Trip\s*type|Travel\s*group|Rooms\s*:\s*\d|Service\s*:\s*\d|Location\s*:\s*\d|Hotel\s*highlights)/i;
+  const metaRegex = /(?:Trip type|Travel group|Rooms:\s*\d|Hotel highlights)/i;
   const idx = text.search(metaRegex);
   if (idx !== -1) {
     text = text.slice(0, idx).trim();
   }
-
-  // Clean any leading/trailing quotes
-  text = text.replace(/^[“"']+|[”"']+$/g, '');
 
   // Beautify Pros & Cons: ensure clear spacing and separate paragraphs
   text = text.replace(/([^\n])\s*(Cons:?)/gi, '$1\n\nCons:');
@@ -188,18 +185,16 @@ export class ReviewsComponent implements AfterViewInit {
   }
 
   toggleExpand(reviewName: string, event?: Event): void {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
     const wasExpanded = this.expandedReviews().has(reviewName);
-    const btn = event?.currentTarget as HTMLElement | null;
-    const card = btn?.closest('.review-card') as HTMLElement | null;
-    const textEl = card?.querySelector<HTMLElement>('.review-card__text');
 
-    if (textEl) {
-      textEl.scrollTop = 0;
+    // If collapsing or expanding, ensure the review text scroll position is reset to the top
+    if (event) {
+      const btn = event.currentTarget as HTMLElement | null;
+      const card = btn?.closest('.review-card');
+      const textEl = card?.querySelector<HTMLElement>('.review-card__text');
+      if (textEl) {
+        textEl.scrollTop = 0;
+      }
     }
 
     this.expandedReviews.update(set => {
@@ -212,15 +207,21 @@ export class ReviewsComponent implements AfterViewInit {
       return newSet;
     });
 
-    // Reset scrollTop and ensure card remains nicely positioned
-    setTimeout(() => {
-      if (textEl) {
-        textEl.scrollTop = 0;
-      }
-      if (wasExpanded && card) {
-        card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
-      }
-    }, 40);
+    // When collapsing ("Show less"), guarantee text scroll returns to top and card remains in view
+    if (wasExpanded && event) {
+      const btn = event.currentTarget as HTMLElement | null;
+      const card = btn?.closest('.review-card');
+      setTimeout(() => {
+        if (card) {
+          const textEl = card.querySelector<HTMLElement>('.review-card__text');
+          if (textEl) {
+            textEl.scrollTop = 0;
+          }
+          // Smoothly keep the card in view without jarring jumps
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+        }
+      }, 0);
+    }
   }
 
   scrollPrev(): void {

@@ -6,6 +6,7 @@
   left: 0;
   right: 0;
   z-index: var(--z-sticky);
+  transform: translateZ(0); /* Promotes navbar to an isolated composite layer */
 }
 
 .navbar {
@@ -37,11 +38,11 @@
 }
 
 .navbar--scrolled {
-  background: rgba(4, 15, 22, 0.96) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--glass-bg-dark);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: 0 4px 32px rgba(7, 28, 42, 0.35);
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .navbar--menu-open {
@@ -59,8 +60,12 @@
   cursor: pointer;
   text-decoration: none;
   flex-shrink: 0;
-  opacity: 1 !important;
-  visibility: visible !important;
+  transition: opacity var(--duration-fast) var(--ease-resort);
+}
+
+.navbar__logo--hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .navbar__logo-img {

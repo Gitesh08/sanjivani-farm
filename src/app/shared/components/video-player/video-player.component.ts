@@ -34,10 +34,7 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
         [loop]="loop"
         [muted]="muted"
         [attr.muted]="muted ? '' : null"
-        playsinline
-        webkit-playsinline
         [attr.playsinline]="playsinline ? '' : null"
-        [attr.webkit-playsinline]="playsinline ? '' : null"
         [attr.autoplay]="autoplay ? '' : null"
         [preload]="preload"
         [controls]="controls"
@@ -135,7 +132,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
     
     this.bindEvents();
     
-    if (this.autoplay || this.forceInit || this.preload !== 'none') {
+    if (this.autoplay || this.forceInit) {
       this.initPlayer();
       this.isInitialized = true;
     } else {
@@ -300,22 +297,12 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
       this.hls.destroy();
       this.hls = null;
     }
-    if (this.fallbackMp4) {
-      const shouldPlay = this.autoplay || !video.paused;
-      video.src = this.fallbackMp4;
-      video.load();
-      if (shouldPlay) {
-        video.play().catch(() => {});
-      }
-    }
+    video.src = this.fallbackMp4;
+    video.load();
   }
 
   // Expose play/pause methods so parent components (like activities) can control it seamlessly
   play(): Promise<void> | void {
-    if (!this.isInitialized) {
-      this.initPlayer();
-      this.isInitialized = true;
-    }
     if (this.videoRef?.nativeElement) {
       return this.videoRef.nativeElement.play();
     }

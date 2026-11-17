@@ -119,29 +119,12 @@ div.activity-card__img {
   transition: opacity 0.8s ease-in-out;
 }
 
-.activity-card__video-wrap app-video-player {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
+/* Poster visible by default; video hidden until playing */
+.activity-card__poster   { opacity: 1; }
+.activity-card__video-player { opacity: 0; }
 
-.activity-card__poster {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 2;
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out;
-  pointer-events: none;
-}
-
-.activity-card__poster.opacity-0 {
-  opacity: 0;
-}
+app-video-player.opacity-100 .activity-card__video-player { opacity: 1; }
+.activity-card__poster.opacity-0         { opacity: 0; }
 
 /* Video wrap — clickable area */
 .activity-card__video-wrap {

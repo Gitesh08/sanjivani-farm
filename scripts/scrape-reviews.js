@@ -138,14 +138,11 @@ function cleanAndBeautifyGoogleReview(rawText) {
   }
 
   // Remove metadata block
-  const metaRegex = /(?:Trip\s*type|Travel\s*group|Rooms\s*:\s*\d|Service\s*:\s*\d|Location\s*:\s*\d|Hotel\s*highlights)/i;
+  const metaRegex = /(?:Trip type|Travel group|Rooms:\s*\d|Hotel highlights)/i;
   const idx = text.search(metaRegex);
   if (idx !== -1) {
     text = text.slice(0, idx).trim();
   }
-
-  // Clean any leading/trailing quotes
-  text = text.replace(/^[“"']+|[”"']+$/g, '');
 
   // Beautify Pros & Cons
   text = text.replace(/([^\n])\s*(Cons:?)/gi, '$1\n\nCons:');

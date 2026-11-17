@@ -2,10 +2,10 @@
 
   <!-- BACKGROUND MEDIA (Crossfade Netflix Style) -->
   <div class="hero__video-wrapper" aria-hidden="true">
-    <!-- Instant Poster Image (always acts as backdrop to prevent black flashes) -->
+    <!-- Instant Poster Image -->
     <img
       [src]="heroPoster()"
-      alt="" class="hero__poster" fetchpriority="high" loading="eager">
+      alt="" class="hero__poster" [class.hero__poster--hidden]="videoReady()" fetchpriority="high" loading="eager">
 
     <!-- Video -->
     <app-video-player #heroVideo 

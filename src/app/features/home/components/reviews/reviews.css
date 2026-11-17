@@ -162,9 +162,7 @@
 .review-card {
   flex: 0 0 clamp(320px, 82vw, 380px);
   scroll-snap-align: start;
-  align-self: flex-start;
-  height: 350px;
-  box-sizing: border-box;
+  height: 335px;
   background: #ffffff;
   border: 1px solid rgba(16, 91, 133, 0.09);
   border-radius: 24px;
@@ -179,8 +177,7 @@
 
 .review-card.is-expanded {
   height: auto;
-  min-height: 350px;
-  align-self: flex-start;
+  min-height: 335px;
 }
 
 .review-card:hover {
@@ -536,18 +533,16 @@
   }
 
   .review-card {
-    flex: 0 0 clamp(280px, 82vw, 340px);
-    max-width: 340px;
-    height: 350px;
-    align-self: flex-start;
+    flex: 0 0 clamp(270px, 80vw, 330px);
+    max-width: 330px;
+    height: 330px;
     padding: 20px 18px;
     border-radius: 20px;
   }
 
   .review-card.is-expanded {
     height: auto;
-    min-height: 350px;
-    align-self: flex-start;
+    min-height: 330px;
   }
 
   .reviews__cta-box {
