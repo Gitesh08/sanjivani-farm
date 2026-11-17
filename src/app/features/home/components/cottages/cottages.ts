@@ -72,14 +72,17 @@ export class CottagesComponent implements AfterViewInit {
     const videoEl = card?.querySelector(`[data-mi="${mediaIndex}"] video`) as HTMLVideoElement | null;
     if (videoEl) {
       videoEl.muted = this.mutedState()[cottageIndex];
-      videoEl.play().catch(e => {
-        console.warn('[Cottage] play failed:', e);
-        this.playingState.update(arr => {
-          const newArr = [...arr];
-          newArr[cottageIndex] = false;
-          return newArr;
+      const p = videoEl.play();
+      if (p) {
+        p.catch(e => {
+          console.warn('[Cottage] play failed:', e);
+          this.playingState.update(arr => {
+            const newArr = [...arr];
+            newArr[cottageIndex] = false;
+            return newArr;
+          });
         });
-      });
+      }
     }
   }
 

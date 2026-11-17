@@ -46,7 +46,7 @@
                   <img [src]="m.poster" [attr.alt]="item.title + ' activity'"
                        class="activity-card__internal-media activity-card__poster"
                        loading="lazy" decoding="async"
-                       [class.opacity-0]="playingVideosSet().has(loopIdx + '-' + mi)">
+                       [class.opacity-0]="videoReadySet().has(loopIdx + '-' + mi)">
 
                   <!-- Video player — mount only when active to prevent browser MediaSource limit crashes -->
                   @if (activeSlides()[ri] === mi) {
@@ -54,11 +54,12 @@
                            [hlsUrl]="m.hls || ''"
                            [fallbackMp4]="m.fallbackMp4 || m.url || ''"
                            customClass="activity-card__internal-media activity-card__video-player"
-                           [class.opacity-100]="playingVideosSet().has(loopIdx + '-' + mi)"
+                           [class.opacity-100]="videoReadySet().has(loopIdx + '-' + mi)"
                            (playing)="onVideoPlay(loopIdx, mi)"
                            (pauseEvent)="onVideoPause(loopIdx, mi)"
                            [loop]="true" [muted]="mutedState()[ri]" [playsinline]="true"
-                           preload="metadata" [preferHighQuality]="true"
+                           preload="auto" [preferHighQuality]="true"
+                           [forceInit]="true"
                            [autoplay]="false" [controls]="false">
                     </app-video-player>
                   }

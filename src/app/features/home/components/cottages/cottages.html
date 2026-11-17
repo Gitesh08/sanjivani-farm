@@ -34,7 +34,7 @@
                 <!-- HD Poster — shown until playing -->
                 <img [src]="item.poster" class="cottage-card__internal-media cottage-card__poster"
                   loading="lazy" decoding="async"
-                  [class.opacity-0]="playingState()[cottageIndex]" [alt]="item.alt || cottage.name + ' video poster'">
+                  [class.opacity-0]="videoReady()[cottageIndex]" [alt]="item.alt || cottage.name + ' video poster'">
 
                 <!-- Video player — mount only when active to prevent MediaSource limits -->
                 @if (activeSlides()[cottageIndex] === mediaIndex) {
@@ -42,14 +42,15 @@
                          [hlsUrl]="item.hls || ''"
                          [fallbackMp4]="item.fallbackMp4 || item.url || ''"
                          customClass="cottage-card__internal-media cottage-card__video-player"
-                         [class.opacity-100]="playingState()[cottageIndex]"
+                         [class.opacity-100]="videoReady()[cottageIndex]"
                          (playing)="onVideoCanPlay(cottageIndex)"
                          (pauseEvent)="onVideoPause(cottageIndex)"
                          [loop]="true"
                          [muted]="mutedState()[cottageIndex]"
                          [playsinline]="true"
-                         preload="metadata"
+                         preload="auto"
                          [preferHighQuality]="true"
+                         [forceInit]="true"
                          [autoplay]="false"
                          [controls]="false">
                   </app-video-player>

@@ -67,7 +67,7 @@
       <!-- Fluid Swipe Track -->
       <div class="reviews__track" #reviewsTrack (scroll)="onTrackScroll()">
         @for (review of reviews(); track review.name) {
-          <article class="review-card">
+          <article class="review-card" [class.is-expanded]="expandedReviews().has(review.name)">
 
             <!-- Card Top: Avatar, Name, Rating & Meta -->
             <div class="review-card__header">
@@ -127,9 +127,24 @@
             <div class="review-card__body" [class.is-expanded]="expandedReviews().has(review.name)">
               <p class="review-card__text">“{{ review.text }}”</p>
               @if (review.text.length > 170) {
-                <button class="review-card__more-btn" (click)="toggleExpand(review.name)">
+                <button class="review-card__more-btn" (click)="toggleExpand(review.name, $event)">
                   {{ expandedReviews().has(review.name) ? 'Show less' : 'Read more' }}
                 </button>
+              }
+
+              <!-- Sub-Ratings Breakdown (Shown when card is expanded) -->
+              @if (review.subRatings && expandedReviews().has(review.name)) {
+                <div class="review-card__sub-ratings">
+                  @if (review.subRatings.rooms) {
+                    <span class="sub-pill"><span class="sub-label">Rooms</span> <strong>{{ review.subRatings.rooms }}★</strong></span>
+                  }
+                  @if (review.subRatings.service) {
+                    <span class="sub-pill"><span class="sub-label">Service</span> <strong>{{ review.subRatings.service }}★</strong></span>
+                  }
+                  @if (review.subRatings.location) {
+                    <span class="sub-pill"><span class="sub-label">Location</span> <strong>{{ review.subRatings.location }}★</strong></span>
+                  }
+                </div>
               }
             </div>
 

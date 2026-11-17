@@ -45,11 +45,27 @@ export class MediaService {
   }
 
   /**
-   * Returns the URL for the MP4 fallback.
+   * Returns the URL for the MP4 fallback (720p HD).
    * @param path e.g., 'toy-train'
    */
   fallbackMp4(path: string): string {
-    return `${this.getBaseUrl()}/${path}/1080.mp4`;
+    return `${this.getBaseUrl()}/${path}/720.mp4`;
+  }
+
+  /**
+   * Returns the clean 1080p Full HD HLS variant playlist (no master playlist backslash issues).
+   * @param path e.g., 'toy-train'
+   */
+  highQualityPlaylist(path: string): string {
+    return `${this.getBaseUrl()}/${path}/1080/index.m3u8`;
+  }
+
+  /**
+   * Returns the clean 720p HD HLS variant playlist.
+   * @param path e.g., 'toy-train'
+   */
+  hdPlaylist(path: string): string {
+    return `${this.getBaseUrl()}/${path}/720/index.m3u8`;
   }
 
   /**

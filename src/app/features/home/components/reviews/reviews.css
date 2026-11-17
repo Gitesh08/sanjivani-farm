@@ -144,6 +144,7 @@
 /* ── Fluid Swipe Track ── */
 .reviews__track {
   display: flex;
+  align-items: flex-start;
   gap: 24px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -161,16 +162,22 @@
 .review-card {
   flex: 0 0 clamp(320px, 82vw, 380px);
   scroll-snap-align: start;
+  height: 335px;
   background: #ffffff;
   border: 1px solid rgba(16, 91, 133, 0.09);
   border-radius: 24px;
-  padding: clamp(20px, 3.5vw, 28px);
+  padding: clamp(20px, 3.5vw, 26px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 0 8px 30px rgba(10, 41, 64, 0.04);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
   position: relative;
+}
+
+.review-card.is-expanded {
+  height: auto;
+  min-height: 335px;
 }
 
 .review-card:hover {
@@ -184,7 +191,9 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 16px;
+  height: 54px;
+  flex-shrink: 0;
+  margin-bottom: 14px;
 }
 
 .review-card__avatar-wrap {
@@ -242,7 +251,9 @@
 .review-card__author-info {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   min-width: 0;
+  flex-grow: 1;
 }
 
 .review-card__name {
@@ -261,18 +272,24 @@
   align-items: center;
   gap: 6px;
   margin-top: 2px;
-  flex-wrap: wrap;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .review-card__badge {
   font-size: 0.75rem;
   font-weight: 600;
   color: #087592;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .review-card__time {
   font-size: 0.75rem;
   color: var(--color-on-surface-dim);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* Rating & Pill */
@@ -281,8 +298,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-bottom: 14px;
-  flex-wrap: wrap;
+  height: 26px;
+  flex-shrink: 0;
+  margin-bottom: 12px;
 }
 
 .review-card__stars {
@@ -303,8 +321,10 @@
 
 /* Review Text */
 .review-card__body {
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .review-card__text {
@@ -313,6 +333,7 @@
   line-height: 1.65;
   color: #1a364d;
   margin: 0;
+  height: calc(0.95rem * 1.65 * 4);
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
@@ -320,8 +341,27 @@
   transition: all 0.3s ease;
 }
 
-.review-card__body.is-expanded .review-card__text {
+.review-card.is-expanded .review-card__text {
+  height: auto;
   -webkit-line-clamp: unset;
+  display: block;
+  white-space: pre-line;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.review-card.is-expanded .review-card__text::-webkit-scrollbar {
+  width: 4px;
+}
+
+.review-card.is-expanded .review-card__text::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.review-card.is-expanded .review-card__text::-webkit-scrollbar-thumb {
+  background: rgba(16, 91, 133, 0.2);
+  border-radius: 4px;
 }
 
 .review-card__more-btn {
@@ -340,11 +380,42 @@
   text-decoration: underline;
 }
 
+/* Sub-Ratings Chips (Rooms, Service, Location) */
+.review-card__sub-ratings {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: rgba(238, 247, 253, 0.7);
+  border-radius: 10px;
+  border: 1px solid rgba(16, 91, 133, 0.08);
+  font-size: 0.75rem;
+}
+
+.sub-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #0A2940;
+}
+
+.sub-label {
+  color: var(--color-on-surface-dim);
+}
+
+.sub-pill strong {
+  color: #087592;
+  font-weight: 700;
+}
+
 /* Card Footer */
 .review-card__footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: auto;
   padding-top: 14px;
   border-top: 1px solid rgba(10, 41, 64, 0.06);
   font-size: 0.78rem;
@@ -464,8 +535,14 @@
   .review-card {
     flex: 0 0 clamp(270px, 80vw, 330px);
     max-width: 330px;
+    height: 330px;
     padding: 20px 18px;
     border-radius: 20px;
+  }
+
+  .review-card.is-expanded {
+    height: auto;
+    min-height: 330px;
   }
 
   .reviews__cta-box {

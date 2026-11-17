@@ -52,22 +52,22 @@ export class EventsComponent implements AfterViewInit, OnDestroy {
     {
       iconId: 'lawn',
       title: 'Grand Lawn Celebrations',
-      desc: 'Expansive manicured lawns with custom stage setups and ample seating for milestone events and family reunions under the open sky.'
+      desc: 'Spacious open-air lawn with stage and seating for memorable celebrations.'
     },
     {
       iconId: 'gazebo',
       title: 'Thatched Gazebo Parties',
-      desc: 'Celebrate in our rustic open-air gazebo, styled with glowing fairy lights, candlelit dining, fresh rose petals, and festive decor.'
+      desc: 'Festive dining and celebrations sheltered under a rustic thatched canopy.'
     },
     {
       iconId: 'candlelight',
       title: 'Candlelight Evenings & Birthdays',
-      desc: 'Magical twilight celebrations under bamboo canopies — with illuminated neon backdrops, rose petals, and intimate open-air dining.'
+      desc: 'Magical twilight evenings with glowing neon decor and candlelit tables.'
     },
     {
       iconId: 'cottage',
       title: 'Romantic Cottage Surprises',
-      desc: 'Surprise your partner with special cottage room styling — delicate rose petals, warm fairy lights, and romantic touches in our wooden cottages.'
+      desc: 'Romantic room styling with delicate rose petals and warm fairy lights.'
     }
   ];
 

@@ -106,6 +106,61 @@ function getExistingSummary() {
 }
 
 /**
+ * Cleans and beautifies raw scraped Google review text, extracts sub-ratings and metadata.
+ */
+function cleanAndBeautifyGoogleReview(rawText) {
+  if (!rawText) return { cleanText: '', subRatings: null, hotelHighlights: [], tripType: '', travelGroup: '' };
+
+  let text = rawText;
+  const subRatings = {};
+  let hotelHighlights = [];
+  let tripType = '';
+  let travelGroup = '';
+
+  const tripMatch = text.match(/Trip type:?\s*([A-Za-z\s]+?)(?=(Travel group|Rooms:|Service:|Location:|Hotel highlights|$))/i);
+  if (tripMatch) tripType = tripMatch[1].trim();
+
+  const groupMatch = text.match(/Travel group:?\s*([A-Za-z\s]+?)(?=(Trip type|Rooms:|Service:|Location:|Hotel highlights|$))/i);
+  if (groupMatch) travelGroup = groupMatch[1].trim();
+
+  const roomsMatch = text.match(/Rooms:\s*(\d+)/i);
+  if (roomsMatch) subRatings.rooms = parseInt(roomsMatch[1], 10);
+
+  const serviceMatch = text.match(/Service:\s*(\d+)/i);
+  if (serviceMatch) subRatings.service = parseInt(serviceMatch[1], 10);
+
+  const locMatch = text.match(/Location:\s*(\d+)/i);
+  if (locMatch) subRatings.location = parseInt(locMatch[1], 10);
+
+  const highMatch = text.match(/Hotel highlights:?\s*(.+?)$/i);
+  if (highMatch) {
+    hotelHighlights = highMatch[1].split(/,\s*/).map(s => s.trim()).filter(Boolean);
+  }
+
+  // Remove metadata block
+  const metaRegex = /(?:Trip type|Travel group|Rooms:\s*\d|Hotel highlights)/i;
+  const idx = text.search(metaRegex);
+  if (idx !== -1) {
+    text = text.slice(0, idx).trim();
+  }
+
+  // Beautify Pros & Cons
+  text = text.replace(/([^\n])\s*(Cons:?)/gi, '$1\n\nCons:');
+  text = text.replace(/([^\n])\s*(Pros:?)/gi, '$1\n\nPros:');
+
+  // Space out sentences stuck together
+  text = text.replace(/([a-zA-Z])([.!?])([A-Z])/g, '$1$2 $3');
+
+  return {
+    cleanText: text.trim(),
+    subRatings: Object.keys(subRatings).length ? subRatings : null,
+    hotelHighlights,
+    tripType,
+    travelGroup
+  };
+}
+
+/**
  * Saves reviews with fallback protection.
  * Only saves if we have at least 3 genuine reviews.
  */
@@ -115,8 +170,30 @@ function saveReviews(reviews) {
     return false;
   }
 
-  // Filter: Keep genuine 5-star reviews with substantive feedback
-  const filtered = reviews.filter(r => {
+  // Beautify and filter: Keep genuine 5-star reviews with substantive feedback
+  const processed = reviews.map(r => {
+    const rawText = r?.review?.text || '';
+    const parsed = cleanAndBeautifyGoogleReview(rawText);
+    const travelGroup = parsed.travelGroup 
+      ? (parsed.travelGroup.toLowerCase().includes('stay') ? parsed.travelGroup : `${parsed.travelGroup} Stay`)
+      : (r?.review?.tag || 'Family Farm Stay');
+
+    return {
+      ...r,
+      review: {
+        ...r.review,
+        text: parsed.cleanText,
+        tag: travelGroup,
+        highlight: parsed.hotelHighlights[0] || r?.review?.highlight || '',
+        subRatings: parsed.subRatings,
+        hotelHighlights: parsed.hotelHighlights,
+        tripType: parsed.tripType,
+        travelGroup: parsed.travelGroup
+      }
+    };
+  });
+
+  const filtered = processed.filter(r => {
     const rating = r?.review?.rating || 0;
     const text = r?.review?.text || '';
     return rating >= 5 && text.trim().length >= 15;

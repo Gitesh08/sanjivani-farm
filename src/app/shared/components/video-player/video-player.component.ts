@@ -117,6 +117,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
   private isBrowser: boolean;
   private io?: IntersectionObserver;
   private isInitialized = false;
+  private hasFallenBackToMp4 = false;
 
   private ngZone = inject(NgZone);
   private el = inject(ElementRef);
@@ -214,8 +215,9 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
   }
 
   private setupIntersectionObserver() {
-    if (!('IntersectionObserver' in window)) {
+    if (this.forceInit || this.autoplay || !('IntersectionObserver' in window)) {
       this.initPlayer();
+      this.isInitialized = true;
       return;
     }
     this.ngZone.runOutsideAngular(() => {
@@ -226,9 +228,28 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
             this.isInitialized = true;
           }
         });
-      }, { rootMargin: '200px' });
+      }, { rootMargin: '300px' });
       this.io.observe(this.el.nativeElement);
+
+      // Mobile carousel fallback: if not intersected within 800ms, initialize anyway
+      setTimeout(() => {
+        if (!this.isInitialized) {
+          this.initPlayer();
+          this.isInitialized = true;
+        }
+      }, 800);
     });
+  }
+
+  private getCleanHlsUrl(url: string): string {
+    if (!url) return '';
+    // For native Safari HLS: bypass Windows backslash '\' bug in master.m3u8
+    // and stream pristine 1080p (or 720p) variant playlist directly
+    if (url.includes('master.m3u8')) {
+      const variant = (this.isHero || this.preferHighQuality) ? '1080' : '720';
+      return url.replace(/master\.m3u8$/, `${variant}/index.m3u8`);
+    }
+    return url;
   }
 
   private async initPlayer() {
@@ -242,64 +263,88 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
     }
 
     if (this.hlsUrl) {
+      const cleanUrl = this.getCleanHlsUrl(this.hlsUrl);
+
       // Dynamically import hls.js only when a video actually needs to play
       const { default: Hls } = await import('hls.js');
 
       if (Hls.isSupported()) {
-        const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 1024;
-
         const hlsConfig: any = {
-          capLevelToPlayerSize: !this.preferHighQuality && !this.isHero,
-          maxBufferLength: 15,
-          maxMaxBufferLength: 30,
-          maxBufferSize: 30 * 1000 * 1000,
+          // Never cap resolution to small mobile CSS screen width!
+          capLevelToPlayerSize: false,
+          maxBufferLength: 20,
+          maxMaxBufferLength: 40,
+          maxBufferSize: 60 * 1000 * 1000,
         };
 
         if (this.isHero || this.preferHighQuality) {
-          // Provide an initial high bandwidth estimate (10 Mbps) so HLS picks 1080p Full HD on first probe
-          hlsConfig.abrEwmaDefaultEstimate = 10000000;
+          // Provide an initial high bandwidth estimate (15 Mbps) so HLS picks 1080p Full HD on first probe
+          hlsConfig.abrEwmaDefaultEstimate = 15000000;
           hlsConfig.testBandwidth = false;
         }
 
         this.hls = new Hls(hlsConfig);
 
-        this.hls.loadSource(this.hlsUrl);
-        this.hls.attachMedia(video);
+        // Sanitize any backslashes in parsed variant URLs if a master playlist is loaded
+        this.hls.on(Hls.Events.MANIFEST_LOADED, (event: any, data: any) => {
+          if (data?.levels) {
+            data.levels.forEach((lvl: any) => {
+              if (lvl.url) {
+                lvl.url = lvl.url.map((u: string) => u.replace(/\\/g, '/'));
+              }
+            });
+          }
+        });
 
+        let networkRetries = 0;
         this.hls.on(Hls.Events.ERROR, (event: any, data: any) => {
           if (data.fatal) {
             switch (data.type) {
               case Hls.ErrorTypes.NETWORK_ERROR:
-                console.warn('HLS Network Error, trying to recover...', data);
-                this.hls?.startLoad();
+                networkRetries++;
+                if (networkRetries <= 2) {
+                  console.warn(`[VideoPlayer] HLS Network Error, retrying (${networkRetries}/2)...`, data);
+                  this.hls?.startLoad();
+                } else {
+                  console.warn('[VideoPlayer] HLS Network Error retries exceeded, falling back to MP4');
+                  this.fallbackToMp4(video);
+                }
                 break;
               case Hls.ErrorTypes.MEDIA_ERROR:
-                console.warn('HLS Media Error, trying to recover...', data);
+                console.warn('[VideoPlayer] HLS Media Error, trying to recover...', data);
                 this.hls?.recoverMediaError();
                 break;
               default:
-                console.error('HLS Fatal Error, falling back to MP4', data);
+                console.warn('[VideoPlayer] HLS Fatal Error, falling back to MP4', data);
                 this.fallbackToMp4(video);
                 break;
             }
           }
         });
 
-        // Smart Initial Resolution: Bypass blurry 480p cold-start
+        // Smart Initial Resolution: Guarantee 1080p Full HD on mobile & desktop
         this.hls.on(Hls.Events.MANIFEST_PARSED, (event: any, data: any) => {
           if (!this.hls || !data.levels || data.levels.length === 0) return;
 
           if (this.isHero || this.preferHighQuality) {
-            // Stream 1080p Full HD from chunk #0 for crystal clarity on mobile & desktop
             const highestLevel = data.levels.length - 1;
             this.hls.startLevel = highestLevel;
             this.hls.nextLevel = highestLevel;
             this.hls.currentLevel = highestLevel;
+            // Prevent ABR from dropping below 720p on mobile
+            if (data.levels.length > 1) {
+              this.hls.minAutoLevel = Math.max(0, data.levels.length - 2);
+            }
           }
         });
+
+        this.hls.loadSource(cleanUrl);
+        this.hls.attachMedia(video);
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        // Native Safari HLS
-        video.src = this.hlsUrl;
+        // Native Safari HLS (iOS, iPadOS, Safari macOS)
+        // Bypass Windows backslash '\' bug in master.m3u8 by streaming clean 1080p/720p variant playlist directly
+        video.src = cleanUrl;
+        video.load();
       } else {
         this.fallbackToMp4(video);
       }
@@ -309,16 +354,24 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
   }
 
   private fallbackToMp4(video: HTMLVideoElement) {
+    if (this.hasFallenBackToMp4) return;
+    this.hasFallenBackToMp4 = true;
     if (this.hls) {
       this.hls.destroy();
       this.hls = null;
     }
-    video.src = this.fallbackMp4;
-    video.load();
+    if (this.fallbackMp4) {
+      video.src = this.fallbackMp4;
+      video.load();
+    }
   }
 
   // Expose play/pause methods so parent components (like activities) can control it seamlessly
-  play(): Promise<void> | void {
+  async play(): Promise<void> {
+    if (!this.isInitialized) {
+      await this.initPlayer();
+      this.isInitialized = true;
+    }
     if (this.videoRef?.nativeElement) {
       return this.videoRef.nativeElement.play();
     }
@@ -341,7 +394,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
   
   onError(event: Event) {
     // If native playback errors (e.g. Safari HLS fails), try MP4 fallback
-    if (this.videoRef?.nativeElement && !this.hls) {
+    if (this.videoRef?.nativeElement && !this.hls && !this.hasFallenBackToMp4) {
        this.fallbackToMp4(this.videoRef.nativeElement);
     }
   }
