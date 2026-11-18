@@ -308,20 +308,26 @@
     flex-wrap: nowrap !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: var(--space-4) !important; /* Increased gap between buttons */
+    gap: 8px !important;
     width: 100% !important;
-    padding: 0 var(--space-6) !important; /* Increased padding on the sides to reduce button width */
+    padding: 0 var(--space-3) !important;
+    max-width: 440px !important;
+    margin-inline: auto !important;
   }
   .hero__actions .btn,
   .hero__actions a.btn {
     flex: 1 1 0 !important;
     width: 100% !important;
     min-width: 0 !important;
-    max-width: 220px !important; /* Ensure they don't stretch excessively */
-    font-size: 0.95rem !important; /* Increased font size for readability */
-    padding: 16px 8px !important; /* Taller capsule shape */
+    max-width: 210px !important;
+    font-size: clamp(0.72rem, 3.2vw, 0.85rem) !important;
+    letter-spacing: 0.01em !important;
+    padding: 14px 6px !important;
     white-space: nowrap !important;
     text-align: center !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 }
 
@@ -967,16 +973,6 @@
 }
 
 @media (max-width: 768px) {
-  .hero__actions {
-    flex-direction: column;
-    width: 100%;
-    padding: 0 var(--space-4);
-  }
-  
-  .hero__actions .btn {
-    width: 100%;
-  }
-
   .tour-modal__nav {
     width: 40px;
     height: 40px;

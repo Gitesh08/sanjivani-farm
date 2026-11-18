@@ -123,7 +123,9 @@
   text-align: center;
   max-width: 800px;
   margin-inline: auto;
-  margin-block-start: clamp(var(--space-8), 4vh, var(--space-12));
+  padding-inline: var(--space-4);
+  line-height: 1.6;
+  text-wrap: balance;
 }
 
 .amenities__tagline-line {
@@ -173,13 +175,15 @@
   }
 
   .amenities__tagline-line {
-    display: block; /* Forces a break strictly after the comma */
-    white-space: nowrap; /* Prevents uncontrolled wrapping on very narrow screens */
+    display: block;
+    white-space: normal;
   }
 
   .amenities__tagline {
-    /* Fluid size that guarantees 53 chars fit on one line for most screens */
-    font-size: clamp(0.7rem, 4.3vw, 1.15rem);
+    font-size: clamp(0.85rem, 3.4vw, 1.05rem);
+    padding-inline: var(--space-4);
+    line-height: 1.55;
+    text-wrap: balance;
   }
 }
 
@@ -211,8 +215,15 @@
     line-height: 1.4;
   }
 
+  .amenities__tagline-line {
+    display: block;
+    white-space: normal;
+  }
+
   .amenities__tagline {
-    /* Aggressive fluid scaling for tiny screens so it never overflows */
-    font-size: clamp(0.6rem, 4.3vw, 1.05rem);
+    font-size: clamp(0.8rem, 3.5vw, 0.95rem);
+    padding-inline: var(--space-3);
+    line-height: 1.5;
+    text-wrap: balance;
   }
 }

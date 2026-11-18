@@ -12,6 +12,9 @@ interface NavItem {
 
 @Component({
   selector: 'app-navbar',
+  host: {
+    '[class.navbar-open]': 'menuOpen()',
+  },
   imports: [RouterLink, RouterLinkActive, CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './navbar.html',
@@ -48,10 +51,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
       // Check initial position immediately
       this.checkScrollPosition();
 
-      // Update on route changes to ensure logo state resets when navigating back to top
+      // Update on route changes to ensure logo state resets when navigating back to top and menu closes
       this.routerSub = this.router.events.pipe(
         filter(event => event instanceof NavigationEnd)
       ).subscribe(() => {
+        this.closeAll();
         setTimeout(() => this.checkScrollPosition(), 50);
       });
 
@@ -69,6 +73,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.scrollSub?.unsubscribe();
     this.routerSub?.unsubscribe();
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.remove('menu-open');
+      document.body.classList.remove('menu-open');
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
   }
 
   private checkScrollPosition(): void {
@@ -117,10 +128,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   private _updateBodyScroll(): void {
     if (typeof document !== 'undefined') {
-      if (this.menuOpen()) {
+      const open = this.menuOpen();
+      document.documentElement.classList.toggle('menu-open', open);
+      document.body.classList.toggle('menu-open', open);
+      if (open) {
+        document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
         document.body.style.touchAction = 'none';
       } else {
+        document.documentElement.style.overflow = '';
         document.body.style.overflow = '';
         document.body.style.touchAction = '';
       }

@@ -22,10 +22,25 @@
   border-radius: var(--radius-sm);
 }
 
-/* ─── Splash Screen Scroll Lock (Zero Jump) ─── */
+/* ─── Splash Screen & Mobile Menu Scroll Lock (Zero Jump) ─── */
 html:has(.splash-wrapper),
-body:has(.splash-wrapper) {
+body:has(.splash-wrapper),
+html.menu-open,
+body.menu-open,
+html:has(.navbar--menu-open),
+body:has(.navbar--menu-open) {
   overflow: hidden !important;
   overscroll-behavior: none !important;
   touch-action: none !important;
+}
+
+/* ─── Floating Buttons during Mobile Menu Open ─── */
+body.menu-open .btn-floating-tour,
+body.menu-open .btn-floating-whatsapp,
+body:has(.navbar--menu-open) .btn-floating-tour,
+body:has(.navbar--menu-open) .btn-floating-whatsapp {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: scale(0.8) !important;
+  transition: opacity 0.25s ease, transform 0.25s ease !important;
 }
