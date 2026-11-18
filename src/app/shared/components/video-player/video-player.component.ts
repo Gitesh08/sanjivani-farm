@@ -30,7 +30,7 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
     <div class="video-container">
       <video
         #videoElement
-        [src]="!hlsUrl ? fallbackMp4 : null"
+        [src]="!hlsUrl && fallbackMp4 ? fallbackMp4 : null"
         [poster]="poster"
         [loop]="loop"
         [muted]="muted"
@@ -296,10 +296,19 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
           });
 
           this.hls.on(Hls.Events.MANIFEST_PARSED, (event: any, data: any) => {
-            if (this.preferHighQuality && this.hls) {
-              const highestLevel = data.levels.length - 1;
-              this.hls.startLevel = highestLevel;
-              this.hls.currentLevel = highestLevel;
+            if (this.preferHighQuality && this.hls && data.levels && data.levels.length > 0) {
+              let bestLevelIndex = 0;
+              let maxQuality = -1;
+              data.levels.forEach((lvl: any, index: number) => {
+                const quality = (lvl.height || 0) * 10000000 + (lvl.bitrate || 0);
+                if (quality > maxQuality) {
+                  maxQuality = quality;
+                  bestLevelIndex = index;
+                }
+              });
+              this.hls.startLevel = bestLevelIndex;
+              this.hls.currentLevel = bestLevelIndex;
+              this.hls.loadLevel = bestLevelIndex;
             }
             if (this.autoplay) {
               const p = video.play();
@@ -330,7 +339,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
       this.hls = null;
     }
     const wasPlaying = !video.paused;
-    if (this.fallbackMp4) {
+    if (this.fallbackMp4 && this.fallbackMp4.trim()) {
       if (this.muted) {
         video.defaultMuted = true;
         video.muted = true;
