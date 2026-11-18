@@ -84,7 +84,7 @@ export class ActivitiesPageComponent implements OnInit {
       title: 'Kayaking & Private Boating',
       tagline: 'Glide over tranquil private lake waters surrounded by nature.',
       badge: 'Signature Lake',
-      pills: ['Life Jackets Provided', 'Calm Waters', 'Supervised'],
+      pills: ['9:30 AM – 6:00 PM', 'Life Jackets Provided', 'Calm Waters'],
       media: [
         {
           type: 'video',
@@ -116,7 +116,7 @@ export class ActivitiesPageComponent implements OnInit {
       title: 'Outdoor Swimming Pool',
       tagline: 'Cool off in crystal-clear water framed by tropical palms.',
       badge: 'All-Day Refresh',
-      pills: ['7 AM – 7 PM', 'Sun Loungers', 'Palm Views'],
+      pills: ['9:30 AM – 7:30 PM', 'Sun Loungers', 'Palm Views'],
       media: [
         { type: 'img', url: 'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1200/IMG_6738_sdjzbg.webp' },
         { type: 'img', url: 'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1200/IMG_6744_awxmdu.webp' },

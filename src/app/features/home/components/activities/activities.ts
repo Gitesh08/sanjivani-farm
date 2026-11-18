@@ -58,6 +58,7 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
     {
       title: 'Kayaking & Boating',
       desc: 'Glide on the lake smoothly (Premium Activity).',
+      timing: '9:30 AM – 6:00 PM',
       media: [
         {
           type: 'video',
@@ -114,6 +115,7 @@ export class ActivitiesComponent implements AfterViewInit, OnDestroy {
     {
       title: 'Swimming Pool',
       desc: 'Luxury meets refreshing nature.',
+      timing: '9:30 AM – 7:30 PM',
       media: [
         { type: 'img', url: 'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1200/IMG_6738_sdjzbg.webp' },
         { type: 'img', url: 'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_1200/IMG_6744_awxmdu.webp' },
