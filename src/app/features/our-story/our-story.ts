@@ -9,10 +9,11 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MediaService } from '../../core/services/media.service';
 import { VideoPlayerComponent } from '../../shared/components/video-player/video-player.component';
+import { BreadcrumbComponent } from '../../shared/components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-our-story',
-  imports: [RouterLink, VideoPlayerComponent],
+  imports: [RouterLink, VideoPlayerComponent, BreadcrumbComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './our-story.html',
   styleUrl: './our-story.css',
@@ -197,8 +198,8 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
   private initHeroAnimations(): void {
     const tl = gsap.timeline({ delay: 0.2 });
 
-    // Set initial state for back button (will slide in from left)
-    gsap.set('.os-hero__back-btn', { x: -20, opacity: 0 });
+    // Set initial state for top breadcrumb bar (will slide in smoothly)
+    gsap.set('.os-hero__top-bar', { y: -15, opacity: 0 });
 
     // Parallax slow-zoom on hero bg image
     const heroBg = this.el.nativeElement.querySelector('.os-hero__bg-img');
@@ -226,9 +227,9 @@ export class OurStoryComponent implements AfterViewInit, OnDestroy {
       opacity: 1, y: 0, duration: 0.7, ease: 'power3.out'
     }, 0.4);
 
-    // Back button fades in from left
-    tl.to('.os-hero__back-btn', {
-      opacity: 1, x: 0, duration: 0.7, ease: 'power3.out'
+    // Breadcrumb bar fades in
+    tl.to('.os-hero__top-bar', {
+      opacity: 1, y: 0, duration: 0.7, ease: 'power3.out'
     }, 0.4);
 
     // Title sweeps up

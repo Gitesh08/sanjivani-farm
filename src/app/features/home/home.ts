@@ -150,30 +150,30 @@ export class HomeComponent implements OnInit {
             {
               "@type": "SiteNavigationElement",
               "position": 2,
-              "name": "Activities & Toy Train",
-              "description": "Private Sanjivani Toy Train rides, kayaking, boating, archery, cycling & manicured lawns.",
-              "url": "https://sanjivanifarm.com/#activities"
+              "name": "Book Your Stay",
+              "description": "Check live cottage availability, seasonal rates, and book your stay directly on Doorloom.",
+              "url": "https://sanjivanifarm.com/book"
             },
             {
               "@type": "SiteNavigationElement",
               "position": 3,
-              "name": "Photo Gallery",
-              "description": "Browse 40+ photos of cottages, nature trails, private lakes, and scenic spots.",
-              "url": "https://sanjivanifarm.com/gallery"
-            },
-            {
-              "@type": "SiteNavigationElement",
-              "position": 4,
               "name": "Our Story",
               "description": "Discover the heritage, 300+ coconut trees, and authentic Konkan agritourism philosophy.",
               "url": "https://sanjivanifarm.com/our-story"
             },
             {
               "@type": "SiteNavigationElement",
+              "position": 4,
+              "name": "Photo Gallery",
+              "description": "Browse 40+ photos of cottages, nature trails, private lakes, and scenic spots.",
+              "url": "https://sanjivanifarm.com/gallery"
+            },
+            {
+              "@type": "SiteNavigationElement",
               "position": 5,
-              "name": "Farm Dining",
-              "description": "Fresh, home-cooked Maharashtrian meals, pure vegetarian thalis and fresh fish.",
-              "url": "https://sanjivanifarm.com/#dining"
+              "name": "Activities & Toy Train",
+              "description": "Private Sanjivani Toy Train rides, kayaking, boating, archery, cycling & manicured lawns.",
+              "url": "https://sanjivanifarm.com/activities"
             },
             {
               "@type": "SiteNavigationElement",

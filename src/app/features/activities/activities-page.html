@@ -1,0 +1,210 @@
+<app-navbar [forceScrolled]="true" />
+
+<main id="main-content" class="activities-page">
+
+  <!-- TOP BREADCRUMB & BACK NAV -->
+  <section class="activities-hero">
+    <div class="container">
+      <app-breadcrumb [items]="[{ label: 'Home', url: '/' }, { label: 'Activities' }]" />
+
+      <!-- HERO HEADLINE -->
+      <div class="hero-content">
+        <span class="hero-tag">16-Acre Farm Resort · Palghar</span>
+        <h1 class="hero-title">Adventures &amp; Leisure</h1>
+        <p class="hero-desc">
+          Lakes, toy train rides, shaded hammocks, and open trails across 16 acres of countryside.
+        </p>
+      </div>
+
+      <!-- MINIMALIST CATEGORY FILTER TABS -->
+      <div class="category-filter-wrap" role="tablist" aria-label="Activity Categories">
+        @for (cat of categories; track cat.id) {
+          <button 
+            type="button" 
+            role="tab"
+            [attr.aria-selected]="selectedCategory() === cat.id"
+            (click)="setCategory(cat.id)"
+            class="filter-pill"
+            [class.filter-pill--active]="selectedCategory() === cat.id">
+            <span>{{ cat.label }}</span>
+          </button>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVITIES SHOWCASE GRID -->
+  <section class="activities-grid-section">
+    <div class="container">
+      <div class="activities-grid">
+        @for (item of filteredActivities(); track item.id; let cardIdx = $index) {
+          @let currentMediaIdx = getActiveIndex(item.id);
+          @let currentMedia = item.media[currentMediaIdx];
+
+          <article class="experience-card" [id]="item.id">
+            
+            <!-- MEDIA CANVAS -->
+            <div class="experience-card__media-box">
+
+              <!-- Image Slide -->
+              @if (currentMedia.type === 'img') {
+                <img 
+                  [src]="currentMedia.url" 
+                  [alt]="item.title"
+                  class="experience-card__media-img"
+                  loading="lazy">
+              }
+
+              <!-- Video Slide with HLS Player & Poster Overlay -->
+              @if (currentMedia.type === 'video') {
+                <div class="experience-card__video-container"
+                     (click)="isVideoPlaying(item.id, currentMediaIdx) ? pauseVideo(item.id, currentMediaIdx, $event) : playVideo(item.id, currentMediaIdx, $event)">
+
+                  <!-- Poster -->
+                  <img 
+                    [src]="currentMedia.poster" 
+                    [alt]="item.title" 
+                    class="experience-card__video-poster"
+                    [class.experience-card__video-poster--hidden]="isVideoPlaying(item.id, currentMediaIdx)">
+
+                  <!-- Video Player -->
+                  <app-video-player
+                    [hlsUrl]="currentMedia.hls || ''"
+                    [fallbackMp4]="currentMedia.fallbackMp4 || ''"
+                    customClass="experience-card__video-element"
+                    [class.opacity-100]="isVideoPlaying(item.id, currentMediaIdx)"
+                    (playing)="playVideo(item.id, currentMediaIdx, $event)"
+                    (pauseEvent)="pauseVideo(item.id, currentMediaIdx, $event)"
+                    [loop]="true"
+                    [muted]="isMuted(item.id)"
+                    [playsinline]="true"
+                    preload="metadata"
+                    [preferHighQuality]="true"
+                    [autoplay]="false"
+                    [controls]="false">
+                  </app-video-player>
+
+                  <!-- Play Trigger Overlay -->
+                  @if (!isVideoPlaying(item.id, currentMediaIdx)) {
+                    <div class="experience-card__play-badge" aria-label="Play video">
+                      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+                        <polygon points="6 4 20 12 6 20 6 4"></polygon>
+                      </svg>
+                      <span>Play Video</span>
+                    </div>
+                  }
+
+                  <!-- Mute Button -->
+                  @if (isVideoPlaying(item.id, currentMediaIdx)) {
+                    <button type="button" class="experience-card__mute-btn" (click)="toggleMute(item.id, $event)" aria-label="Toggle mute">
+                      @if (isMuted(item.id)) {
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                          <line x1="23" y1="9" x2="17" y2="15"></line>
+                          <line x1="17" y1="9" x2="23" y2="15"></line>
+                        </svg>
+                      } @else {
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                        </svg>
+                      }
+                    </button>
+                  }
+                </div>
+              }
+
+              <!-- Media Navigation Controls (if multiple media) -->
+              @if (item.media.length > 1) {
+                <button 
+                  type="button" 
+                  class="media-nav-arrow media-nav-arrow--prev" 
+                  (click)="prevMedia(item, $event)" 
+                  aria-label="Previous image">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <button 
+                  type="button" 
+                  class="media-nav-arrow media-nav-arrow--next" 
+                  (click)="nextMedia(item, $event)" 
+                  aria-label="Next image">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
+
+                <!-- Media Counter Pill -->
+                <div class="media-counter">
+                  {{ currentMediaIdx + 1 }} / {{ item.media.length }}
+                </div>
+              }
+
+            </div>
+
+            <!-- CARD CONTENT -->
+            <div class="experience-card__body">
+              
+              <!-- Badge -->
+              <div class="experience-card__header">
+                <span class="experience-badge">{{ item.badge }}</span>
+              </div>
+
+              <!-- Title & Punchy Tagline -->
+              <h2 class="experience-card__title">{{ item.title }}</h2>
+              <p class="experience-card__tagline">{{ item.tagline }}</p>
+
+              <!-- Quick Feature Pills -->
+              <div class="experience-card__pills">
+                @for (pill of item.pills; track pill) {
+                  <span class="feature-pill">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>{{ pill }}</span>
+                  </span>
+                }
+              </div>
+
+            </div>
+
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCIERGE BOOKING CTA -->
+  <section class="activities-cta-section">
+    <div class="container">
+      <div class="activities-cta-card">
+        <div class="cta-card__badge">Farm Stay Experiences</div>
+        <h2 class="cta-card__title">Experience The Best Of Sanjivani Farm</h2>
+        <p class="cta-card__desc">
+          Stay in our wooden glass or red stone cottages and immerse yourself in the Toy Train rides, swimming pool, shaded trails, and 16 acres of pure nature.
+        </p>
+        <div class="cta-card__actions">
+          <a routerLink="/cottages" class="btn btn-primary cta-btn">
+            <span>Explore Cottages</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a routerLink="/book" class="btn btn-secondary cta-btn">
+            <span>Book on Doorloom</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<app-footer />

@@ -3,6 +3,7 @@ import {
   ViewChild, ViewChildren, QueryList, signal, PLATFORM_ID
 } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { MediaService } from '../../../../core/services/media.service';
 import { VideoPlayerComponent } from '../../../../shared/components/video-player/video-player.component';
 
@@ -27,7 +28,7 @@ interface Activity {
   templateUrl: './activities.html',
   styleUrl: './activities.css',
   standalone: true,
-  imports: [CommonModule, VideoPlayerComponent]
+  imports: [CommonModule, RouterLink, VideoPlayerComponent]
 })
 export class ActivitiesComponent implements AfterViewInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);

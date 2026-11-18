@@ -41,6 +41,37 @@ export const routes: Routes = [
       }
     }
   },
+  {
+    path: 'book',
+    loadComponent: () =>
+      import('./features/book/book-redirect.component').then(m => m.BookRedirectComponent),
+    title: 'Book Your Stay | Sanjivani Farm & Resort',
+    data: {
+      seo: {
+        title: 'Book Your Stay | Sanjivani Farm & Resort',
+        description: 'Check live room availability, dynamic rates, and reserve your cottage stay directly at Sanjivani Farm & Resort Palghar via Doorloom.',
+        keywords: 'Book Sanjivani Farm, resort booking Palghar, cottage reservation Palghar, Doorloom reservations'
+      }
+    }
+  },
+  {
+    path: 'book-your-stay',
+    redirectTo: 'book',
+    pathMatch: 'full'
+  },
+  {
+    path: 'activities',
+    loadComponent: () =>
+      import('./features/activities/activities-page').then(m => m.ActivitiesPageComponent),
+    title: 'Activities & Experiences | Sanjivani Farm & Resort Palghar',
+    data: {
+      seo: {
+        title: 'Activities & Experiences | Sanjivani Farm & Resort Palghar',
+        description: 'Explore the Sanjivani Toy Train, private lake kayaking, swimming pool, cycling, and lush lawns across 16 acres. The ultimate adventure resort near Mumbai in Palghar.',
+        keywords: 'resort with toy train, farm stay activities Palghar, kayaking resort Mumbai, weekend activities Palghar, resort with swimming pool Saphale'
+      }
+    }
+  },
 
   {
     path: 'gallery',

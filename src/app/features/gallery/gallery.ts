@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
 import { SeoService } from '../../core/services/seo.service';
-import { RouterLink } from '@angular/router';
+import { BreadcrumbComponent } from '../../shared/components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-gallery',
   standalone: true,
-  imports: [RouterLink],
+  imports: [BreadcrumbComponent],
   templateUrl: './gallery.html',
   styleUrl: './gallery.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { BreadcrumbComponent } from '../../shared/components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-privacy-policy',
   standalone: true,
-  imports: [RouterLink],
+  imports: [BreadcrumbComponent],
   templateUrl: './privacy-policy.html',
   styleUrl: './privacy-policy.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

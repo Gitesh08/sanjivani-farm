@@ -293,13 +293,36 @@ app-video-player.opacity-100 .activity-card__video-player { opacity: 1; }
 .activity-card__nav--prev { left: 0.75rem; }
 .activity-card__nav--next { right: 0.75rem; }
 
-/* ── Navigation Buttons ── */
-.activities__controls {
+/* ── Bottom Controls Bar: Nav on Left, Explore on Right ── */
+.activities__bottom-bar {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-8);
   gap: var(--space-4);
-  margin-top: var(--space-6);
-  padding: 0;
+}
+
+.activities__nav-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.activities__explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  padding: 11px 22px;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(10, 41, 64, 0.12);
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.activities__explore-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(10, 41, 64, 0.2);
 }
 
 .nav-btn {
@@ -355,14 +378,44 @@ app-video-player.opacity-100 .activity-card__video-player { opacity: 1; }
     font-weight: 300; /* Slim down */
   }
 
+  .activities__bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--space-6);
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .activities__nav-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
   .nav-btn {
     width: 38px;
     height: 38px;
   }
 
   .nav-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 17px;
+    height: 17px;
+  }
+
+  .activities__explore-btn {
+    flex-shrink: 1;
+    padding: 10px clamp(12px, 3.5vw, 18px);
+    font-size: clamp(0.78rem, 3.4vw, 0.88rem);
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  .activities__explore-btn svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
   }
 
   .activity-card__play-overlay {

@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { BreadcrumbComponent } from '../../shared/components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-terms-conditions',
   standalone: true,
-  imports: [RouterLink],
+  imports: [BreadcrumbComponent],
   templateUrl: './terms-conditions.html',
   styleUrl: './terms-conditions.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

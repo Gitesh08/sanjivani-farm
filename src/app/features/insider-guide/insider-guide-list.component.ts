@@ -6,24 +6,18 @@ import { GUIDE_POSTS } from '../../core/data/insider-guide.data';
 
 import { NavbarComponent } from '../home/components/navbar/navbar';
 import { FooterComponent } from '../home/components/footer/footer';
+import { BreadcrumbComponent } from '../../shared/components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-insider-guide-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, NavbarComponent, FooterComponent],
+  imports: [CommonModule, RouterModule, NavbarComponent, FooterComponent, BreadcrumbComponent],
   template: `
     <app-navbar [forceScrolled]="true" />
     <main id="main-content" class="guide-list-page">
       <div class="container">
       <div class="guide-list__header-container">
-        <a routerLink="/" class="btn btn-secondary btn-sm" aria-label="Back to Home" style="margin-bottom: 2rem;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
-            <line x1="19" y1="12" x2="5" y2="12"/>
-            <polyline points="12 5 5 12 12 19"/>
-          </svg>
-          Back to Home
-        </a>
+        <app-breadcrumb [items]="[{ label: 'Home', url: '/' }, { label: 'Insider Guide' }]" />
         <header class="guide-list__header">
           <span class="section-tag">Insider Guide</span>
           <h1 class="display-lg font-heading">Travel & Wellness Journal</h1>

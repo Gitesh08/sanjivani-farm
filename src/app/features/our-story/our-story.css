@@ -98,11 +98,12 @@
   opacity: 0;
 }
 
-/* ── Back to Home button ── */
-.os-hero__back-btn {
+/* ── Top Breadcrumb Bar ── */
+.os-hero__top-bar {
   position: absolute;
-  top: calc(var(--space-6) + 80px); /* below navbar */
-  left: var(--space-8);
+  top: clamp(80px, 12vw, 105px); /* below navbar */
+  left: 0;
+  right: 0;
   z-index: var(--z-raised);
   opacity: 0; /* animated in via GSAP */
 }

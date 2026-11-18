@@ -1,0 +1,515 @@
+/* ════════════════════════════════════════════════════════════
+   ACTIVITIES & EXPERIENCES PAGE — Modern Minimalist Luxury
+   ════════════════════════════════════════════════════════════ */
+
+:host {
+  display: block;
+  background-color: #F8FBFC;
+  color: #0A2940;
+}
+
+.activities-page {
+  padding-top: clamp(80px, 12vw, 110px);
+  min-height: 100vh;
+}
+
+/* ─── Hero & Breadcrumb ─── */
+.activities-hero {
+  padding-block: var(--space-4) var(--space-8);
+  background: linear-gradient(180deg, rgba(240, 247, 250, 0.75) 0%, #F8FBFC 100%);
+  border-bottom: 1px solid rgba(16, 91, 133, 0.06);
+}
+
+.hero-content {
+  max-width: 680px;
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-8);
+}
+
+.hero-tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #087592;
+  background: rgba(8, 117, 146, 0.08);
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: var(--space-3);
+  border: 1px solid rgba(8, 117, 146, 0.15);
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #0A2940;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-4) 0;
+}
+
+.hero-desc {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.65;
+  color: #52606D;
+  margin: 0;
+}
+
+/* ─── Minimalist Category Filter Pills ─── */
+.category-filter-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.category-filter-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-pill {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #52606D;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(16, 91, 133, 0.12);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(10, 41, 64, 0.04);
+}
+
+.filter-pill:hover {
+  color: #0A2940;
+  background: #ffffff;
+  border-color: rgba(8, 117, 146, 0.3);
+  box-shadow: 0 4px 12px rgba(10, 41, 64, 0.06);
+}
+
+.filter-pill--active {
+  background: #0A2940 !important;
+  color: #ffffff !important;
+  border-color: #0A2940 !important;
+  box-shadow: 0 6px 18px rgba(10, 41, 64, 0.18) !important;
+}
+
+/* ─── Activities Grid Section ─── */
+.activities-grid-section {
+  padding-block: var(--space-10) var(--space-16);
+}
+
+.activities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* ─── Experience Card ─── */
+.experience-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 91, 133, 0.09);
+  box-shadow: 0 6px 24px rgba(10, 41, 64, 0.04);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.experience-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(10, 41, 64, 0.09);
+  border-color: rgba(16, 91, 133, 0.18);
+}
+
+/* Media Box */
+.experience-card__media-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #040F16;
+  overflow: hidden;
+}
+
+.experience-card__media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.experience-card:hover .experience-card__media-img {
+  transform: scale(1.03);
+}
+
+/* Video Container */
+.experience-card__video-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.experience-card__video-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+}
+
+.experience-card__video-poster--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.experience-card__video-element {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.experience-card__play-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(4, 15, 22, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.825rem;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: all 0.25s ease;
+}
+
+.experience-card__video-container:hover .experience-card__play-badge {
+  background: #105B85;
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 10px 28px rgba(16, 91, 133, 0.4);
+}
+
+.experience-card__mute-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 4;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(4, 15, 22, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.experience-card__mute-btn:hover {
+  background: rgba(4, 15, 22, 0.9);
+  transform: scale(1.08);
+}
+
+/* Media Arrows */
+.media-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(16, 91, 133, 0.15);
+  color: #0A2940;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(10, 41, 64, 0.15);
+}
+
+.experience-card:hover .media-nav-arrow {
+  opacity: 1;
+}
+
+.media-nav-arrow--prev {
+  left: 12px;
+}
+
+.media-nav-arrow--next {
+  right: 12px;
+}
+
+.media-nav-arrow:hover {
+  background: #ffffff;
+  color: #087592;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.media-counter {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 3;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(4, 15, 22, 0.7);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 0.725rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* Card Body */
+.experience-card__body {
+  padding: var(--space-5) var(--space-6) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.experience-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: var(--space-2);
+}
+
+.experience-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #087592;
+  background: rgba(8, 117, 146, 0.08);
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(8, 117, 146, 0.16);
+}
+
+.experience-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0A2940;
+  margin: 0 0 4px 0;
+  line-height: 1.25;
+}
+
+.experience-card__tagline {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #52606D;
+  margin: 0 0 var(--space-4) 0;
+  line-height: 1.45;
+}
+
+/* Feature Quick Pills */
+.experience-card__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(16, 91, 133, 0.07);
+}
+
+.feature-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: #0A2940;
+  background: #F4F8FA;
+  border: 1px solid rgba(16, 91, 133, 0.08);
+  padding: 4px 9px;
+  border-radius: 6px;
+}
+
+.feature-pill svg {
+  color: #087592;
+  flex-shrink: 0;
+}
+
+/* ─── Concierge Booking CTA Section ─── */
+.activities-cta-section {
+  padding-block: var(--space-10) var(--space-16);
+}
+
+.activities-cta-card {
+  max-width: 900px;
+  margin-inline: auto;
+  text-align: center;
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+  border-radius: 28px;
+  background: linear-gradient(135deg, #0A2940 0%, #0E3958 100%);
+  color: #ffffff;
+  box-shadow: 0 20px 60px rgba(10, 41, 64, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.activities-cta-card::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(ellipse at center, rgba(8, 117, 146, 0.45) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-card__badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #48CAE4;
+  background: rgba(72, 202, 228, 0.12);
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: var(--space-3);
+  border: 1px solid rgba(72, 202, 228, 0.25);
+  position: relative;
+  z-index: 1;
+}
+
+.cta-card__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+  font-weight: 700;
+  color: #F8F9F5;
+  line-height: 1.2;
+  margin: 0 0 var(--space-4) 0;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-card__desc {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  line-height: 1.65;
+  color: rgba(248, 249, 245, 0.8);
+  max-width: 640px;
+  margin: 0 auto var(--space-8);
+  position: relative;
+  z-index: 1;
+}
+
+.cta-card__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-card__actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ══════════════ RESPONSIVE BREAKPOINTS ══════════════ */
+@media (max-width: 768px) {
+  .activities-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .media-nav-arrow {
+    opacity: 0.9; /* Always accessible on touch screens */
+  }
+
+  .experience-card__body {
+    padding: var(--space-5);
+  }
+
+  .activities-cta-card {
+    padding: 1.75rem 1rem;
+    border-radius: 20px;
+  }
+
+  .cta-card__badge {
+    font-size: 0.68rem;
+    padding: 3px 10px;
+    margin-bottom: var(--space-2);
+  }
+
+  .cta-card__title {
+    font-size: clamp(1.2rem, 4.5vw, 1.45rem);
+    line-height: 1.25;
+    margin-bottom: var(--space-2);
+  }
+
+  .cta-card__desc {
+    font-size: 0.825rem;
+    line-height: 1.5;
+    margin-bottom: var(--space-5);
+  }
+
+  .cta-card__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .cta-card__actions .cta-btn {
+    width: 100%;
+    padding: 10px 4px;
+    font-size: clamp(0.7rem, 3.1vw, 0.82rem);
+    font-weight: 600;
+    justify-content: center;
+    white-space: nowrap;
+    gap: 4px;
+  }
+
+  .cta-card__actions .cta-btn svg {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+  }
+}

@@ -17,7 +17,7 @@
 
   <url>
     <loc>https://sanjivanifarm.com/cottages</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -31,6 +31,32 @@
     <image:image>
       <image:loc>https://pub-8e1fd72b3cee44b5894ac8fd05c44727.r2.dev/family-dormitory/poster.webp</image:loc>
       <image:title>Family Dormitory Cottage at Sanjivani Farm</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/book</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <url>
+    <loc>https://sanjivanifarm.com/activities</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://pub-8e1fd72b3cee44b5894ac8fd05c44727.r2.dev/toy-train/poster.webp</image:loc>
+      <image:title>The Sanjivani Toy Train at Sanjivani Farm</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://pub-8e1fd72b3cee44b5894ac8fd05c44727.r2.dev/boating_07/poster.webp</image:loc>
+      <image:title>Kayaking and Boating at Sanjivani Farm</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://pub-8e1fd72b3cee44b5894ac8fd05c44727.r2.dev/wooden-bridge_01/poster.webp</image:loc>
+      <image:title>Wooden Bridge Nature Trail at Sanjivani Farm</image:title>
     </image:image>
   </url>
 

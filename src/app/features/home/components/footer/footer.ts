@@ -18,7 +18,7 @@ export class FooterComponent {
   readonly navItems = [
     { label: 'Our Story',  route: '/our-story' },
     { label: 'Cottages',   route: '/cottages' },
-    { label: 'Activities', route: '/', fragment: 'activities' },
+    { label: 'Activities', route: '/activities' },
     { label: 'Gallery',    route: '/gallery' },
     { label: 'Visit Us',   route: '/', fragment: 'visit-us' },
   ];

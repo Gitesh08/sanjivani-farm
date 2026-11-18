@@ -2,6 +2,10 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "dist/sanjivani-farm/browser",
+  "redirects": [
+    { "source": "/book", "destination": "https://sanjivanifarmandresort.doorloom.com", "permanent": false },
+    { "source": "/book-your-stay", "destination": "https://sanjivanifarmandresort.doorloom.com", "permanent": false }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
