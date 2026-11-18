@@ -163,12 +163,13 @@
   }
 
   .amenity-card__label {
-    font-size: clamp(0.95rem, 3vw, 1.05rem);
+    font-size: clamp(0.925rem, 3vw, 1.025rem);
     font-weight: 600;
   }
 
   .amenity-card__desc {
-    font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+    font-size: clamp(0.725rem, 2.2vw, 0.785rem);
+    line-height: 1.45;
   }
 
   .amenities__tagline-line {
@@ -201,12 +202,12 @@
   }
 
   .amenity-card__label {
-    font-size: clamp(0.9rem, 4vw, 1rem);
+    font-size: clamp(0.875rem, 3.8vw, 0.975rem);
     font-weight: 600;
   }
 
   .amenity-card__desc {
-    font-size: clamp(0.8rem, 3.5vw, 0.9rem);
+    font-size: clamp(0.6875rem, 2.8vw, 0.75rem);
     line-height: 1.4;
   }
 

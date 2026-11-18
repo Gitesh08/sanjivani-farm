@@ -33,9 +33,9 @@ export class NatureFeaturesComponent implements AfterViewInit, OnDestroy {
   readonly cards: NatureCard[] = [
     {
       id: 1,
-      image: 'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_800/v1786185697/16-acre-farm_y2ikvq.webp',
-      title: '16 Acres of Pure Green',
-      subtitle: '300+ coconut trees swaying around you',
+      image: 'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_800/v1786100271/IMG20250817093229_wpclwy.webp',
+      title: 'Wooden Bridge',
+      subtitle: 'Iconic bridge + bamboo & Suru paths for peaceful strolls.',
       gradient: 'linear-gradient(160deg, #0d1b12 0%, #1a2e1e 100%)',
     },
     {
@@ -47,9 +47,9 @@ export class NatureFeaturesComponent implements AfterViewInit, OnDestroy {
     },
     {
       id: 3,
-      image: 'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_800/v1786100271/IMG20250817093229_wpclwy.webp',
-      title: 'Wooden Bridge',
-      subtitle: 'Iconic bridge + bamboo & Suru paths for peaceful strolls.',
+      image: 'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_800/v1786185697/16-acre-farm_y2ikvq.webp',
+      title: '16 Acres of Pure Green',
+      subtitle: '300+ coconut trees swaying around you',
       gradient: 'linear-gradient(160deg, #0d1b12 0%, #1a2e1e 100%)',
     },
     {
