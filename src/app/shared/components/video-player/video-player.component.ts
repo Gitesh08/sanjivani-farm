@@ -30,6 +30,7 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
     <div class="video-container">
       <video
         #videoElement
+        [src]="!hlsUrl ? fallbackMp4 : null"
         [poster]="poster"
         [loop]="loop"
         [muted]="muted"
@@ -44,9 +45,6 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
         [controls]="controls"
         class="video-player-element"
         [class]="customClass">
-        @if (!hlsUrl && fallbackMp4) {
-          <source [src]="fallbackMp4" type="video/mp4">
-        }
       </video>
       @if (isBuffering && !hideSpinner) {
         <div class="video-spinner-overlay">
@@ -123,6 +121,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
   private isBrowser: boolean;
   private io?: IntersectionObserver;
   private isInitialized = false;
+  private isInitializing = false;
 
   private ngZone = inject(NgZone);
   private el = inject(ElementRef);
@@ -140,8 +139,8 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
     this.bindEvents();
     
     if (this.autoplay || this.forceInit) {
-      this.initPlayer();
       this.isInitialized = true;
+      this.initPlayer();
     } else {
       this.setupIntersectionObserver();
     }
@@ -161,7 +160,8 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
         this.updateBuffering(false);
         this.canplay.emit(e);
         if (this.autoplay && video.paused) {
-          this.play();
+          const p = video.play();
+          if (p) p.catch(() => {});
         }
       });
       video.addEventListener('playing', (e) => {
@@ -245,7 +245,9 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
   }
 
   private async initPlayer() {
-    if (!this.videoRef) return;
+    if (!this.videoRef || this.isInitializing) return;
+    this.isInitializing = true;
+    this.isInitialized = true;
     const video = this.videoRef.nativeElement;
 
     // Mobile Autoplay Compliance: defaultMuted must be set on the DOM node
@@ -260,59 +262,65 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
       this.hls = null;
     }
 
-    if (this.hlsUrl) {
-      // Dynamically import hls.js only when a video actually needs to play
-      const { default: Hls } = await import('hls.js');
+    try {
+      if (this.hlsUrl) {
+        // Dynamically import hls.js only when a video actually needs to play
+        const { default: Hls } = await import('hls.js');
 
-      if (Hls.isSupported()) {
-        this.hls = new Hls({
-          capLevelToPlayerSize: !this.preferHighQuality,
-          maxBufferLength: this.isHero ? 60 : 30,
-        });
+        if (Hls.isSupported()) {
+          this.hls = new Hls({
+            capLevelToPlayerSize: !this.preferHighQuality,
+            maxBufferLength: this.isHero ? 60 : 30,
+          });
 
-        this.hls.loadSource(this.hlsUrl);
-        this.hls.attachMedia(video);
+          this.hls.loadSource(this.hlsUrl);
+          this.hls.attachMedia(video);
 
-        this.hls.on(Hls.Events.ERROR, (event: any, data: any) => {
-          if (data.fatal) {
-            switch (data.type) {
-              case Hls.ErrorTypes.NETWORK_ERROR:
-                console.warn('HLS Network Error, trying to recover...', data);
-                this.hls?.startLoad();
-                break;
-              case Hls.ErrorTypes.MEDIA_ERROR:
-                console.warn('HLS Media Error, trying to recover...', data);
-                this.hls?.recoverMediaError();
-                break;
-              default:
-                console.error('HLS Fatal Error, falling back to MP4', data);
-                this.fallbackToMp4(video);
-                break;
+          this.hls.on(Hls.Events.ERROR, (event: any, data: any) => {
+            if (data.fatal) {
+              switch (data.type) {
+                case Hls.ErrorTypes.NETWORK_ERROR:
+                  console.warn('HLS Network Error, trying to recover...', data);
+                  this.hls?.startLoad();
+                  break;
+                case Hls.ErrorTypes.MEDIA_ERROR:
+                  console.warn('HLS Media Error, trying to recover...', data);
+                  this.hls?.recoverMediaError();
+                  break;
+                default:
+                  console.error('HLS Fatal Error, falling back to MP4', data);
+                  this.fallbackToMp4(video);
+                  break;
+              }
             }
-          }
-        });
+          });
 
-        this.hls.on(Hls.Events.MANIFEST_PARSED, (event: any, data: any) => {
-          if (this.preferHighQuality && this.hls) {
-            const highestLevel = data.levels.length - 1;
-            this.hls.startLevel = highestLevel;
-            this.hls.currentLevel = highestLevel;
-          }
+          this.hls.on(Hls.Events.MANIFEST_PARSED, (event: any, data: any) => {
+            if (this.preferHighQuality && this.hls) {
+              const highestLevel = data.levels.length - 1;
+              this.hls.startLevel = highestLevel;
+              this.hls.currentLevel = highestLevel;
+            }
+            if (this.autoplay) {
+              const p = video.play();
+              if (p) p.catch(() => {});
+            }
+          });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          // Native Safari HLS
+          video.src = this.hlsUrl;
           if (this.autoplay) {
-            this.play();
+            const p = video.play();
+            if (p) p.catch(() => {});
           }
-        });
-      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        // Native Safari HLS
-        video.src = this.hlsUrl;
-        if (this.autoplay) {
-          this.play();
+        } else {
+          this.fallbackToMp4(video);
         }
       } else {
         this.fallbackToMp4(video);
       }
-    } else {
-      this.fallbackToMp4(video);
+    } finally {
+      this.isInitializing = false;
     }
   }
 
@@ -323,22 +331,27 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
     }
     const wasPlaying = !video.paused;
     if (this.fallbackMp4) {
-      // If the template source is not already set or differs
-      if (!video.src || !video.src.includes(this.fallbackMp4)) {
+      if (this.muted) {
+        video.defaultMuted = true;
+        video.muted = true;
+      }
+      const rawUrl = this.fallbackMp4.split('#')[0];
+      if (!video.src || !video.src.includes(rawUrl)) {
         video.src = this.fallbackMp4;
         video.load();
       }
       if (this.autoplay || wasPlaying) {
-        this.play();
+        const p = video.play();
+        if (p) p.catch(() => {});
       }
     }
   }
 
   // Expose play/pause methods so parent components (like activities) can control it seamlessly
   play(): Promise<void> | void {
-    if (!this.isInitialized) {
-      this.initPlayer();
+    if (!this.isInitialized && !this.isInitializing) {
       this.isInitialized = true;
+      this.initPlayer();
     }
     if (this.videoRef?.nativeElement) {
       const video = this.videoRef.nativeElement;

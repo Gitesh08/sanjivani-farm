@@ -35,7 +35,10 @@ export class HeroComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('heroVideo') videoRef!: VideoPlayerComponent;
 
   readonly videoReady = signal(false);
-  readonly isMobile = signal(false);
+  readonly isMobile = signal<boolean>(
+    typeof window !== 'undefined' && 
+    (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent))
+  );
 
   // Appending #t=0.001 is a legendary fix for Chrome's cached MP4 freeze bug, 
   // forcing the media pipeline to initialize the demuxer correctly.
