@@ -13,7 +13,7 @@
       [class.hero__video--ready]="videoReady()" 
       (playing)="onVideoReady()"
       (canplay)="onVideoReady()" 
-      [hlsUrl]="heroHls()"
+      [hlsUrl]="isMobile() ? '' : heroHls()"
       [fallbackMp4]="heroMp4()" 
       [loop]="true" 
       [muted]="true" 
@@ -22,7 +22,7 @@
       [preferHighQuality]="true"
       [isHero]="true"
       [hideSpinner]="true"
-      preload="metadata">
+      preload="auto">
     </app-video-player>
   </div>
 

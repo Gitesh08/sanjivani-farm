@@ -33,13 +33,20 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
         [poster]="poster"
         [loop]="loop"
         [muted]="muted"
+        playsinline
+        webkit-playsinline
+        x5-playsinline="true"
         [attr.muted]="muted ? '' : null"
         [attr.playsinline]="playsinline ? '' : null"
+        [attr.webkit-playsinline]="playsinline ? '' : null"
         [attr.autoplay]="autoplay ? '' : null"
         [preload]="preload"
         [controls]="controls"
         class="video-player-element"
         [class]="customClass">
+        @if (!hlsUrl && fallbackMp4) {
+          <source [src]="fallbackMp4" type="video/mp4">
+        }
       </video>
       @if (isBuffering && !hideSpinner) {
         <div class="video-spinner-overlay">
@@ -150,6 +157,13 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
         this.updateBuffering(false);
         this.canplay.emit(e);
       });
+      video.addEventListener('loadeddata', (e) => {
+        this.updateBuffering(false);
+        this.canplay.emit(e);
+        if (this.autoplay && video.paused) {
+          this.play();
+        }
+      });
       video.addEventListener('playing', (e) => {
         this.updateBuffering(false);
         this.playing.emit(e);
@@ -181,7 +195,7 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
   private checkReadyState(): void {
     if (this.videoRef?.nativeElement) {
       const video = this.videoRef.nativeElement;
-      if (video.readyState >= 3) {
+      if (video.readyState >= 2) {
         setTimeout(() => {
           this.isBuffering = false;
           this.canplay.emit(new Event('canplay'));
@@ -234,6 +248,12 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
     if (!this.videoRef) return;
     const video = this.videoRef.nativeElement;
 
+    // Mobile Autoplay Compliance: defaultMuted must be set on the DOM node
+    if (this.muted) {
+      video.defaultMuted = true;
+      video.muted = true;
+    }
+
     // Cleanup previous instance if any
     if (this.hls) {
       this.hls.destroy();
@@ -272,18 +292,22 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
           }
         });
 
-        if (this.preferHighQuality) {
-          this.hls.on(Hls.Events.MANIFEST_PARSED, (event: any, data: any) => {
+        this.hls.on(Hls.Events.MANIFEST_PARSED, (event: any, data: any) => {
+          if (this.preferHighQuality && this.hls) {
             const highestLevel = data.levels.length - 1;
-            if (this.hls) {
-              this.hls.startLevel = highestLevel;
-              this.hls.currentLevel = highestLevel;
-            }
-          });
-        }
+            this.hls.startLevel = highestLevel;
+            this.hls.currentLevel = highestLevel;
+          }
+          if (this.autoplay) {
+            this.play();
+          }
+        });
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         // Native Safari HLS
         video.src = this.hlsUrl;
+        if (this.autoplay) {
+          this.play();
+        }
       } else {
         this.fallbackToMp4(video);
       }
@@ -297,14 +321,39 @@ export class VideoPlayerComponent implements AfterViewInit, OnDestroy, OnChanges
       this.hls.destroy();
       this.hls = null;
     }
-    video.src = this.fallbackMp4;
-    video.load();
+    const wasPlaying = !video.paused;
+    if (this.fallbackMp4) {
+      // If the template source is not already set or differs
+      if (!video.src || !video.src.includes(this.fallbackMp4)) {
+        video.src = this.fallbackMp4;
+        video.load();
+      }
+      if (this.autoplay || wasPlaying) {
+        this.play();
+      }
+    }
   }
 
   // Expose play/pause methods so parent components (like activities) can control it seamlessly
   play(): Promise<void> | void {
+    if (!this.isInitialized) {
+      this.initPlayer();
+      this.isInitialized = true;
+    }
     if (this.videoRef?.nativeElement) {
-      return this.videoRef.nativeElement.play();
+      const video = this.videoRef.nativeElement;
+      if (this.muted) {
+        video.defaultMuted = true;
+        video.muted = true;
+      }
+      const p = video.play();
+      if (p) {
+        return p.catch(() => {
+          // Retry with muted in case browser policy blocked sound
+          video.muted = true;
+          video.play()?.catch(() => {});
+        });
+      }
     }
   }
 

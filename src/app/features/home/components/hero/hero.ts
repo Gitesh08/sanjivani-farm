@@ -20,7 +20,7 @@ gsap.registerPlugin(ScrollTrigger);
   styleUrl: './hero.css',
   host: { ngSkipHydration: 'true' },
 })
-export class HeroComponent implements AfterViewInit, OnDestroy {
+export class HeroComponent implements OnInit, AfterViewInit, OnDestroy {
   isWaChatOpen = signal(false);
   isWaTyping = signal(false);
   hasShownWelcome = signal(false);
@@ -35,11 +35,22 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   @ViewChild('heroVideo') videoRef!: VideoPlayerComponent;
 
   readonly videoReady = signal(false);
+  readonly isMobile = signal(false);
+
   // Appending #t=0.001 is a legendary fix for Chrome's cached MP4 freeze bug, 
   // forcing the media pipeline to initialize the demuxer correctly.
   readonly heroHls = signal<string>(this.media.masterPlaylist('hero-section'));
   readonly heroMp4 = signal<string>(this.media.fallbackMp4('hero-section') + '#t=0.001');
   readonly heroPoster = signal<string>(this.media.poster('hero-section'));
+
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.isMobile.set(
+        window.innerWidth <= 768 ||
+        /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)
+      );
+    }
+  }
 
   onVideoReady(): void {
     this.videoReady.set(true);
