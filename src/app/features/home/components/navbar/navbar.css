@@ -50,7 +50,7 @@
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   box-shadow: 0 4px 20px rgba(10, 41, 64, 0.05);
-  border-bottom: 1px solid rgba(16, 91, 133, 0.06);
+  border-bottom: none;
 }
 
 /* ── Light Glass State Typography & Elements ── */
@@ -268,9 +268,48 @@
   flex-shrink: 0;
 }
 
-/* ── Mobile Actions (hidden on desktop) ── */
-.navbar__mobile-actions {
+/* ── Mobile Header Elements (Hidden on Desktop) ── */
+.navbar__mobile-left,
+.navbar__mobile-right {
   display: none;
+}
+
+/* Mobile Right: 360 Tour Button (Desktop Blue, Simple & Eye-Catchy, No Glow) */
+.navbar__tour-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 14px rgba(16, 91, 133, 0.35);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.navbar__tour-btn:hover,
+.navbar__tour-btn:active {
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+  transform: scale(1.06);
+  box-shadow: 0 6px 18px rgba(16, 91, 133, 0.45);
+}
+
+.tour-btn__icon {
+  font-family: 'Material Symbols Outlined';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  display: inline-block;
+  color: #ffffff;
+  flex-shrink: 0;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ── Hamburger ── */
@@ -624,7 +663,22 @@
 }
 
 /* ══════════ RESPONSIVE ══════════ */
+@media (min-width: 1024px) {
+  .navbar,
+  .navbar--scrolled {
+    border-bottom: none !important;
+  }
+}
+
 @media (max-width: 1023px) {
+  .navbar {
+    border-bottom: none !important;
+  }
+
+  .navbar--scrolled {
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.85) !important;
+  }
+
   .navbar__menu {
     display: none;
   }
@@ -633,10 +687,86 @@
     display: none;
   }
 
-  .navbar__mobile-actions {
+  .navbar__inner {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
+    justify-content: space-between;
+    padding-inline: var(--space-4);
+    position: relative;
+    width: 100%;
+  }
+
+  /* Left: ☰ Hamburger menu */
+  .navbar__mobile-left {
+    display: flex;
+    align-items: center;
+    z-index: 12;
+  }
+
+  /* Center: Sanjivani Logo (Mobile: Complete White Fill, Outline ONLY when glassmorphism comes) */
+  .navbar__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -20%);
+    width: clamp(74px, 19vw, 84px);
+    height: clamp(74px, 19vw, 84px);
+    border-radius: 50%;
+    background: #ffffff;
+    /* Transparent border on hero — outline shows ONLY when glassmorphism comes */
+    border: 2px solid transparent;
+    box-shadow: 0 clamp(4px, 1vh, 8px) clamp(14px, 2.5vh, 22px) rgba(10, 41, 64, 0.12);
+    z-index: 10;
+    text-decoration: none;
+    pointer-events: auto;
+    padding: clamp(6px, 1.4vw, 9px);
+    transition: transform var(--duration-fast) var(--ease-resort),
+                opacity var(--duration-fast) var(--ease-resort),
+                border-color var(--duration-med) var(--ease-resort),
+                box-shadow var(--duration-med) var(--ease-resort);
+  }
+
+  .navbar__logo:active {
+    transform: translate(-50%, -18%) scale(0.96);
+  }
+
+  /* Outline appears ONLY when glassmorphism comes */
+  .navbar--scrolled .navbar__logo {
+    border-color: #ffffff;
+    box-shadow: 0 6px 20px rgba(10, 41, 64, 0.18);
+  }
+
+  .navbar--menu-open .navbar__logo {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transform: translate(-50%, -20%) scale(0.92);
+  }
+
+  .navbar__logo-img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    min-width: unset;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 3px rgba(10, 41, 64, 0.08));
+  }
+
+  /* Right: Compact ▶ Tour pill button */
+  .navbar__mobile-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    z-index: 12;
+  }
+
+  .navbar--menu-open .navbar__mobile-right {
+    opacity: 0;
+    pointer-events: none;
   }
 
   .navbar__mobile-drawer {
@@ -645,10 +775,6 @@
 
   .navbar--menu-open .navbar__backdrop {
     display: block;
-  }
-
-  .navbar__inner {
-    padding-inline: var(--space-4);
   }
 }
 

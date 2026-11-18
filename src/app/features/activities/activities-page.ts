@@ -262,6 +262,7 @@ export class ActivitiesPageComponent implements OnInit {
   }
 
   setCategory(catId: string): void {
+    this.pauseAllVideos();
     this.selectedCategory.set(catId);
   }
 
@@ -272,6 +273,7 @@ export class ActivitiesPageComponent implements OnInit {
   prevMedia(activity: ActivityDetail, event: Event): void {
     event.stopPropagation();
     const current = this.getActiveIndex(activity.id);
+    this.pauseVideo(activity.id, current);
     const count = activity.media.length;
     const nextIdx = (current - 1 + count) % count;
     this.updateMediaIndex(activity.id, nextIdx);
@@ -280,6 +282,7 @@ export class ActivitiesPageComponent implements OnInit {
   nextMedia(activity: ActivityDetail, event: Event): void {
     event.stopPropagation();
     const current = this.getActiveIndex(activity.id);
+    this.pauseVideo(activity.id, current);
     const count = activity.media.length;
     const nextIdx = (current + 1) % count;
     this.updateMediaIndex(activity.id, nextIdx);
@@ -292,18 +295,96 @@ export class ActivitiesPageComponent implements OnInit {
     }));
   }
 
-  playVideo(activityId: string, mediaIdx: number, event: Event): void {
+  toggleVideoPlay(activityId: string, mediaIdx: number, event: Event): void {
     event.stopPropagation();
+    event.preventDefault();
+    if (this.isVideoPlaying(activityId, mediaIdx)) {
+      this.pauseVideo(activityId, mediaIdx);
+    } else {
+      this.playVideo(activityId, mediaIdx);
+    }
+  }
+
+  playVideo(activityId: string, mediaIdx: number): void {
+    // Pause any other playing video so only one plays at a time
+    this.pauseAllVideos(activityId);
+
+    const key = `${activityId}-${mediaIdx}`;
+    this.playingVideos.update(set => new Set(set).add(key));
+
+    if (isPlatformBrowser(this.platformId)) {
+      setTimeout(() => {
+        const card = document.getElementById(activityId);
+        if (card) {
+          const video = card.querySelector('video') as HTMLVideoElement | null;
+          if (video) {
+            video.muted = this.isMuted(activityId);
+            const p = video.play();
+            if (p) {
+              p.catch(err => {
+                console.warn('[ActivitiesPage] Play with sound blocked, retrying muted:', err);
+                video.muted = true;
+                this.mutedState.update(s => ({ ...s, [activityId]: true }));
+                video.play()?.catch(e => console.error('[ActivitiesPage] Video play failed:', e));
+              });
+            }
+          }
+        }
+      }, 50);
+    }
+  }
+
+  pauseVideo(activityId: string, mediaIdx: number): void {
     const key = `${activityId}-${mediaIdx}`;
     this.playingVideos.update(set => {
       const next = new Set(set);
-      next.add(key);
+      next.delete(key);
+      return next;
+    });
+
+    if (isPlatformBrowser(this.platformId)) {
+      const card = document.getElementById(activityId);
+      if (card) {
+        const video = card.querySelector('video') as HTMLVideoElement | null;
+        if (video && !video.paused) {
+          video.pause();
+        }
+      }
+    }
+  }
+
+  private pauseAllVideos(exceptActivityId?: string): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    this.activities.forEach(act => {
+      if (act.id !== exceptActivityId) {
+        const card = document.getElementById(act.id);
+        if (card) {
+          const video = card.querySelector('video') as HTMLVideoElement | null;
+          if (video && !video.paused) {
+            video.pause();
+          }
+        }
+      }
+    });
+    this.playingVideos.update(set => {
+      const next = new Set<string>();
+      if (exceptActivityId) {
+        for (const k of Array.from(set)) {
+          if (k.startsWith(`${exceptActivityId}-`)) {
+            next.add(k);
+          }
+        }
+      }
       return next;
     });
   }
 
-  pauseVideo(activityId: string, mediaIdx: number, event: Event): void {
-    event.stopPropagation();
+  onVideoPlaying(activityId: string, mediaIdx: number): void {
+    const key = `${activityId}-${mediaIdx}`;
+    this.playingVideos.update(set => new Set(set).add(key));
+  }
+
+  onVideoPaused(activityId: string, mediaIdx: number): void {
     const key = `${activityId}-${mediaIdx}`;
     this.playingVideos.update(set => {
       const next = new Set(set);
@@ -318,10 +399,21 @@ export class ActivitiesPageComponent implements OnInit {
 
   toggleMute(activityId: string, event: Event): void {
     event.stopPropagation();
+    event.preventDefault();
+    const newMuted = !this.isMuted(activityId);
     this.mutedState.update(state => ({
       ...state,
-      [activityId]: !state[activityId]
+      [activityId]: newMuted
     }));
+    if (isPlatformBrowser(this.platformId)) {
+      const card = document.getElementById(activityId);
+      if (card) {
+        const video = card.querySelector('video') as HTMLVideoElement | null;
+        if (video) {
+          video.muted = newMuted;
+        }
+      }
+    }
   }
 
   isMuted(activityId: string): boolean {

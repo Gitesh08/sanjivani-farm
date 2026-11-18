@@ -58,7 +58,7 @@
               <!-- Video Slide with HLS Player & Poster Overlay -->
               @if (currentMedia.type === 'video') {
                 <div class="experience-card__video-container"
-                     (click)="isVideoPlaying(item.id, currentMediaIdx) ? pauseVideo(item.id, currentMediaIdx, $event) : playVideo(item.id, currentMediaIdx, $event)">
+                     (click)="toggleVideoPlay(item.id, currentMediaIdx, $event)">
 
                   <!-- Poster -->
                   <img 
@@ -73,24 +73,24 @@
                     [fallbackMp4]="currentMedia.fallbackMp4 || ''"
                     customClass="experience-card__video-element"
                     [class.opacity-100]="isVideoPlaying(item.id, currentMediaIdx)"
-                    (playing)="playVideo(item.id, currentMediaIdx, $event)"
-                    (pauseEvent)="pauseVideo(item.id, currentMediaIdx, $event)"
+                    (playing)="onVideoPlaying(item.id, currentMediaIdx)"
+                    (pauseEvent)="onVideoPaused(item.id, currentMediaIdx)"
                     [loop]="true"
                     [muted]="isMuted(item.id)"
                     [playsinline]="true"
-                    preload="metadata"
+                    [forceInit]="true"
+                    preload="auto"
                     [preferHighQuality]="true"
                     [autoplay]="false"
                     [controls]="false">
                   </app-video-player>
 
-                  <!-- Play Trigger Overlay -->
+                  <!-- Play Trigger Overlay (Icon Only) -->
                   @if (!isVideoPlaying(item.id, currentMediaIdx)) {
                     <div class="experience-card__play-badge" aria-label="Play video">
-                      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-                        <polygon points="6 4 20 12 6 20 6 4"></polygon>
+                      <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <polygon points="7 5 19 12 7 19 7 5"></polygon>
                       </svg>
-                      <span>Play Video</span>
                     </div>
                   }
 

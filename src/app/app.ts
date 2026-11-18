@@ -2,15 +2,19 @@ import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { SplashScreenComponent } from './shared/components/splash-screen/splash-screen';
+import { TourModalComponent } from './shared/components/tour-modal/tour-modal.component';
+import { WhatsappFabComponent } from './shared/components/whatsapp-fab/whatsapp-fab.component';
 import { SeoService } from './core/services/seo.service';
 import { AnalyticsService } from './core/services/analytics.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SplashScreenComponent],
+  imports: [RouterOutlet, SplashScreenComponent, TourModalComponent, WhatsappFabComponent],
   template: `
     <app-splash-screen />
     <router-outlet />
+    <app-tour-modal />
+    <app-whatsapp-fab />
   `,
   styles: [`
     :host { display: block; min-height: 100vh; }

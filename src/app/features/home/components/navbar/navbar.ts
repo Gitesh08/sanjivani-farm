@@ -1,8 +1,9 @@
-import { Component, signal, computed, ChangeDetectionStrategy, input, OnInit, OnDestroy, PLATFORM_ID, inject, NgZone } from '@angular/core';
+import { Component, signal, computed, ChangeDetectionStrategy, input, OnInit, OnDestroy, PLATFORM_ID, inject, NgZone, ElementRef } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { fromEvent, Subscription, filter } from 'rxjs';
 import { throttleTime } from 'rxjs/operators';
+import { TourService } from '../../../../core/services/tour.service';
 
 interface NavItem {
   label: string;
@@ -34,9 +35,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   private platformId = inject(PLATFORM_ID);
   private ngZone = inject(NgZone);
+  private el = inject(ElementRef);
   private router = inject(Router);
+  private tourService = inject(TourService);
   private scrollSub?: Subscription;
   private routerSub?: Subscription;
+
+  openTour(): void {
+    this.closeAll();
+    this.tourService.openTour();
+  }
 
   readonly navItems: NavItem[] = [
     { label: 'Our Story',  route: '/our-story' },
@@ -86,12 +94,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const y = window.scrollY;
 
     let isScrolled = false;
+    let progress = 0;
     const ourStoryEl = document.getElementById('our-story');
     if (ourStoryEl) {
       const rect = ourStoryEl.getBoundingClientRect();
       isScrolled = rect.top <= 100;
+      const totalDist = ourStoryEl.offsetTop - 100;
+      progress = totalDist > 0 ? Math.min(1, Math.max(0, y / totalDist)) : (isScrolled ? 1 : 0);
     } else {
       isScrolled = y > 60;
+      progress = Math.min(1, Math.max(0, y / 160));
+    }
+
+    if (this.el?.nativeElement) {
+      this.el.nativeElement.style.setProperty('--scroll-progress', progress.toFixed(3));
     }
     
     // Only trigger change detection if the value actually changes
