@@ -36,21 +36,22 @@
 /* ── Card ── */
 .cottage-card {
   position: relative;
-  background-color: #080c0a; /* Fallback dark background */
+  background-color: #FFFFFF;
   border-radius: var(--radius-xl);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   height: clamp(500px, 70vh, 580px); /* Tall luxurious card */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: none;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 10px 28px -4px rgba(20, 36, 30, 0.08), 0 4px 12px -2px rgba(20, 36, 30, 0.04);
+  isolation: isolate;
   transition: transform var(--duration-fast) var(--ease-out),
     box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .cottage-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 18px 38px -4px rgba(20, 36, 30, 0.13), 0 8px 16px -2px rgba(20, 36, 30, 0.06);
 }
 
 /* Base Image */

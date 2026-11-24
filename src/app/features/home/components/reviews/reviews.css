@@ -475,8 +475,9 @@
 .reviews__cta-box {
   margin-top: var(--space-12);
   background: linear-gradient(135deg, rgba(238, 247, 253, 0.8) 0%, rgba(245, 251, 255, 0.95) 100%);
-  border: 1px solid rgba(16, 91, 133, 0.12);
-  border-radius: 20px;
+  border: 2px solid #FFFFFF;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 10px 28px -4px rgba(20, 36, 30, 0.08), 0 4px 12px -2px rgba(20, 36, 30, 0.04);
   padding: clamp(24px, 4vw, 36px);
   display: flex;
   align-items: center;

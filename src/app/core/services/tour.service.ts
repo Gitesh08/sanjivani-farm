@@ -37,7 +37,7 @@ export class TourService {
 
   openTour(): void {
     this.currentVideoIndex.set(0);
-    this.tourVideoPlaying.set(false);
+    this.tourVideoPlaying.set(true);
     this.isTourOpen.set(true);
   }
 
@@ -48,11 +48,11 @@ export class TourService {
 
   nextVideo(): void {
     this.currentVideoIndex.update(i => (i + 1) % this.tourVideos.length);
-    this.tourVideoPlaying.set(false);
+    this.tourVideoPlaying.set(true);
   }
 
   prevVideo(): void {
     this.currentVideoIndex.update(i => (i === 0 ? this.tourVideos.length - 1 : i - 1));
-    this.tourVideoPlaying.set(false);
+    this.tourVideoPlaying.set(true);
   }
 }

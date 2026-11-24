@@ -14,7 +14,7 @@
   --color-secondary:            #C2673D;
   --color-secondary-warm:       #D4774B;
   --color-secondary-dark:       #A14F29;
-  --color-secondary-light:      #E88C61;
+  --color-secondary-light:      #67D4EC;
   --color-on-secondary:         #FFFFFF;
 
   /* ─── Surface Hierarchy — Warm sun-washed linen & earth neutrals (no icy blue slop) ─── */
@@ -32,14 +32,14 @@
   --color-on-surface-dim:       #5C6D66;
 
   /* ─── Special Purpose ─── */
-  --color-cream:                #FAF7F2;
+  --color-cream:                #EFF9FF;
   --color-dark-bg:              #0E1714;
   --color-dark-surface:         #15231E;
   --color-outline-variant:      rgba(26, 36, 33, 0.08);
 
 
   /* ─── Fonts ─── */
-  --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-heading: 'Cormorant Garamond', 'Playfair Display', Georgia, 'Times New Roman', serif;
   --font-body:    'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
   /* ─── Spacing Scale ─── */

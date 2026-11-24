@@ -49,7 +49,7 @@ export class MediaService {
    * @param path e.g., 'toy-train'
    */
   fallbackMp4(path: string): string {
-    return `${this.getBaseUrl()}/${path}/1080.mp4`;
+    return `${this.getBaseUrl()}/${path}/720.mp4`;
   }
 
   /**

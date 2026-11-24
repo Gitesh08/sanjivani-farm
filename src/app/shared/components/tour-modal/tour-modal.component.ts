@@ -1,4 +1,4 @@
-import { Component, inject, HostListener } from '@angular/core';
+import { Component, inject, HostListener, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TourService } from '../../../core/services/tour.service';
 import { VideoPlayerComponent } from '../video-player/video-player.component';
@@ -9,7 +9,19 @@ import { VideoPlayerComponent } from '../video-player/video-player.component';
   imports: [CommonModule, VideoPlayerComponent],
   template: `
     <div *ngIf="tourService.isTourOpen()" class="tour-modal" role="dialog" aria-modal="true" aria-label="360 Aerial Tour">
-      <!-- Close button -->
+      <!-- Top controls: Sound & Close -->
+      <button class="tour-modal__sound" (click)="toggleMute($event)" [attr.aria-label]="isMuted ? 'Unmute Audio' : 'Mute Audio'">
+        <svg *ngIf="isMuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+        <svg *ngIf="!isMuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+      </button>
+
       <button class="tour-modal__close" (click)="closeTour()" aria-label="Close Tour">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -18,33 +30,35 @@ import { VideoPlayerComponent } from '../video-player/video-player.component';
       </button>
 
       <!-- Previous Video -->
-      <button class="tour-modal__nav tour-modal__nav--prev" (click)="prevVideo()" aria-label="Previous Video">
+      <button class="tour-modal__nav tour-modal__nav--prev" (click)="prevVideo($event)" aria-label="Previous Video">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
       </button>
 
       <!-- Video Canvas -->
-      <div class="tour-modal__video-container" (click)="togglePlay()">
+      <div class="tour-modal__video-container" (click)="togglePlay($event)">
         @let currentVid = tourService.tourVideos[tourService.currentVideoIndex()];
 
         <app-video-player
+          #player
           customClass="tour-modal__video"
           [hlsUrl]="currentVid.hls || ''"
           [fallbackMp4]="currentVid.fallbackMp4 || ''"
           [poster]="currentVid.poster || ''"
-          [autoplay]="false"
+          [autoplay]="true"
+          [forceInit]="true"
           [loop]="true"
           [playsinline]="true"
-          [muted]="false"
+          [muted]="isMuted"
           [controls]="false"
           [preferHighQuality]="true"
-          (playing)="tourService.tourVideoPlaying.set(true)"
-          (pauseEvent)="tourService.tourVideoPlaying.set(false)">
+          (playing)="onVideoPlaying()"
+          (pauseEvent)="onVideoPaused()">
         </app-video-player>
 
         <!-- Center Play Overlay Button -->
-        <button *ngIf="!tourService.tourVideoPlaying()" class="tour-modal__play" aria-label="Play Tour Video">
+        <button *ngIf="!tourService.tourVideoPlaying()" class="tour-modal__play" (click)="playVideo($event)" aria-label="Play Tour Video">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M8 5v14l11-7z"></path>
           </svg>
@@ -52,7 +66,7 @@ import { VideoPlayerComponent } from '../video-player/video-player.component';
       </div>
 
       <!-- Next Video -->
-      <button class="tour-modal__nav tour-modal__nav--next" (click)="nextVideo()" aria-label="Next Video">
+      <button class="tour-modal__nav tour-modal__nav--next" (click)="nextVideo($event)" aria-label="Next Video">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
@@ -83,10 +97,10 @@ import { VideoPlayerComponent } from '../video-player/video-player.component';
       justify-content: center;
     }
 
-    .tour-modal__close {
+    .tour-modal__close,
+    .tour-modal__sound {
       position: absolute;
       top: 1.5rem;
-      right: 1.5rem;
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 50%;
@@ -101,14 +115,24 @@ import { VideoPlayerComponent } from '../video-player/video-player.component';
       transition: all 0.2s ease;
     }
 
-    .tour-modal__close:hover {
+    .tour-modal__close {
+      right: 1.5rem;
+    }
+
+    .tour-modal__sound {
+      right: 5rem;
+    }
+
+    .tour-modal__close:hover,
+    .tour-modal__sound:hover {
       background: rgba(255, 255, 255, 0.25);
       transform: scale(1.05);
     }
 
-    .tour-modal__close svg {
-      width: 24px;
-      height: 24px;
+    .tour-modal__close svg,
+    .tour-modal__sound svg {
+      width: 22px;
+      height: 22px;
     }
 
     .tour-modal__nav {
@@ -317,6 +341,9 @@ import { VideoPlayerComponent } from '../video-player/video-player.component';
 export class TourModalComponent {
   public tourService = inject(TourService);
 
+  @ViewChild('player') player?: VideoPlayerComponent;
+  isMuted = true;
+
   @HostListener('document:keydown.escape')
   onEscape(): void {
     if (this.tourService.isTourOpen()) {
@@ -325,18 +352,54 @@ export class TourModalComponent {
   }
 
   closeTour(): void {
+    this.player?.pause();
     this.tourService.closeTour();
   }
 
-  nextVideo(): void {
+  nextVideo(event?: Event): void {
+    if (event) event.stopPropagation();
     this.tourService.nextVideo();
+    setTimeout(() => {
+      this.player?.play();
+    }, 50);
   }
 
-  prevVideo(): void {
+  prevVideo(event?: Event): void {
+    if (event) event.stopPropagation();
     this.tourService.prevVideo();
+    setTimeout(() => {
+      this.player?.play();
+    }, 50);
   }
 
-  togglePlay(): void {
-    this.tourService.tourVideoPlaying.update(v => !v);
+  togglePlay(event?: Event): void {
+    if (event) event.stopPropagation();
+    if (this.tourService.tourVideoPlaying()) {
+      this.player?.pause();
+      this.tourService.tourVideoPlaying.set(false);
+    } else {
+      this.player?.play();
+      this.tourService.tourVideoPlaying.set(true);
+    }
+  }
+
+  playVideo(event: Event): void {
+    event.stopPropagation();
+    this.player?.play();
+    this.tourService.tourVideoPlaying.set(true);
+  }
+
+  onVideoPlaying(): void {
+    this.tourService.tourVideoPlaying.set(true);
+  }
+
+  onVideoPaused(): void {
+    this.tourService.tourVideoPlaying.set(false);
+  }
+
+  toggleMute(event: Event): void {
+    event.stopPropagation();
+    this.isMuted = !this.isMuted;
+    this.player?.setMuted(this.isMuted);
   }
 }
