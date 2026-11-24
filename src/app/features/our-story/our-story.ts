@@ -1,5 +1,5 @@
 import {
-  Component, OnDestroy, AfterViewInit,
+  Component, OnInit, OnDestroy, AfterViewInit,
   ElementRef, ChangeDetectionStrategy,
   PLATFORM_ID, inject, signal, ViewChild
 } from '@angular/core';
@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MediaService } from '../../core/services/media.service';
+import { SeoService } from '../../core/services/seo.service';
 import { VideoPlayerComponent } from '../../shared/components/video-player/video-player.component';
 import { BreadcrumbComponent } from '../../shared/components/breadcrumb/breadcrumb.component';
 
@@ -19,10 +20,31 @@ import { BreadcrumbComponent } from '../../shared/components/breadcrumb/breadcru
   styleUrl: './our-story.css',
   host: { ngSkipHydration: 'true' },
 })
-export class OurStoryComponent implements AfterViewInit, OnDestroy {
+export class OurStoryComponent implements OnInit, AfterViewInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
   private el = inject(ElementRef);
   public media = inject(MediaService);
+  private seoService = inject(SeoService);
+
+  ngOnInit(): void {
+    this.seoService.injectBreadcrumbs([
+      { name: 'Home', url: '/' },
+      { name: 'Our Story', url: '/our-story' }
+    ]);
+
+    const aboutSchema = {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "@id": "https://sanjivanifarm.com/our-story#about",
+      "url": "https://sanjivanifarm.com/our-story",
+      "name": "The Story of Sanjivani Farm & Resort",
+      "description": "The heritage, organic farming philosophy, and 16-acre sanctuary with 300+ coconut trees in Palghar, Maharashtra.",
+      "mainEntity": {
+        "@id": "https://sanjivanifarm.com/#resort"
+      }
+    };
+    this.seoService.injectStructuredData(aboutSchema);
+  }
 
   @ViewChild('section1Video') videoRef?: VideoPlayerComponent;
   private counterTweens: gsap.core.Tween[] = [];

@@ -38,6 +38,12 @@ export class SeoService {
     this.metaService.updateTag({ property: 'og:description', content: config.description });
     this.metaService.updateTag({ property: 'og:image', content: config.image || this.defaultImage });
     this.metaService.updateTag({ property: 'og:type', content: config.type || 'website' });
+
+    // Twitter Cards (Synced for social & search crawlers)
+    this.metaService.updateTag({ name: 'twitter:title', content: config.title });
+    this.metaService.updateTag({ name: 'twitter:description', content: config.description });
+    this.metaService.updateTag({ name: 'twitter:image', content: config.image || this.defaultImage });
+
     if (config.url) {
       const absoluteUrl = config.url.startsWith('/') 
         ? `https://sanjivanifarm.com${config.url}` 

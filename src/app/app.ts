@@ -45,22 +45,29 @@ export class App implements OnInit {
         this.seoService.updateSeo(seoConfig);
         this.analytics.trackPageView(this.router.url, seoConfig.title);
 
-        // Inject JSON-LD Schema
-        const schema = {
-          "@context": "https://schema.org",
-          "@type": ["Resort", "LocalBusiness"],
-          "name": seoConfig.title,
-          "description": seoConfig.description,
-          "url": `https://sanjivanifarm.com${this.router.url}`,
-          "image": seoConfig.image || "https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_1200/v1786185697/16-acre-farm_y2ikvq.webp",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Palghar",
-            "addressRegion": "Maharashtra",
-            "addressCountry": "IN"
-          }
-        };
-        this.seoService.injectStructuredData(schema);
+        // Only inject fallback JSON-LD Schema if page does not provide its own specialized structured data
+        if (!data['seo']['customSchema']) {
+          const schema = {
+            "@context": "https://schema.org",
+            "@type": ["Resort", "LodgingBusiness", "LocalBusiness"],
+            "@id": "https://sanjivanifarm.com/#resort",
+            "name": "Sanjivani Farm & Resort",
+            "description": seoConfig.description,
+            "url": `https://sanjivanifarm.com${this.router.url}`,
+            "image": seoConfig.image || "https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto:good,w_1200/v1786185697/16-acre-farm_y2ikvq.webp",
+            "telephone": "+918108446040",
+            "priceRange": "₹₹",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Vartak Nagar, Vivalvedhe",
+              "addressLocality": "Saphale, Palghar",
+              "postalCode": "401102",
+              "addressRegion": "Maharashtra",
+              "addressCountry": "IN"
+            }
+          };
+          this.seoService.injectStructuredData(schema);
+        }
       } else {
         this.analytics.trackPageView(this.router.url);
       }

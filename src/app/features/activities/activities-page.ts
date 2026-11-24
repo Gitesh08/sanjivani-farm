@@ -259,6 +259,39 @@ export class ActivitiesPageComponent implements OnInit {
       { name: 'Home', url: '/' },
       { name: 'Activities', url: '/activities' }
     ]);
+
+    const activitiesSchema = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "TouristAttraction",
+          "@id": "https://sanjivanifarm.com/activities#attraction",
+          "name": "Sanjivani Farm & Resort Activities & Adventures",
+          "description": "16 acres of agro-tourism activities including the private Sanjivani Toy Train, private lake kayaking, swimming pool, cycling trails, and outdoor lawn sports.",
+          "url": "https://sanjivanifarm.com/activities",
+          "isAccessibleForFree": false,
+          "containedInPlace": {
+            "@id": "https://sanjivanifarm.com/#resort"
+          }
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://sanjivanifarm.com/activities#list",
+          "name": "Featured Experiences at Sanjivani Farm",
+          "itemListElement": this.activities.map((act, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+              "@type": "TouristAttraction",
+              "name": act.title,
+              "description": act.tagline,
+              "url": `https://sanjivanifarm.com/activities#${act.id}`
+            }
+          }))
+        }
+      ]
+    };
+    this.seoService.injectStructuredData(activitiesSchema);
   }
 
   setCategory(catId: string): void {

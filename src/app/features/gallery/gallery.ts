@@ -18,6 +18,17 @@ export class GalleryComponent implements OnInit {
       { name: 'Home', url: '/' },
       { name: 'Photo Gallery', url: '/gallery' }
     ]);
+
+    const gallerySchema = {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "@id": "https://sanjivanifarm.com/gallery#gallery",
+      "name": "Sanjivani Farm & Resort Photo Gallery",
+      "description": "High-resolution photos of Sanjivani Farm, wooden cottages, nature trails, private lakes, and green lawns in Palghar.",
+      "url": "https://sanjivanifarm.com/gallery",
+      "image": this.images.slice(0, 10)
+    };
+    this.seoService.injectStructuredData(gallerySchema);
   }
   readonly images = [
     'https://res.cloudinary.com/lrjfhrda/image/upload/f_auto,q_auto,w_800/v1786185697/16-acre-farm_y2ikvq.webp',

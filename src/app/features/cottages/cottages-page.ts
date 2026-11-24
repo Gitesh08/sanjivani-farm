@@ -14,6 +14,7 @@ import { SeoService } from '../../core/services/seo.service';
     <main id="main-content" class="cottages-page__main">
       <div class="container breadcrumb-container">
         <app-breadcrumb [items]="[{ label: 'Home', url: '/' }, { label: 'Cottages & Stays' }]" />
+        <h1 class="visually-hidden">Luxury Nature Cottages & Agro-Tourism Stays in Palghar | Sanjivani Farm</h1>
       </div>
       <app-cottages />
     </main>

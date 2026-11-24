@@ -102,6 +102,16 @@ export class HomeComponent implements OnInit {
           ],
           "telephone": "+918108446040",
           "priceRange": "₹₹",
+          "currenciesAccepted": "INR",
+          "paymentAccepted": "Cash, UPI, Credit Card, Debit Card, Net Banking",
+          "checkinTime": "11:00",
+          "checkoutTime": "10:00",
+          "servesCuisine": [
+            "Authentic Maharashtrian",
+            "Konkani Thali",
+            "Organic Farm-to-Table",
+            "Pure Vegetarian & Non-Vegetarian"
+          ],
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "Vartak Nagar, Vivalvedhe",
@@ -116,6 +126,13 @@ export class HomeComponent implements OnInit {
             "longitude": 72.7671736
           },
           "hasMap": "https://www.google.com/maps/place/Sanjivani+Farm+%26+Resort/@19.5983845,72.7671736,17z/data=!4m11!3m10!1s0x3be7039d2a6f5b01:0x89b4fe262a5bd81f!5m2!4m1!1i2!8m2!3d19.5983845!4d72.7671736!9m1!1b1!16s%2Fg%2F11rsdqvzq8",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+918108446040",
+            "contactType": "reservations",
+            "areaServed": "IN",
+            "availableLanguage": ["English", "Hindi", "Marathi"]
+          },
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": ratingValue,
@@ -128,8 +145,35 @@ export class HomeComponent implements OnInit {
             { "@type": "LocationFeatureSpecification", "name": "Kayaking & Boating on Lake", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Swimming Pool", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "16 Acres Nature Farm", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Authentic Maharashtrian Dining", "value": true }
+            { "@type": "LocationFeatureSpecification", "name": "Authentic Maharashtrian Dining", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Free Private Parking", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Open Lawn Event Grounds", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Children's Playground & Cycling", "value": true }
           ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Sanjivani Farm Cottages & Stays",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "name": "Wooden Glass Cottage",
+                "url": "https://sanjivanifarmandresort.doorloom.com/p/woodenglasscottage01",
+                "priceCurrency": "INR"
+              },
+              {
+                "@type": "Offer",
+                "name": "Red Stone Cottage",
+                "url": "https://sanjivanifarmandresort.doorloom.com/p/redstomecottage07",
+                "priceCurrency": "INR"
+              },
+              {
+                "@type": "Offer",
+                "name": "Family Dormitory Cottage",
+                "url": "https://sanjivanifarmandresort.doorloom.com/p/dormitorycottage10",
+                "priceCurrency": "INR"
+              }
+            ]
+          },
           "sameAs": [
             "https://www.instagram.com/sanjivani.farms/?hl=en",
             "https://www.google.com/maps/place/Sanjivani+Farm+%26+Resort/@19.5983845,72.7671736,17z/data=!4m11!3m10!1s0x3be7039d2a6f5b01:0x89b4fe262a5bd81f!5m2!4m1!1i2!8m2!3d19.5983845!4d72.7671736!9m1!1b1!16s%2Fg%2F11rsdqvzq8"

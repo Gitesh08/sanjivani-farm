@@ -10,7 +10,8 @@ export const routes: Routes = [
       seo: {
         title: 'Sanjivani Farms | Where Nature Gives You Life Again',
         description: 'Experience pure Konkan bliss at Sanjivani Farms. 16 acres of lush greenery, cozy cottages, best lawn, private boating & activities. The perfect resort and farm stay near Saphale, Palghar, Vasai-Virar and Mumbai stations.',
-        keywords: 'Sanjivani Farm & Resort, Palghar farm stay, resorts with activities near sapahale, resort near mumbai stations, kelve beach resort, luxury farm stay, cozy cottages, best lawn'
+        keywords: 'Sanjivani Farm & Resort, Palghar farm stay, resorts with activities near sapahale, resort near mumbai stations, kelve beach resort, luxury farm stay, cozy cottages, best lawn',
+        customSchema: true
       }
     }
   },
@@ -23,7 +24,8 @@ export const routes: Routes = [
       seo: {
         title: 'Our Story | Sanjivani Farms',
         description: 'Learn about the history of Sanjivani Farm. Our mission is to provide a pure Konkan agritourism experience with 300+ coconut trees and authentic Maharashtrian culture.',
-        keywords: 'Sanjivani farm story, Konkan agritourism, organic farm stay Maharashtra'
+        keywords: 'Sanjivani farm story, Konkan agritourism, organic farm stay Maharashtra',
+        customSchema: true
       }
     }
   },
@@ -37,7 +39,8 @@ export const routes: Routes = [
       seo: {
         title: 'Cottages & Stays | Sanjivani Farms',
         description: 'Explore our beautiful cozy cottages and the best lawn. Wooden Glass Cottage, Red Stone Cottage, and Dormitories built for a perfect nature escape near Mumbai and Palghar.',
-        keywords: 'cozy cottages, best lawn, cottages palghar, resort stay near mumbai, wooden glass cottage, luxury stays in nature, resorts near beaches'
+        keywords: 'cozy cottages, best lawn, cottages palghar, resort stay near mumbai, wooden glass cottage, luxury stays in nature, resorts near beaches',
+        customSchema: true
       }
     }
   },
@@ -68,7 +71,8 @@ export const routes: Routes = [
       seo: {
         title: 'Activities & Experiences | Sanjivani Farm & Resort Palghar',
         description: 'Explore the Sanjivani Toy Train, private lake kayaking, swimming pool, cycling, and lush lawns across 16 acres. The ultimate adventure resort near Mumbai in Palghar.',
-        keywords: 'resort with toy train, farm stay activities Palghar, kayaking resort Mumbai, weekend activities Palghar, resort with swimming pool Saphale'
+        keywords: 'resort with toy train, farm stay activities Palghar, kayaking resort Mumbai, weekend activities Palghar, resort with swimming pool Saphale',
+        customSchema: true
       }
     }
   },
@@ -82,7 +86,8 @@ export const routes: Routes = [
       seo: {
         title: 'Gallery | Sanjivani Farms',
         description: 'Explore the scenic beauty of Sanjivani Farm. View our luxury cottages, lush green lawns, wooden bridge, and serene private lakes.',
-        keywords: 'Sanjivani farm photos, luxury cottages palghar gallery, nature resort images'
+        keywords: 'Sanjivani farm photos, luxury cottages palghar gallery, nature resort images',
+        customSchema: true
       }
     }
   },
