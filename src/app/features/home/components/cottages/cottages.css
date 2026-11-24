@@ -275,7 +275,7 @@ app-video-player.opacity-100 .cottage-card__video-player {
 
 /* Video dot gets a play-icon tint */
 .cottage-card__dot.is-video {
-  background: rgba(34, 184, 218, 0.45);
+  background: rgba(194, 103, 61, 0.5);
 }
 .cottage-card__dot.is-video.active {
   background: var(--color-secondary);

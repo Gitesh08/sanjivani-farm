@@ -42,42 +42,38 @@
 }
 
 .navbar--scrolled {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.65) 0%,
-    rgba(248, 251, 253, 0.45) 100%
-  );
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  box-shadow: 0 4px 20px rgba(10, 41, 64, 0.05);
-  border-bottom: none;
+  background: rgba(250, 249, 245, 0.90);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 12px rgba(20, 32, 28, 0.05);
+  border-bottom: 1px solid rgba(26, 36, 33, 0.06);
 }
 
 /* ── Light Glass State Typography & Elements ── */
 .navbar--scrolled .navbar__link {
-  color: #0A2940;
-  font-weight: 600;
+  color: var(--color-on-surface);
+  font-weight: 500;
 }
 
 .navbar--scrolled .navbar__link:hover {
-  color: #087592;
-  background: rgba(16, 91, 133, 0.05);
+  color: var(--color-primary);
+  background: rgba(24, 78, 66, 0.05);
 }
 
 .navbar--scrolled .navbar__link--active {
-  color: #087592;
+  color: var(--color-primary);
 }
 
 .navbar--scrolled .navbar__link::after {
-  background-color: #087592;
+  background-color: var(--color-secondary);
 }
 
 .navbar--scrolled .navbar__chevron {
-  color: #0A2940;
+  color: var(--color-on-surface);
 }
 
 .navbar--scrolled:not(.navbar--menu-open) .navbar__hamburger span {
-  background: #0A2940;
+  background: var(--color-on-surface);
 }
 
 .navbar--scrolled:not(.navbar--menu-open) .navbar__hamburger:hover {

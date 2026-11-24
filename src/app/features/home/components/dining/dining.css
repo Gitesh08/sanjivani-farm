@@ -187,9 +187,9 @@
 }
 
 .dining__highlight-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
-  border-color: rgba(34, 184, 218, 0.35);
+  border-color: var(--color-primary-light);
 }
 
 .dining__highlight-icon {
@@ -263,8 +263,8 @@
 }
 
 .dining__chip--expanded {
-  border-color: rgba(34, 184, 218, 0.45);
-  box-shadow: 0 2px 16px rgba(34, 184, 218, 0.08);
+  border-color: var(--color-primary-light);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Chip header row — always visible */

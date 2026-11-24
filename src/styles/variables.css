@@ -4,38 +4,38 @@
    ════════════════════════════════════════════════════════════ */
 
 :root {
-  /* ─── Primary Palette (Deep Teal Navy — from logo "संजीवनी" text) ─── */
-  --color-primary:              #105B85; /* Slightly brighter, but low saturation */
-  --color-primary-container:    #0E3A52;
-  --color-primary-light:        #1D79A8;
-  --color-on-primary:           #EFF9FF;
+  /* ─── Primary Palette (Deep Botanical Palm Evergreen — grounded resort signature) ─── */
+  --color-primary:              #184E42;
+  --color-primary-container:    #0D2E27;
+  --color-primary-light:        #236B5B;
+  --color-on-primary:           #FAF7F2;
 
-  /* ─── Secondary Palette (Luminous Cyan — from logo wave & "Farm and Resort") ─── */
-  --color-secondary:            #22B8DA;
-  --color-secondary-warm:       #0891B2;
-  --color-secondary-dark:       #087592;
-  --color-secondary-light:      #67D4EC;
-  --color-on-secondary:         #042530;
+  /* ─── Secondary Palette (Warm Konkan Terracotta / Clay — authentic architectural warmth) ─── */
+  --color-secondary:            #C2673D;
+  --color-secondary-warm:       #D4774B;
+  --color-secondary-dark:       #A14F29;
+  --color-secondary-light:      #E88C61;
+  --color-on-secondary:         #FFFFFF;
 
-  /* ─── Surface Hierarchy — Hybrid: cool teal-tinted light (content sections) ─── */
-  --color-surface:                  #F5FBFF;
-  --color-surface-container-lowest: #EEF7FD;
-  --color-surface-container-low:    #E3F1FA;
-  --color-surface-container:        #D5E9F5;
-  --color-surface-container-high:   #C3DEEF;
-  --color-surface-container-highest:#AED1E8;
+  /* ─── Surface Hierarchy — Warm sun-washed linen & earth neutrals (no icy blue slop) ─── */
+  --color-surface:                  #FAF9F5;
+  --color-surface-container-lowest: #FFFFFF;
+  --color-surface-container-low:    #F4F2EC;
+  --color-surface-container:        #EAE6DC;
+  --color-surface-container-high:   #DFDACF;
+  --color-surface-container-highest:#D2CBBF;
 
-  /* ─── Text — deep teal on light surfaces ─── */
-  --color-on-surface:           #0A2940;
-  --color-on-background:        #0E3456;
-  --color-on-surface-variant:   #2E6A8C;
-  --color-on-surface-dim:       #386F8A;
+  /* ─── Text — Deep forest charcoal on organic warm surfaces ─── */
+  --color-on-surface:           #1A2421;
+  --color-on-background:        #121B18;
+  --color-on-surface-variant:   #3E4E47;
+  --color-on-surface-dim:       #5C6D66;
 
   /* ─── Special Purpose ─── */
-  --color-cream:                #EFF9FF;
-  --color-dark-bg:              #040D14;
-  --color-dark-surface:         #071525;
-  --color-outline-variant:      rgba(34, 184, 218, 0.18);
+  --color-cream:                #FAF7F2;
+  --color-dark-bg:              #0E1714;
+  --color-dark-surface:         #15231E;
+  --color-outline-variant:      rgba(26, 36, 33, 0.08);
 
 
   /* ─── Fonts ─── */
@@ -65,18 +65,18 @@
   --radius-2xl:  2rem;      /* Hero overlays */
   --radius-full: 9999px;    /* Pill buttons */
 
-  /* ─── Shadows (Ambient, diffused — teal-tinted) ─── */
-  --shadow-xs:      0 2px 8px  rgba(12, 74, 110, 0.06);
-  --shadow-sm:      0 4px 16px rgba(12, 74, 110, 0.10);
-  --shadow-ambient: 0 8px 40px rgba(12, 74, 110, 0.10);
-  --shadow-float:   0 16px 64px rgba(12, 74, 110, 0.14);
-  --shadow-deep:    0 24px 80px rgba(12, 74, 110, 0.22);
+  /* ─── Shadows (Ambient, natural diffused — soft organic depth) ─── */
+  --shadow-xs:      0 2px 6px  rgba(20, 32, 28, 0.04);
+  --shadow-sm:      0 4px 14px rgba(20, 32, 28, 0.07);
+  --shadow-ambient: 0 8px 32px rgba(20, 32, 28, 0.08);
+  --shadow-float:   0 16px 48px rgba(20, 32, 28, 0.11);
+  --shadow-deep:    0 24px 64px rgba(20, 32, 28, 0.16);
 
-  /* ─── Glassmorphism — cyan-tinted ─── */
-  --glass-bg-dark:   rgba(7, 28, 42, 0.55);
-  --glass-bg-light:  rgba(245, 251, 255, 0.78);
-  --glass-blur:      blur(20px);
-  --glass-border:    rgba(34, 184, 218, 0.18);
+  /* ─── Glassmorphism — quiet, subtle translucent layers ─── */
+  --glass-bg-dark:   rgba(14, 23, 20, 0.70);
+  --glass-bg-light:  rgba(250, 249, 245, 0.85);
+  --glass-blur:      blur(12px);
+  --glass-border:    rgba(26, 36, 33, 0.08);
 
   /* ─── Animation (Resort-pace — never rushed) ─── */
   --ease-resort:    cubic-bezier(0.4, 0, 0.2, 1);

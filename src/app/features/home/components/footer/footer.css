@@ -99,8 +99,8 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: rgba(34, 184, 218, 0.08);
-  border: 1px solid rgba(34, 184, 218, 0.18);
+  background: rgba(194, 103, 61, 0.12);
+  border: 1px solid rgba(194, 103, 61, 0.25);
   color: var(--color-secondary);
   flex-shrink: 0;
   margin-top: 1px;
@@ -188,18 +188,18 @@
   box-shadow: 0 8px 28px rgba(37, 211, 102, 0.6);
 }
 
-/* Phone — teal */
+/* Phone — warm terracotta */
 .footer__social-link--phone {
-  background: rgba(34, 184, 218, 0.1);
-  border: 1px solid rgba(34, 184, 218, 0.25);
+  background: rgba(194, 103, 61, 0.12);
+  border: 1px solid rgba(194, 103, 61, 0.25);
   color: var(--color-secondary);
 }
 .footer__social-link--phone:hover {
   background: var(--color-secondary);
   color: #fff;
   border-color: transparent;
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(34, 184, 218, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(194, 103, 61, 0.3);
 }
 
 /* ── Bottom Bar ── */
@@ -224,11 +224,11 @@
   color: var(--color-secondary-light);
   text-decoration: none;
   font-weight: 500;
-  transition: color var(--duration-fast) var(--ease-resort), text-shadow var(--duration-fast);
+  transition: color var(--duration-fast) var(--ease-resort);
 }
 .footer__dev-link:hover {
   color: var(--color-cream);
-  text-shadow: 0 0 12px rgba(34, 184, 218, 0.7);
+  text-decoration: underline;
 }
 
 /* ══════════ RESPONSIVE ══════════ */

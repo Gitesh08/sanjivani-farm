@@ -145,18 +145,8 @@
   letter-spacing: -0.03em;
   padding-bottom: 0.15em; /* Ensure Playfair Display 'j' descender doesn't clip */
   overflow: visible;
-  background: linear-gradient(
-    135deg,
-    var(--color-cream) 0%,
-    var(--color-secondary-light) 40%,
-    var(--color-cream) 70%,
-    rgba(248, 249, 245, 0.7) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: none;
-  filter: drop-shadow(0 4px 32px rgba(0,0,0,0.35));
+  color: var(--color-cream);
+  text-shadow: 0 4px 32px rgba(0,0,0,0.45);
   opacity: 0; /* Hidden initially for GSAP entrance */
 }
 
@@ -189,8 +179,8 @@
 
 .hero__title-em {
   font-style: italic;
-  color: var(--color-secondary-light);
-  -webkit-text-fill-color: var(--color-secondary-light);
+  color: var(--color-cream);
+  opacity: 0.95;
 }
 
 /* Subtitle */
